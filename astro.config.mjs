@@ -10,7 +10,7 @@ export default defineConfig({
 		prefetchAll: true,
 	},
 	integrations: [
-		markdoc(),
+		markdoc({ allowHTML: true }),
 		starlight({
 			title: 'FusionCare Documentation',
 			customCss: ['./src/styles/custom.css',],
