@@ -19,6 +19,9 @@ export default defineConfig({
 				dark: './src/assets/dark-logo.svg',
 				replacesTitle: true,
 			},
+			components: {
+				ThemeSelect: './src/components/ThemeDefault.astro',
+			  },
 		}),
 	],
 });
