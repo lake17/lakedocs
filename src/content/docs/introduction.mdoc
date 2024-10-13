@@ -1,0 +1,104 @@
+---
+title: Introduction
+tableOfContents: false
+prev: false
+next: false
+category: test
+owner: name
+---
+
+This article explains what the First FusionCare Documentation Drive is (think _charity_ not _solid state_), and how to participate in it.
+
+We recently completed a survey of each team member’s confidence in the technologies that we support across our entire customer base.
+This has been of great help already, so thanks again to all for getting that across the line.
+It has also informed the design of this first effort:
+
+{% aside type="danger" title="Important" %}
+**Every** team member who scored himself a 5 on a given technology is **required** to write **at least one** piece of documentation on the subject.
+All other team members are **encouraged** to write documentation where they feel they can.
+{%/aside%}
+
+If we were each starting with a blank Word document, then a task like this would be quite tedious.
+Fortunately, that is not the case; we are making use of a system of documentation and a few associated templates, along with helpful guides and examples.
+For someone who has a **5 out of 5** confidence rating, this shouldn’t take **5 minutes**.
+
+Word documents in Sharepoint are not appropriate for technical documentation of the sort we require, and so for various reasons we will be making use of the plaintext markup language [Markdown](https://commonmark.org/help/).
+The HTML you are reading now was automatically generated from a Markdown file.
+It is very simple to read and write, and we have some great templates to work from.
+
+### A Summary of the FusionCare Documentation System
+
+Our system is essentially [Diataxis](https://diataxis.fr/), modified where appropriate for our needs.
+In this system there are four categories of document:
+
+|     | Tutorial | Procedure | Reference | Explanation |
+| --- | --- | --- | --- | --- |
+| **what they do** | introduce, educate, lead | guide | state, describe, inform | explain, clarify, discuss |
+| **answers the question** | “Can you teach me to…?” | “How do I…?” | “What is…?” | “Why…?” |
+| **oriented toward** | learning | results | information | understanding |
+| **purpose** | to provide a learning experience | to help achieve a particular outcome | to describe in detail | to illuminate a topic |
+| **form** | a lesson | a series of steps | a dry description | a discursive explanation |
+| **analogy** | teaching a man to cook | a recipe in a book | information on food packaging | an article on culinary social history |
+
+{% aside %}
+The most useful document for us as a team at this stage is the **Procedure**.
+Please consider this when deciding what to write!
+{%/aside%}
+
+### Participating in the Documentation Drive
+
+The basic process is as follows:
+{%steps%}
+
+1. Determine the type of document you are creating
+
+2. If desired, read the relevant template guide
+
+3. Take a copy of the template and put it in the `wip` directory
+
+4. Edit the template into a completed document
+
+5. Move it into the `finished` directory, ready for upload
+
+{%/steps%}
+To begin with we will be working from a shared folder.
+You can use the editor of your preference (rejoice Notepad fans!), but it is recommended to use one which has live preview of Markdown documents such as `Visual Studio Code`.
+In the future, documents will be creatable and editable directly from the website.
+The directory structure of the shared folder is as follows:
+{%filetree%}
+
+- templates/
+  - explanation/
+  - procedure/
+  - reference/
+  - tutorial/
+- resources/
+- documentation/
+  - wanted/
+  - finished/
+  - wip/
+
+{%/filetree%}
+The `templates` directory contains the templates and associated guides for creating documentation.
+Remember, the templates are only there to assist you in creating your document - you don't have to follow them to the letter.
+If you just want to throw a rough page up on to the site to get something important recorded quickly, that is fine.
+The `resources` directory will contain study and reference material.
+The `wanted` directory is where you can leave requests for documentation: for example, if you've ever wondered 'what is the correct procedure for making firewall rule changes in Value Retail?'; copy the correct template type into this directory and give the file an appropriate name.
+Frequent use of this directory by all team members is **highly encouraged** - it allows us to quickly create the most important type of document: the one somebody needs!
+
+### Why are we doing this?
+
+My hope is that nobody has asked this question, but it should be answered regardless.
+The FusionCare team has always lacked proper documentation, and as a direct result we have provided a subpar service to our customers.
+No engineer should ever have to hunt for answers to basic questions about customer environments during an outage, delaying the time to resolution, but this happens to us in every case without exception, because we do not have a primary store of knowledge.
+Bits and pieces of sometimes critical information are scattered around IMs, emails, and Sharepoint, but mostly in the heads of individual engineers.
+We have tried to make do with documents produced by the Professional Services team, but they were not made with the needs of Managed Services in mind, and they are not ours to edit as required.
+
+If we really give this Documentation Drive our all, in short order we can together build something that will serve our needs and the needs of those who come after us for as long as this team exists.
+We will have a single search bar that can instantly surface anything anyone on this team has ever known about our customers and the technology we support for them.
+We will have a base of knowledge that can be used to train an LLM, and create a chatbot able to answer any question quicker than we could find the answer ourselves.
+
+We have a shortfall of frankly hundreds of documents in the best case, so it is vital that nobody feels intimidated by this process, or feels that they cannot for some reason participate.
+We will not get to where we need to be unless we all work together.
+At this stage we need quantity, not quality - documents that exist can be improved over time.
+If anybody has any questions or needs any assistance at all, can they please contact Ezekiel via [Webex](webexteams://im?email=ezekiel.nye@forfusion.com) or [email](mailto:ezekiel.nye@forfusion.com) at their earliest convenience.
