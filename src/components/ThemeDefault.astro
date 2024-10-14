@@ -7,12 +7,11 @@ import type { Props } from '@astrojs/starlight/props';
 	{/* TODO: Can we give this select a width that works well for each language’s strings? */}
 	<Select
 		icon="sun"
-		label={Astro.locals.t('themeSelect.accessibleLabel')}
+		label="Light"
 		value="light"
 		options={[
-			{ label: Astro.locals.t('themeSelect.dark'), selected: false, value: 'dark' },
-			{ label: Astro.locals.t('themeSelect.light'), selected: true, value: 'light' },
-			//{ label: Astro.locals.t('themeSelect.auto'), selected: false, value: 'auto' },
+			{ label: "Dark", selected: false, value: 'dark' },
+			{ label: "Light", selected: true, value: 'light' },
 		]}
 		width="6.25em"
 	/>
@@ -21,46 +20,27 @@ import type { Props } from '@astrojs/starlight/props';
 {/* Inlined to avoid FOUC. Uses global scope from `ThemeProvider.astro` */}
 <script is:inline>
 	StarlightThemeProvider.updatePickers();
-</script>
-
-<script>
-	type Theme = 'auto' | 'dark' | 'light';
 
 	/** Key in `localStorage` to store color theme preference at. */
 	const storageKey = 'starlight-theme';
 
-	/** Get a typesafe theme string from any JS value (unknown values are coerced to `'auto'`). */
-	const parseTheme = (theme: unknown): Theme =>
-		theme === 'auto' || theme === 'dark' || theme === 'light' ? theme : 'auto';
-
-	/** Load the user’s preference from `localStorage`. */
-	const loadTheme = (): Theme =>
-		parseTheme(typeof localStorage !== 'undefined' && localStorage.getItem(storageKey));
+	/** Get a typesafe theme string from any JS value (unknown values are coerced to `'light'`). */
+	const parseTheme = (theme) =>
+		theme === 'dark' || theme === 'light' ? theme : 'light';
 
 	/** Store the user’s preference in `localStorage`. */
-	function storeTheme(theme: Theme): void {
+	function storeTheme(theme) {
 		if (typeof localStorage !== 'undefined') {
 			localStorage.setItem(storageKey, theme === 'light' || theme === 'dark' ? theme : '');
 		}
 	}
 
-	/** Get the preferred system color scheme.
-	const getPreferredColorScheme = (): Theme =>
-		matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-	*/
-
 	/** Update select menu UI, document theme, and local storage state. */
-	function onThemeChange(theme: Theme): void {
+	function onThemeChange(theme) {
 		StarlightThemeProvider.updatePickers(theme);
-		document.documentElement.dataset.theme = theme === 'auto' ? 'light' : theme;
+		document.documentElement.dataset.theme = theme;
 		storeTheme(theme);
 	}
-
-	/** React to changes in system color scheme.
-	matchMedia(`(prefers-color-scheme: light)`).addEventListener('change', () => {
-		if (loadTheme() === 'auto') onThemeChange('auto');
-	});
-	*/
 
 	class StarlightThemeSelect extends HTMLElement {
 		constructor() {
