@@ -11,9 +11,9 @@ tableOfContents: false
 
 ```````md
 ---
-title: Title
+title: title
 category: reference
-owner: your name
+owner: your email
 ---
 
 {Summarize what this reference article is about. Explain what all the entries defined on the page have in common.}

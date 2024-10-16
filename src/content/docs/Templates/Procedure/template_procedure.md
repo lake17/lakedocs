@@ -11,9 +11,9 @@ tableOfContents: false
 
 ```````md
 ---
-title: Title
+title: title
 category: procedure
-owner: your name
+owner: your email
 ---
 
 This guide explains how to {insert a brief description of the task}.

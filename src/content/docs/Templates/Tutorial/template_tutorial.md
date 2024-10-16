@@ -12,9 +12,9 @@ next: false
 
 ```````md
 ---
-title: Title
+title: title
 category: tutorial
-owner: your name
+owner: your email
 ---
 
 In this tutorial, you'll learn how to {insert brief description of the main tutorial task}. This tutorial is intended for {audience}. It assumes you have basic knowledge of:

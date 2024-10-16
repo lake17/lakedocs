@@ -11,9 +11,9 @@ tableOfContents: false
 
 ```````md
 ---
-title: Title
+title: title
 category: explanation
-owner: your name
+owner: your email
 ---
 
 A summary paragraph introducing a concept, explaining its importance or relevance, and providing an overview of the content that will be covered in the document (scope).
