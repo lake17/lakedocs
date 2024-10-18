@@ -1,81 +1,102 @@
 ---
-import util from 'node:util';
-import child_process from 'node:child_process';
-import { Card,CardGrid } from '@astrojs/starlight/components';
-import team from '../../webex-users-filtered.json';
-import { Image } from 'astro:assets';
-import eng from '../assets/fusioncare-engineer.webp';
+import util from "node:util"
+import child_process from "node:child_process"
+import { Card, CardGrid } from "@astrojs/starlight/components"
+import team from "../data/team_webex.json"
+import { Image } from "astro:assets"
+import eng from "../assets/fusioncare-engineer.webp"
 
-const exec = util.promisify(child_process.exec);
+const exec = util.promisify(child_process.exec)
 const { stdout } = await exec("rg -N -e '^created: .*' ./src/content/docs")
-const file = stdout.trim().split('\n').map((m) => {
-  const index = m.indexOf(':');
-  return {name: m.slice(0, index), created: m.slice(index + 9)};
-}
-)
+const file = stdout
+  .trim()
+  .split("\n")
+  .map((m) => {
+    const index = m.indexOf(":")
+    return { name: m.slice(0, index), created: m.slice(index + 9) }
+  })
 file.sort((a, b) => {
-  const x = new Date(a.created);
-  const y = new Date(b.created);
+  const x = new Date(a.created)
+  const y = new Date(b.created)
 
-  return y.getTime() - x.getTime();
-});
-
+  return y.getTime() - x.getTime()
+})
 
 let team_stats = team.map((m) => {
-  return { name: m.name, pic: m.avatar, cmd: `rg -q --stats 'owner: ${m.email}' ./src/content/docs | head -n 2 | awk '{print$1}'`, output: "" };
-});
-async function executeCommands(commands: { name: string, cmd: string, output: string }[]) {
-  for (const commandObj of commands) {    
-      const { stdout } = await exec(commandObj.cmd);
-      commandObj.output = stdout.trim();
+  return {
+    name: m.name,
+    pic: m.avatar,
+    cmd: `rg -q --stats 'owner: ${m.email}' ./src/content/docs | head -n 2 | awk '{print$1}'`,
+    output: "",
+  }
+})
+async function executeCommands(
+  commands: { name: string; cmd: string; output: string }[]
+) {
+  for (const commandObj of commands) {
+    const { stdout } = await exec(commandObj.cmd)
+    commandObj.output = stdout.trim()
   }
 }
 await executeCommands(team_stats)
 
 team_stats.sort((a, b) => {
-  const x = Number(a.output);
-  const y = Number(b.output);
-  return y - x;
-});
-
+  const x = Number(a.output)
+  const y = Number(b.output)
+  return y - x
+})
 ---
+
 <CardGrid>
-<Card title='Newest Documents' icon="open-book">
-  <table style="border-collapse: collapse; width: 100%;">
-    <thead>
-      <tr>
-        <th style="text-align: left;">File</th>
-        <th style="text-align: left;">Created</th>
-      </tr>
-    </thead>
-    <tbody>
-      {file.map((m) => (
-        <tr>
-          <td>{m.name.split('/').pop()}</td>
-          <td>{m.created}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</Card>
-<Card title="Leaderboard" icon="rocket">
+  <Card title="Newest Documents" icon="open-book">
     <table style="border-collapse: collapse; width: 100%;">
-    {team_stats.map((m) =>
-    <tr>
-    <td style="text-align: center;">
-      {m.pic ?
-      <Image src={m.pic} alt="Avatar" width="50" height="50" style="border-radius: 50%; object-fit: cover;" /> :
-      <Image src={eng} alt="Avatar" width="50" height="50" style="border-radius: 50%; object-fit: cover;" />
+      <thead>
+        <tr>
+          <th style="text-align: left;">File</th>
+          <th style="text-align: left;">Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          file.map((m) => (
+            <tr>
+              <td>{m.name.split("/").pop()}</td>
+              <td>{m.created}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </Card>
+  <Card title="Leaderboard" icon="rocket">
+    <table style="border-collapse: collapse; width: 100%;">
+      {
+        team_stats.map((m) => (
+          <tr>
+            <td style="text-align: center;">
+              {m.pic ? (
+                <Image
+                  src={m.pic}
+                  alt="Avatar"
+                  width="50"
+                  height="50"
+                  style="border-radius: 50%; object-fit: cover;"
+                />
+              ) : (
+                <Image
+                  src={eng}
+                  alt="Avatar"
+                  width="50"
+                  height="50"
+                  style="border-radius: 50%; object-fit: cover;"
+                />
+              )}
+            </td>
+            <td style="text-align: left;">{m.name}</td>
+            <td style="text-align: left;">{m.output}</td>
+          </tr>
+        ))
       }
-    </td>
-    <td style="text-align: left;">
-      {m.name}
-    </td>
-    <td style="text-align: left;">
-      {m.output}
-    </td>
-    </tr>
-    )}
-</table>
-</Card>
+    </table>
+  </Card>
 </CardGrid>
