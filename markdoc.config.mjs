@@ -1,4 +1,4 @@
-import { defineMarkdocConfig, component, nodes } from "@astrojs/markdoc/config"
+import { defineMarkdocConfig, component } from "@astrojs/markdoc/config"
 import starlightMarkdoc from "@astrojs/starlight-markdoc"
 
 // https://docs.astro.build/en/guides/integrations-guide/markdoc/

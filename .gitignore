@@ -6,11 +6,6 @@ dist/
 # dependencies
 node_modules/
 
-# symlinks
-dist
-.astro
-node_modules
-
 # logs
 npm-debug.log*
 yarn-debug.log*
