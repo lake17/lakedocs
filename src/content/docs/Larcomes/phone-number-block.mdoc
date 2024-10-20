@@ -2,7 +2,7 @@
 title: Block Inbound Phone Number via Teams Powershell
 category: procedure
 owner: daniel.mead@forfusion.com
-created: 2024-10-18
+created: "2024-10-18"
 ---
 
 This guide explains how to block an inbound phone number aimed at a Microsoft Teams number.
@@ -24,15 +24,23 @@ Before you are ready to block a number, ensure:
 
 1. Open Powershell as administrator
 
-    Running as administrator is required to run the required commands.
+    Running as administrator is required to run the needed commands.
 
-2. Connect to the Microsoft Teams Module **"Connect-MicrosoftTeams"**
+2. Connect to the Microsoft Teams Module
+
+    ```ps1
+    Connect-MicrosoftTeams
+    ```
 
     2.1. A popup will appear asking to sign into your microsoft administrator account. This account connects you to the required Microsoft Tenant (For example, use <ga2@larcomes.co.uk> for Larcomes)
 
      <img src="/images/larcomes_number-block_2.gif" alt="A gif showing the popup" />
 
-3. Run **New-CsInboundBlockedNumberPattern**
+3. Create the blocked number rule
+
+    ```ps1
+    New-CsInboundBlockedNumberPattern
+    ```
 
     You will be required to provide additional information which I recomend adding into the original command to save time:
     -Name "" {Name the rule appropriatly, I suggest the ticket number followed by staging number (1,2,3) in the case several numbers are included in one ticket. Please note that there can not be more than one rule with the same name and the ticket name cannot include the # symbol}
@@ -49,7 +57,11 @@ Before you are ready to block a number, ensure:
 
     ![](../../../assets/images/larcomes_number-block_3.1.png)
 
-4. Test the implented with **Test-CsInboundBlockedNumberPattern -PhoneNumber *number***
+4. Test the implented rule
+
+    ```ps1
+    Test-CsInboundBlockedNumberPattern -PhoneNumber
+    ```
 
     After adding the new rule we must test using the number provided. Please note it may take 5-10 minutes for the rule to be up and running on Microsofts side.
 

@@ -4,7 +4,9 @@ Clients:
           - Catalyst Center Node 1: https://10.98.12.11/
           - Catalyst Center Node 2: https://10.98.12.12/
           - Catalyst Center Node 3: https://10.98.12.13/
-          - Catalyst Center CIMC: https://10.111.255.100/index.html
+          - Catalyst Center Node 1 CIMC: https://10.3.247.21/
+          - Catalyst Center Node 2 CIMC: https://10.3.247.22/
+          - Catalyst Center Node 3 CIMC: https://10.3.247.23/
           - FirePOWER Management Center: https://10.98.11.121/
           - vSphere: https://vrlndcvc01.valueretail.com/
           - Change Request Portal: >-
@@ -12,6 +14,7 @@ Clients:
           - Identity Services Engine: https://10.98.12.210/admin/
           - SD-WAN: https://vmanage-429583854.sdwan.cisco.com/
           - BV Wireless LAN Controller: https://10.5.8.250/webui/
+          - BV Wireless LAN Controller: https://10.59.8.250/webui/
     - Killik:
           - DC1 UCS Manager: https://10.64.254.127/
           - DC1 HX Connect: https://10.64.254.28/

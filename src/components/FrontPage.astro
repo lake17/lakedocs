@@ -5,21 +5,25 @@ import { Card, CardGrid, Badge } from "@astrojs/starlight/components"
 import team from "../data/team_webex.json"
 import { Image } from "astro:assets"
 import eng from "../assets/fusioncare-engineer.webp"
+import { getCollection } from "astro:content"
+import type { CollectionEntry } from "astro:content"
 
 const exec = util.promisify(child_process.exec)
-const { stdout } = await exec("rg -N -e '^created: .*' ./src/content/docs")
-const file = stdout
-  .trim()
-  .split("\n")
-  .map((m) => {
-    const index = m.indexOf(":")
-    return { name: m.slice(0, index), created: m.slice(index + 9) }
-  })
-file.sort((a, b) => {
-  const x = new Date(a.created)
-  const y = new Date(b.created)
 
-  return y.getTime() - x.getTime()
+// TODO: find out how to do this properly - extend type?
+const f: CollectionEntry<"docs">[] = await getCollection("docs")
+const ff: CollectionEntry<"docs">[] = f.filter((x) => {
+  if (x.data.created) {return x}
+})
+const fff: CollectionEntry<"docs">[] = ff.sort((a, b) => {
+  let adc = a.data.created
+  let bdc = b.data.created
+  if (adc && bdc) {
+    const x = new Date(adc)
+    const y = new Date(bdc)
+    return y.getTime() - x.getTime()
+  }
+  throw new Error("cunt");
 })
 
 let team_stats = team.map((m) => {
@@ -45,6 +49,8 @@ team_stats.sort((a, b) => {
   const y = Number(b.output)
   return y - x
 })
+
+
 ---
 
 <CardGrid>
@@ -52,16 +58,16 @@ team_stats.sort((a, b) => {
     <table style="border-collapse: collapse; width: 100%;">
       <thead>
         <tr>
-          <th style="text-align: left;">File</th>
-          <th style="text-align: left;">Created</th>
+          <th style="text-align: left;">Title</th>
+          <th style="text-align: right;">Created</th>
         </tr>
       </thead>
       <tbody>
         {
-          file.map((m) => (
+          fff.map((m) => (
             <tr>
-              <td>{m.name.split("/").pop()}</td>
-              <td>{m.created}</td>
+              <td><a href={"/"+m.slug+"/"}>{m.data.title}</a></td>
+              <td style="text-align: right; white-space: nowrap;">{(m.data.created ? new Date(m.data.created).toISOString().split('T')[0] : "duh i broked sumfin")}</td>
             </tr>
           ))
         }

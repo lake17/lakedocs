@@ -2,7 +2,7 @@
 title: Cable Test Procedure
 category: procedure
 owner: george.russ@forfusion.com
-created: 2024-10-18
+created: "2024-10-18"
 ---
 
 This guide explains how to carry out a cable test. A cable test is carried out to test the condition of the cable remotely. These tests are useful for troubleshooting ethernet ports for a physical layer problem with the cabling, patching or RJ45 connections.
