@@ -1,0 +1,51 @@
+---
+
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Editor</title>
+    <script>
+      import { init } from "@sveltia/cms"
+      init({
+        config: {
+          backend: {
+            name: "local",
+            repo: "ff-emn/fusioncare-docs",
+            branch: "main",
+          },
+          load_config_file: false,
+          media_folder: "public/images/",
+          public_folder: "public/images/",
+          collections: [
+            {
+              label: "mdocs",
+              name: "mdocs",
+              folder: "src/content/docs",
+              format: "mdoc",
+              create: true,
+              fields: [
+                { label: "Title", name: "title", widget: "string" },
+                { label: "Created", name: "date", widget: "datetime" },
+                { label: "Body", name: "body", widget: "markdown" },
+              ],
+            },
+            {
+              label: "docs",
+              name: "docs",
+              folder: "src/content/docs",
+              create: true,
+              fields: [
+                { label: "Title", name: "title", widget: "string" },
+                { label: "Created", name: "date", widget: "datetime" },
+                { label: "Body", name: "body", widget: "markdown" },
+              ],
+            },
+          ],
+        },
+      })
+    </script>
+  </head>
+  <body></body>
+</html>
