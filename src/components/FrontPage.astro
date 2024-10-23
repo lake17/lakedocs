@@ -99,7 +99,9 @@ team_stats.sort((a, b) => {
               )}
             </td>
             <td style="text-align: left;">{m.name}</td>
-            <td style="text-align: left;">{m.output}{team_stats[0].output == m.output ? <span>&emsp;</span><Badge text="TOP LAD" size="large" style="color:#fff;background-color:#9F8F5E;border-color:#9F8F5E;"></Badge>:''}</td>
+            <td style="text-align: left;">{m.output}
+            {team_stats[0].output == m.output ? <span>&emsp;</span><Badge text="TOP LAD" size="large" style="color:#fff;background-color:#9F8F5E;border-color:#9F8F5E;"></Badge>:''}
+            {m.name === "Ezekiel Nye" ? <span>&emsp;</span><Badge text="DQ" size="large" style="color:#fff;background-color:#ff0000;border-color:#ff0000;"></Badge>:''}</td>
           </tr>
         ))
       }
