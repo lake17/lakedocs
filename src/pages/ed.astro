@@ -10,35 +10,31 @@
       import { init } from "@sveltia/cms"
       init({
         config: {
+          site_url: 'https://docs.forfusion.uk',
+          display_url: 'https://docs.forfusion.uk',
+          logo_url: 'https://docs.forfusion.uk/fusioncare-engineer.webp',
           backend: {
             name: "local",
             repo: "ff-emn/fusioncare-docs",
-            branch: "main",
+            branch: "draft",
           },
           load_config_file: false,
           media_folder: "public/images/",
-          public_folder: "public/images/",
+          public_folder: "images/",
           collections: [
             {
-              label: "mdocs",
-              name: "mdocs",
+              label: "Documentation",
+              label_singular: "Document",
+              name: "mdoc",
               folder: "src/content/docs",
               extension: "mdoc",
+              format: 'yaml-frontmatter',
               create: true,
               fields: [
                 { label: "Title", name: "title", widget: "string" },
-                { label: "Created", name: "date", widget: "datetime" },
-                { label: "Body", name: "body", widget: "markdown" },
-              ],
-            },
-            {
-              label: "docs",
-              name: "docs",
-              folder: "src/content/docs",
-              create: true,
-              fields: [
-                { label: "Title", name: "title", widget: "string" },
-                { label: "Created", name: "date", widget: "datetime" },
+                { label: "Created", name: "created", widget: "string", pattern: ['[0-9]{4}-[0-9]{2}-[0-9]{2}', "Must be in YYYY-MM-DD format"] },
+                { label: "Owner", name: "owner", widget: "select", options: ["carson.briggs@forfusion.com","daniel.mead@forfusion.com","darren.candlish@forfusion.com","ellis.moll@forfusion.com","ezekiel.nye@forfusion.com","finlay.blight@forfusion.com","Gavin.Roberts@forfusion.com","george.hanks@forfusion.com","george.russ@forfusion.com","rafal.kosalka@forfusion.com"]},
+                { label: "Category", name: "category", widget: "select", options: ["explanation","tutorial","reference","procedure"]},
                 { label: "Body", name: "body", widget: "markdown" },
               ],
             },
