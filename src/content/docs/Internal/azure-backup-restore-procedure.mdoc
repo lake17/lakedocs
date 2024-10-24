@@ -1,0 +1,31 @@
+---
+title: Restore file from Azure backups
+created: "2024-10-24"
+owner: rafal.kosalka@forfusion.com
+category: procedure
+---
+
+Log in to the [Azure portal](https://portal.azure.com)
+Go to Backup Center -> Backup Instances
+![alt text](@images/restore-azure-backup_0.png)
+Click on the backup instance (only one currently set up – VM-IHS-OPS-1)
+Click on File Recovery option
+![alt text](@images/restore-azure-backup_1.png)
+Choose dates for restore point
+![alt text](@images/restore-azure-backup_2.png)
+Click on Download Executable
+![alt text](@images/restore-azure-backup_3.png)
+When the executable file downloads, run it as administrator. It will ask for a password. The password will be auto generated in the box above after download is completed. Copy and paste the password.
+After the connection has been made successfully, PowerShell will show the below screen.
+![alt text](@images/restore-azure-backup_4.png)
+The script will mount the volumes from the VM backups on to your local system.
+![alt text](@images/restore-azure-backup_5.png)
+![alt text](@images/restore-azure-backup_6.png)
+From here you can browse to the files that need to be restored and simply copy them.
+
+Disks will be mounted for 12 hours. To manually unmount, click the unmount option in Azure.
+![alt text](@images/restore-azure-backup_7.png)
+Azure permissions required to manage backups:
+
+* Backup Operator
+* Virtual Machine Contributor
