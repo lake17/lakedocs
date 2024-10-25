@@ -1,0 +1,108 @@
+{
+    "procedure": [
+        {
+            "title": "evolving-networks-failover-test_procedure",
+            "since": "2024-09-30T00:00:00.000Z"
+        },
+        {
+            "title": "p1-incident-response_procedure",
+            "since": "2024-09-30T00:00:00.000Z"
+        },
+        {
+            "title": "vr-change-request_procedure",
+            "since": "2024-09-30T00:00:00.000Z"
+        },
+        {
+            "title": "1st Line Raising ticket for down device in PRTG",
+            "since": "2024-10-22T00:00:00.000Z"
+        },
+        {
+            "title": "Allow external domain messaging on Teams",
+            "since": "2024-10-22T00:00:00.000Z"
+        },
+        {
+            "title": "Auto Attendant destination changes",
+            "since": "2024-10-22T00:00:00.000Z"
+        },
+        {
+            "title": "Call Queue destination changes",
+            "since": "2024-10-22T00:00:00.000Z"
+        },
+        {
+            "title": "Forfusion New User",
+            "since": "2024-10-22T00:00:00.000Z"
+        },
+        {
+            "title": "Forfusion Staff Exit",
+            "since": "2024-10-22T00:00:00.000Z"
+        },
+        {
+            "title": "MS Teams Number Assignment",
+            "since": "2024-10-22T00:00:00.000Z"
+        },
+        {
+            "title": "MS Teams Number removal (VR STAFF EXIT)",
+            "since": "2024-10-22T00:00:00.000Z"
+        },
+        {
+            "title": "Pausing sensors in PRTG (ticket down too long or requested by VR for set times)",
+            "since": "2024-10-22T00:00:00.000Z"
+        },
+        {
+            "title": "Processing Cisco RMA",
+            "since": "2024-10-22T00:00:00.000Z"
+        },
+        {
+            "title": "SBC Checks",
+            "since": "2024-10-22T00:00:00.000Z"
+        },
+        {
+            "title": "Teams call group user changes",
+            "since": "2024-10-22T00:00:00.000Z"
+        },
+        {
+            "title": "Teams greeting and closed message changes",
+            "since": "2024-10-22T00:00:00.000Z"
+        },
+        {
+            "title": "Teams opening time changes",
+            "since": "2024-10-22T00:00:00.000Z"
+        }
+    ],
+    "explanation": [
+        {
+            "title": "Auto Attendant vs Call Queue explanation",
+            "since": "2024-10-22T00:00:00.000Z"
+        },
+        {
+            "title": "evolving-networks_explanation",
+            "since": "2024-09-30T00:00:00.000Z"
+        },
+        {
+            "title": "SBC Explanation",
+            "since": "2024-09-30T00:00:00.000Z"
+        },
+        {
+            "title": "MS Teams Call flows (Explanation)",
+            "since": "2024-10-14T00:00:00.000Z"
+        }
+    ],
+    "reference": [
+        {
+            "title": "Cable Test Results (Reference)",
+            "since": "2024-10-14T00:00:00.000Z"
+        },
+        {
+            "title": "killik-problem-history_reference",
+            "since": "2024-09-30T00:00:00.000Z"
+        },
+        {
+            "title": "vr-problem-history_reference",
+            "since": "2024-09-30T00:00:00.000Z"
+        },
+        {
+            "title": "New-CsInboundBlockedNumber (Reference)",
+            "since": "2024-10-14T00:00:00.000Z"
+        }
+    ]
+}

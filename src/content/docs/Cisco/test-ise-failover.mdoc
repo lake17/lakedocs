@@ -1,0 +1,72 @@
+---
+title: Test ISE failover
+created: "2024-10-25"
+owner: gavin.roberts@forfusion.com
+category: procedure
+---
+
+## Admin Nodes
+
+run standard health checks from PAN (primary admin node).
+
+log in to SAN and promote to primary (process takes up to 30 mins).
+
+once process is complete then login to new PAN IP and confirm the
+failover has completed
+
+check AD join status - administration > identity management > External identity sources > VR AD, check status is OK. if its not then get the AD join creds and rejoin any nodes that need it
+
+test successful if administration can be done from new PAN.
+
+once tested, complete steps 1-4 to revert back to original setup.
+
+No need for any third party or VR support for this as no user testing is
+required, total FF effort 90 -- 120 mins (depending on how quickly the
+failover process takes).
+
+## Policy Service Nodes (easy)
+
+Login to either of the PSN's CLI and execute command "application stop
+ise", this will stop services on that node so it will not service any
+authentications until the service is started again.
+
+Login to PAN and ensure there are successful authentications, all via
+the other PSN.
+
+VR users on site to test wired and wireless authentications, FF can test
+VPN access.
+
+Once confirmed services are still working, login to the same node and
+execute command "application start ise" to restart the ise service (this
+may take 10-15 minutes to come back up fully).
+
+Check live logs to confirm authentications are being serviced by noth
+nodes again and repeat steps 1-3 on the other PSN.
+
+Will require VR rep on site for the duration of the testing.
+
+Total effort for FF will be around 60 minutes.
+
+## Policy Service Nodes (realistic)
+
+Zensar required to power off one of the PSN VMs
+
+FF engineer to login to PAN and ensure there are successful
+authentications, all via the other PSN.
+
+VR users on site to test wired and wireless authentications, FF can test
+VPN access.
+
+Once confirmed services are still working, Zensar to power on the VM and
+once all services are fully up, FF will need to check the node is
+rejoins the deployment and then we can repeat steps 1-3 on the other PSN
+VM.
+
+Check live logs to confirm authentications are being serviced by noth
+nodes again and repeat steps 1-3 on the other PSN.
+
+Will require Zensar support and VR rep on site for the duration of the
+testing.
+
+Total effort for FF will be around 90 minutes (adjusted to include VM
+power on time and extra checks).

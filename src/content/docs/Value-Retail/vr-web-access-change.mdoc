@@ -1,0 +1,106 @@
+---
+title: Block or Grant Website Access for Value Retail
+created: "2024-10-25"
+owner: finlay.blight@forfusion.com
+category: procedure
+---
+
+
+## **<u>Context</u>**
+
+We are responsible for granting and blocking access to URLs for Value Retail.
+Below will be a document explaining all we need to do on the cisco side, and the
+next steps once completed.
+
+## **<u>Grant Website Access</u>**
+
+### **<u>Ticket Example</u>**
+
+![alt text](@images/vr-web-access-change_image.png)
+
+Above is an example of a ticket Value Retail will send in for a URL to be
+allowed.
+
+### **<u>Procedure</u>**
+
+![alt text](@images/vr-web-access-change_image-1.png)First step
+is to head to <https://login.umbrella.com/> and sign in.
+
+Once signed in, head to your profile in the bottom left and expand. Select
+**Value Retail Management** as the organisation.
+
+![alt text](@images/vr-web-access-change_image-2.png)
+Now that you’re on the Value Retail dashboard, select **Policies** \> **Policy
+Components** \> **Destination Lists.**
+
+Scroll down to **Value Retail Core Allow List**, expand and paste the specified
+URL into the Add destination box.
+
+![](@images/vr-web-access-change_image-6.png)
+
+Once pasted and you’ve selected **ADD**, it should appear at the top of the
+list.
+
+![alt text](@images/vr-web-access-change_image-3.png)
+
+As shown above, it’s essential the VR task number and FF ticket number is added
+as a comment, so it can be referenced later down the line if anyone questions
+why it’s on the list. Both can be taken from the initial ticket sent in.
+
+![alt text](@images/vr-web-access-change_image-4.png)
+Once satisfied,
+select SAVE in the bottom right of the drop down menu. This is all the work
+required on the Cisco Umbrella side.
+
+![alt text](@images/vr-web-access-change_image-5.png)
+The final step is to add a comment stating you’ve added it to umbrella, then
+escalate it to second line under **Networking**. This comment helps inform the
+agent on second line that you’ve done the required task. The second line
+engineer will proceed to add it to the FMC allow list, then inform VR,
+requesting they test and confirm they can now access the website.
+
+## **<u>Block Website Access</u>**
+
+### **<u>Ticket Example</u>**
+
+![alt text](@images/vr-web-access-change_image-7.png)
+Above is an example of a ticket for a URL to be blocked. It’s important to note
+the (dot) will have to be replaced with full stops.
+
+### **<u>Procedure</u>**
+
+![alt text](@images/vr-web-access-change_image-8.png)First step
+is to head to <https://login.umbrella.com/> and sign in.
+
+Once signed in, head to your profile in the bottom left and expand. Select
+**Value Retail Management** as the organisation.
+
+![alt text](@images/vr-web-access-change_image-9.png)
+
+Now that you’re on the Value Retail dashboard, select **Policies** \> **Policy
+Components** \> **Destination Lists.**
+
+Scroll down to **Value Retail Core Block List**, expand and paste the specified
+URL into the Add destination box.
+
+Once pasted and the (dot)s have been replaced, select **ADD**, and it should
+appear at the top of the list.
+
+![alt text](@images/vr-web-access-change_image-10.png)
+
+As shown above, it’s essential the VR incident number and FF ticket number is
+added as a comment, so it can be referenced later down the line if anyone
+questions why it’s on the list. Both can be taken from the initial ticket sent
+in.
+
+![alt text](@images/vr-web-access-change_image-11.png)Once satisfied,
+select SAVE in the bottom right of the drop down menu. This is all the work
+required on the Cisco Umbrella side.
+
+![alt text](@images/vr-web-access-change_image-12.png)
+
+The final step is to add a comment stating you’ve added it to umbrella, then
+escalate it to second line under **Networking**. This comment helps inform the
+agent on second line that you’ve done the required task. The second line
+engineer will proceed to block it on the firewall, then inform VR, requesting
+they test and confirm they can no longer access the website.
