@@ -1,0 +1,221 @@
+---
+// MedalBadge.astro
+interface Props {
+  text?: string;
+  size?: "small" | "medium" | "large";
+  variant?: "weekly" | "monthly";
+  position?: 1 | 2 | 3;
+}
+
+const { 
+  text = "TOP LAD",
+  size = "large",
+  variant = "weekly",
+  position = 1
+} = Astro.props;
+---
+
+<div class={`medal-container ${variant} position-${position}`}>
+  <div class={`medal medal-${size} medal-${variant} medal-position-${position}`}>
+    {text}
+  </div>
+</div>
+
+<style>
+  .medal-container {
+    display: inline-block;
+  }
+
+  .medal-container.monthly {
+    animation: float-enhanced 3s infinite ease-in-out;
+  }
+
+  .medal {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    font-weight: bold;
+    border-radius: 999px;
+    color: #fff;
+  }
+
+  /* Weekly Positions */
+  .medal-weekly.medal-position-1 {
+    background: linear-gradient(0deg, #C09E40, #DEB74A);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .medal-weekly.medal-position-2 {
+    background: linear-gradient(0deg, #939393, #C0C0C0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .medal-weekly.medal-position-3 {
+    background: linear-gradient(0deg, #B56D39, #CD7F32);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  /* Monthly Positions */
+  .medal-monthly.medal-position-1 {
+    background: linear-gradient(
+      45deg,
+      #B7924B,
+      #DEB74A,
+      #FAF486,
+      #DEB74A,
+      #B7924B
+    );
+    box-shadow: 
+      0 0 10px rgba(183, 146, 75, 0.6),
+      0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .medal-monthly.medal-position-2 {
+    background: linear-gradient(
+      45deg,
+      #757575,
+      #C0C0C0,
+      #E8E8E8,
+      #C0C0C0,
+      #757575
+    );
+    box-shadow: 
+      0 0 10px rgba(192, 192, 192, 0.6),
+      0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .medal-monthly.medal-position-3 {
+    background: linear-gradient(
+      45deg,
+      #804A2F,
+      #CD7F32,
+      #E9967A,
+      #CD7F32,
+      #804A2F
+    );
+    box-shadow: 
+      0 0 10px rgba(205, 127, 50, 0.6),
+      0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .medal-small {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .medal-medium {
+    font-size: 0.875rem;
+    padding: 0.375rem 0.75rem;
+  }
+
+  .medal-large {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  /* Weekly shine effects */
+  .medal-weekly::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,0.3),
+      transparent
+    );
+    animation: shine 2.5s infinite linear;
+    transform: skewX(-20deg);
+  }
+
+  /* Monthly shine effects */
+  .medal-monthly::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,0.4),
+      transparent
+    );
+    animation: shine-enhanced 2s infinite linear;
+    transform: skewX(-20deg);
+  }
+
+  /* Monthly metallic highlight */
+  .medal-monthly::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle at center,
+      transparent 30%,
+      rgba(255, 255, 255, 0.1) 60%,
+      transparent 70%
+    );
+    animation: rotate 8s infinite linear;
+  }
+
+  /* Animation speed adjustments based on position */
+  .position-1 .medal::before { animation-duration: 2s; }
+  .position-2 .medal::before { animation-duration: 2.5s; }
+  .position-3 .medal::before { animation-duration: 3s; }
+
+  @keyframes shine {
+    from {
+      transform: translateX(-100%) skewX(-20deg);
+    }
+    to {
+      transform: translateX(200%) skewX(-20deg);
+    }
+  }
+
+  @keyframes shine-enhanced {
+    from {
+      transform: translateX(-100%) skewX(-20deg);
+    }
+    to {
+      transform: translateX(200%) skewX(-20deg);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+
+  @keyframes float-enhanced {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>

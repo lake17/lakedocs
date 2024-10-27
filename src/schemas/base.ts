@@ -58,6 +58,9 @@ export const baseSchema = z.object({
 		.describe(
 			"Difficulty is displayed as a column in the ListTutorials component.",
 		),
+	owner: z
+		.string()
+		.optional(),
 	// TODO: make this .date()
 	created: z
 		.string()

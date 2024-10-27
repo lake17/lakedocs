@@ -10,9 +10,9 @@
       import { init } from "@sveltia/cms"
       init({
         config: {
-          site_url: 'https://docs.forfusion.uk',
-          display_url: 'https://docs.forfusion.uk',
-          logo_url: 'https://docs.forfusion.uk/favicon.svg',
+          site_url: "https://docs.forfusion.uk",
+          display_url: "https://docs.forfusion.uk",
+          logo_url: "https://docs.forfusion.uk/favicon.svg",
           backend: {
             name: "local",
             repo: "ff-emn/fusioncare-docs",
@@ -28,13 +28,48 @@
               name: "docs",
               folder: "src/content/docs",
               extension: "mdoc",
-              format: 'yaml-frontmatter',
+              format: "yaml-frontmatter",
               create: true,
               fields: [
                 { label: "Title", name: "title", widget: "string" },
-                { label: "Created", name: "created", widget: "string", pattern: ['[0-9]{4}-[0-9]{2}-[0-9]{2}', "Must be in YYYY-MM-DD format"], hint: "Format: YYYY-MM-DD" },
-                { label: "Owner", name: "owner", widget: "select", options: ["carson.briggs@forfusion.com","daniel.mead@forfusion.com","darren.candlish@forfusion.com","ellis.moll@forfusion.com","ezekiel.nye@forfusion.com","finlay.blight@forfusion.com","Gavin.Roberts@forfusion.com","george.hanks@forfusion.com","george.russ@forfusion.com","rafal.kosalka@forfusion.com"]},
-                { label: "Category", name: "category", widget: "select", options: ["explanation","tutorial","reference","procedure"]},
+                {
+                  label: "Created",
+                  name: "created",
+                  widget: "string",
+                  pattern: [
+                    "[0-9]{4}-[0-9]{2}-[0-9]{2}",
+                    "Must be in YYYY-MM-DD format",
+                  ],
+                  hint: "Format: YYYY-MM-DD",
+                },
+                {
+                  label: "Owner",
+                  name: "owner",
+                  widget: "select",
+                  options: [
+                    "carson.briggs@forfusion.com",
+                    "daniel.mead@forfusion.com",
+                    "darren.candlish@forfusion.com",
+                    "ellis.moll@forfusion.com",
+                    "ezekiel.nye@forfusion.com",
+                    "finlay.blight@forfusion.com",
+                    "Gavin.Roberts@forfusion.com",
+                    "george.hanks@forfusion.com",
+                    "george.russ@forfusion.com",
+                    "rafal.kosalka@forfusion.com",
+                  ],
+                },
+                {
+                  label: "Category",
+                  name: "category",
+                  widget: "select",
+                  options: [
+                    "explanation",
+                    "tutorial",
+                    "reference",
+                    "procedure",
+                  ],
+                },
                 { label: "Body", name: "body", widget: "markdown" },
               ],
             },

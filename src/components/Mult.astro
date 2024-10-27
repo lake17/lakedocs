@@ -1,0 +1,104 @@
+---
+// MultiplierBonus.astro
+
+interface Props {
+  bonus: number;
+}
+
+const {bonus = 1} = Astro.props
+
+const colors = [
+  "#DEB74A", "#E5B840", "#EBAD36", "#F1A12C", "#F79622",
+  "#FD8A18", "#FF7D0E", "#FF6F04", "#FF6100", "#FF5300",
+  "#FF4500", "#FF3700"
+];
+
+const getStyle = (num: number) => {
+  const scale = 1 + num * 0.03;  // Reduced scale factor
+  const fontSize = 1 + num * 0.15 + 'rem';
+  const textShadow = `${num}px ${num}px ${num * 2}px rgba(0, 0, 0, ${0.6 + num * 0.05})`;
+
+  return {
+    fontSize,
+    color: colors[num - 1],
+    transform: `scale(${scale})`,
+    textShadow,
+    animation: `animation-${num} 2s infinite`
+  };
+};
+---
+<div class="multiplier" style={getStyle(bonus)}>
+  x{bonus}
+</div>
+
+<style>
+.multiplier {
+  font-family: 'Impact', sans-serif;
+  text-align: center;
+  margin: 10px;
+  padding: 10px;
+  transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Define animations with increasing "flashiness" */
+/* Define animations with increasing "flashiness" */
+@keyframes animation-1 { }
+
+@keyframes animation-2 { 
+  0%, 100% { transform: scale(1); } 
+  50% { transform: scale(1.05); } 
+}
+
+@keyframes animation-3 { 
+  0%, 100% { transform: scale(1); } 
+  50% { transform: scale(1.1); } 
+}
+
+@keyframes animation-4 { 
+  0%, 100% { transform: rotate(0deg); } 
+  50% { transform: rotate(5deg); } 
+}
+
+@keyframes animation-5 { 
+  0%, 100% { transform: scale(1); } 
+  50% { transform: scale(1.15) rotate(-5deg); } 
+}
+
+@keyframes animation-6 { 
+  0%, 100% { transform: scale(1); } 
+  50% { transform: scale(1.15) rotate(5deg); } 
+}
+
+@keyframes animation-7 { 
+  0%, 100% { transform: scale(1); } 
+  50% { transform: scale(1.15) rotate(-5deg); } 
+}
+
+@keyframes animation-8 { 
+  0%, 100% { transform: scale(1); } 
+  50% { transform: scale(1.2) rotate(5deg); } 
+}
+
+@keyframes animation-9 { 
+  0%, 100% { transform: scale(1); } 
+  50% { transform: scale(1.25) rotate(-5deg); } 
+}
+
+@keyframes animation-10 { 
+  0%, 100% { transform: scale(1); } 
+  50% { transform: scale(1.3) rotate(10deg); } 
+}
+
+@keyframes animation-11 { 
+  0%, 100% { transform: scale(1); } 
+  50% { transform: scale(1.35) rotate(-10deg); } 
+}
+
+@keyframes animation-12 { 
+  0%, 100% { transform: scale(1); } 
+  25% { transform: scale(1.4) rotate(5deg); } 
+  50% { transform: scale(1.5) rotate(-5deg); } 
+  75% { transform: scale(1.4) rotate(5deg); }
+}
+
+</style>
