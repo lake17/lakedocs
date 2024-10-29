@@ -1,7 +1,7 @@
 ---
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro"
 import dayjs from "dayjs"
-import { LinkCard, Card, CardGrid, Badge } from "@astrojs/starlight/components"
+import { LinkCard, Card, CardGrid, Badge, Tabs, TabItem } from "@astrojs/starlight/components"
 import MedalBadge from "../components/MedalBadge.astro"
 import Mult from "../components/Mult.astro"
 import ThreeCardGrid from "../components/ThreeCardGrid.astro"
@@ -16,9 +16,9 @@ import { string } from "astro:schema"
 
 // TODO: find out how to do this properly - extend type?
 const docs: CollectionEntry<"docs">[] = await getCollection("docs")
-const created_docs: CollectionEntry<"docs">[] = docs.filter((x) => {
+const created_docs: CollectionEntry<"docs">[] = docs.filter((x: CollectionEntry<"docs">) => {
   if (x.data.created) {
-    return x
+    return x;
   }
 })
 const sorted_created_docs: CollectionEntry<"docs">[] = created_docs.sort(
@@ -120,7 +120,11 @@ function getMonthsBetween(
   )
 }
 
-const getRank = (stats, currentTeam) => {
+type Stat = {
+  output: number
+}
+
+const getRank = (stats: Stat[], currentTeam: Stat) => {
     // Sort teams by output in descending order
     const sortedTeams = [...stats].sort((a, b) => b.output - a.output);
     
@@ -151,14 +155,17 @@ const getRank = (stats, currentTeam) => {
     `},
   ],
   }}>
-  <CardGrid>
+  <ThreeCardGrid>
     <LinkCard title="Introduction" href="/introduction"></LinkCard>
+    <LinkCard title="Documentation" href="/sections"></LinkCard>
     <LinkCard title="Editor" href="/ed"></LinkCard>
     <LinkCard title="Bookmarks" href="/bookmarks"></LinkCard>
-    <LinkCard title="Documentation" href="/sections"></LinkCard>
-  </CardGrid>
+    <LinkCard title="Snippets (TODO)" href="/"></LinkCard>
+    <LinkCard title="Feeds (TODO)" href="/"></LinkCard>
+  </ThreeCardGrid>
   <ThreeCardGrid>
-    <Card title="Weekly Leaderboard" icon="star">
+    <Tabs>
+    <TabItem label="Weekly Leaderboard"><Card title="Weekly Leaderboard" icon="star">
       <table style="border-collapse: collapse; width: 100%;">
         {
           weekly_team_stats.map((m) => ( 
@@ -183,9 +190,9 @@ const getRank = (stats, currentTeam) => {
                 )}
               </td>
               <td style="text-align: left;vertical-align: middle;">{m.name}</td>
-              <td style="text-align: center;">{
+              <td style="text-align: center;vertical-align: middle;">{
                   (() => {
-                    if (m.output === 0) return null;
+                    if (m.output === 0) return '0';
                       const position = weekly_team_stats.findIndex(t => t.output === m.output) + 1 as 1 | 2 | 3;
                       return [1, 2, 3].includes(position) ? (
                               <span>&emsp;</span>
@@ -202,8 +209,8 @@ const getRank = (stats, currentTeam) => {
           ))
         }
       </table>
-    </Card>
-    <Card title="Monthly Leaderboard" icon="starlight">
+    </Card></TabItem>
+    <TabItem label="Monthly Leaderboard"><Card title="Monthly Leaderboard" icon="starlight">
       <table style="border-collapse: collapse; width: 100%;">
         {
           monthly_team_stats.map((m) => ( 
@@ -228,11 +235,11 @@ const getRank = (stats, currentTeam) => {
                 )}
               </td>
               <td style="text-align: left;vertical-align: middle;">{m.name}</td>
-              <td style="text-align: center;">
+              <td style="text-align: center;vertical-align: middle;">
               {
                   (() => {
                       if (m.output === 0) return "0";
-                      const position = getRank(monthly_team_stats, m)
+                      const position = getRank(monthly_team_stats, m) as 1|2|3
                       return [1, 2, 3].includes(position) ? (
                               <MedalBadge 
                                   text={String(m.output)}
@@ -248,7 +255,16 @@ const getRank = (stats, currentTeam) => {
           ))
         }
       </table>
-    </Card>
+    </Card></TabItem>
+  </Tabs>
+    <Tabs>
+      <TabItem label="Hall of Fame"><Card title="Hall of Fame">
+        <hr/><h6>JOHN DOE</h6><p>Authored the most documents during the first FusionCare Documentation Drive</p><hr/>
+      </Card></TabItem>
+      <TabItem label="Hall of Shame"><Card title="Hall of Shame">
+        <hr/><h6>YOU</h6><p>If you aren't careful...</p><hr/>
+      </Card></TabItem>
+    </Tabs>
     <Card title="Title Track" icon="codeberg">
       <table style="border-collapse: collapse; width: 100%;">
         <thead>
@@ -276,17 +292,17 @@ const getRank = (stats, currentTeam) => {
             </tr>
             <tr>
               <td style="text-align: center;">???</td> <!-- <Badge text="My Homelab Smells of Rich Mahogany" size="medium" style="background-color:#fb3e8d;border-color:#fb3e8d;"></Badge> -->
-              <td style="text-align: left;">???</td> <!-- 250 -->
+              <td style="text-align: left;">???</td> <!-- 500 -->
             </tr>
             <tr>
-              <td style="text-align: center;">???</td> <!-- <Badge text="???" size="large" style="background-color:#4C139D;border-color:#4C139D;"></Badge> -->
-              <td style="text-align: left;">???</td> <!-- ??? -->
+              <td style="text-align: center;">???</td> <!-- <Badge text="God Walking Amongst Mere Mortals" size="large" style="background-color:#4C139D;border-color:#4C139D;"></Badge> -->
+              <td style="text-align: left;">???</td> <!-- 1000 -->
             </tr>
         </tbody> 
       </table>
     </Card>
   </ThreeCardGrid>
-    <CardGrid>
+  <CardGrid>
     <Card title="Latest Documents" icon="open-book">
       <table style="border-collapse: collapse; width: 100%;">
         <thead>
@@ -337,4 +353,5 @@ const getRank = (stats, currentTeam) => {
       </table>
     </Card>
   </CardGrid>
-  </StarlightPage>
+
+</StarlightPage>
