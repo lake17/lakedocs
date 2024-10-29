@@ -160,12 +160,13 @@ const getRank = (stats: Stat[], currentTeam: Stat) => {
     <LinkCard title="Documentation" href="/sections"></LinkCard>
     <LinkCard title="Editor" href="/ed"></LinkCard>
     <LinkCard title="Bookmarks" href="/bookmarks"></LinkCard>
-    <LinkCard title="Snippets (TODO)" href="/"></LinkCard>
-    <LinkCard title="Feeds (TODO)" href="/"></LinkCard>
+    <LinkCard title="Snippets [TODO]"></LinkCard>
+    <LinkCard title="Feeds [TODO]"></LinkCard>
   </ThreeCardGrid>
   <ThreeCardGrid>
     <Tabs>
-    <TabItem label="Weekly Leaderboard"><Card title="Weekly Leaderboard" icon="star">
+    <TabItem label="Weekly Leaderboard">
+      <Card title="Weekly Leaderboard" icon="star">
       <table style="border-collapse: collapse; width: 100%;">
         {
           weekly_team_stats.map((m) => ( 
@@ -209,8 +210,10 @@ const getRank = (stats: Stat[], currentTeam: Stat) => {
           ))
         }
       </table>
-    </Card></TabItem>
-    <TabItem label="Monthly Leaderboard"><Card title="Monthly Leaderboard" icon="starlight">
+    </Card>
+  </TabItem>
+    <TabItem label="Monthly Leaderboard">
+      <Card title="Monthly Leaderboard" icon="starlight">
       <table style="border-collapse: collapse; width: 100%;">
         {
           monthly_team_stats.map((m) => ( 
@@ -255,52 +258,67 @@ const getRank = (stats: Stat[], currentTeam: Stat) => {
           ))
         }
       </table>
-    </Card></TabItem>
-  </Tabs>
+    </Card>
+  </TabItem>
+    </Tabs>
     <Tabs>
-      <TabItem label="Hall of Fame"><Card title="Hall of Fame">
-        <hr/><h6>JOHN DOE</h6><p>Authored the most documents during the first FusionCare Documentation Drive</p><hr/>
+      <TabItem label="Hall of Fame"><Card title="CANNY LADS">
+        <Card title="JOHN DOE">Authored the most documents during the first FusionCare Documentation Drive</Card>
+        <Card title='DANIEL MEAD'>First to achieve the title <Badge text="Kind Of A Big Deal" size="small" style="color:#000;font-weight:bold;background-color: #62A4DA;border-color:#62A4DA;"></Badge></Card>
       </Card></TabItem>
-      <TabItem label="Hall of Shame"><Card title="Hall of Shame">
-        <hr/><h6>YOU</h6><p>If you aren't careful...</p><hr/>
+      <TabItem label="Hall of Shame"><Card title="DAFTIES">
+        <Card title="YOU"></Card>
       </Card></TabItem>
     </Tabs>
-    <Card title="Title Track" icon="codeberg">
-      <table style="border-collapse: collapse; width: 100%;">
-        <thead>
-          <tr>
-            <th style="text-align: left;">Title</th>
-            <th style="text-align: right;">Docs Uploaded</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr>
-              <td style="text-align: center;"><Badge text="Kind Of A Big Deal" size="small" style="color:#000;font-weight:bold;background-color: #62A4DA;border-color:#62A4DA;"></Badge></td>
-              <td style="text-align: left;">10</td>
-            </tr>
-            <tr>
-              <td style="text-align: center;">???</td> <!-- <Badge text="People Know Me" size="small" style="background-color:#1a9306;border-color:#1a9306;"></Badge> -->
-              <td style="text-align: left;">???</td> <!-- 25 -->
-            </tr>
-            <tr>
-              <td style="text-align: center;">???</td> <!-- <Badge text="I'm Very Important" size="small" style="background-color:#fcd00b;border-color:#fcd00b;"></Badge> -->
-              <td style="text-align: left;">???</td> <!-- 50 -->
-            </tr>
-            <tr>
-              <td style="text-align: center;">???</td> <!-- <Badge text="I Have Many Leather-Bound Books" size="medium" style="background-color:#ffa405;border-color:#ffa405;"></Badge> -->
-              <td style="text-align: left;">???</td> <!-- 100 -->
-            </tr>
-            <tr>
-              <td style="text-align: center;">???</td> <!-- <Badge text="My Homelab Smells of Rich Mahogany" size="medium" style="background-color:#fb3e8d;border-color:#fb3e8d;"></Badge> -->
-              <td style="text-align: left;">???</td> <!-- 500 -->
-            </tr>
-            <tr>
-              <td style="text-align: center;">???</td> <!-- <Badge text="God Walking Amongst Mere Mortals" size="large" style="background-color:#4C139D;border-color:#4C139D;"></Badge> -->
-              <td style="text-align: left;">???</td> <!-- 1000 -->
-            </tr>
-        </tbody> 
-      </table>
-    </Card>
+    <Tabs>
+      <TabItem label="Learning Paths">
+        <Card title="Learning Paths [TODO]">
+          <LinkCard title="Onboarding"></LinkCard>
+          <LinkCard title="FusionCare First Line"></LinkCard>
+          <LinkCard title="FusionCare Second Line"></LinkCard>
+          <LinkCard title="Cisco Technologies"></LinkCard>
+          <LinkCard title="Microsoft Technologies"></LinkCard>
+        </Card>
+      </TabItem>
+      <TabItem label="Title Track">
+        <Card title="Title Track" icon="codeberg">
+          <table style="border-collapse: collapse; width: 100%;">
+            <thead>
+              <tr>
+                <th style="text-align: left;">Title</th>
+                <th style="text-align: right;">Docs Uploaded</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td style="text-align: center;"><Badge text="Kind Of A Big Deal" size="small" style="color:#000;font-weight:bold;background-color: #62A4DA;border-color:#62A4DA;"></Badge></td>
+                  <td style="text-align: left;">10</td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;">???</td> <!-- <Badge text="People Know Me" size="small" style="background-color:#1a9306;border-color:#1a9306;"></Badge> -->
+                  <td style="text-align: left;">???</td> <!-- 25 -->
+                </tr>
+                <tr>
+                  <td style="text-align: center;">???</td> <!-- <Badge text="I'm Very Important" size="small" style="background-color:#fcd00b;border-color:#fcd00b;"></Badge> -->
+                  <td style="text-align: left;">???</td> <!-- 50 -->
+                </tr>
+                <tr>
+                  <td style="text-align: center;">???</td> <!-- <Badge text="I Have Many Leather-Bound Books" size="medium" style="background-color:#ffa405;border-color:#ffa405;"></Badge> -->
+                  <td style="text-align: left;">???</td> <!-- 100 -->
+                </tr>
+                <tr>
+                  <td style="text-align: center;">???</td> <!-- <Badge text="My Homelab Smells of Rich Mahogany" size="medium" style="background-color:#fb3e8d;border-color:#fb3e8d;"></Badge> -->
+                  <td style="text-align: left;">???</td> <!-- 500 -->
+                </tr>
+                <tr>
+                  <td style="text-align: center;">???</td> <!-- <Badge text="God Walking Amongst Mere Mortals" size="large" style="background-color:#4C139D;border-color:#4C139D;"></Badge> -->
+                  <td style="text-align: left;">???</td> <!-- 1000 -->
+                </tr>
+            </tbody> 
+          </table>
+        </Card>
+      </TabItem>
+    </Tabs>
   </ThreeCardGrid>
   <CardGrid>
     <Card title="Latest Documents" icon="open-book">
