@@ -1,12 +1,14 @@
 ---
-import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
-import { LinkCard } from '@astrojs/starlight/components'
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro"
+import { LinkCard } from "@astrojs/starlight/components"
 ---
 
-<StarlightPage frontmatter={{ title: 'Sections',template: 'splash' }}>
-  <LinkCard title='Internal' href={'/internal/'}></LinkCard>
-  <LinkCard title='Cisco' href={'/cisco/'}></LinkCard>
-  <LinkCard title='Larcomes' href={'/larcomes/'}></LinkCard>
-  <LinkCard title='Miscellaneous' href={'/miscellaneous/'}></LinkCard>
-  <LinkCard title='Templates' href={'/templates/'}></LinkCard>
+<StarlightPage frontmatter={{ title: "Sections", template: "splash" }}>
+  <LinkCard title="Value Retail" href={"/value-retail/"} />
+  <LinkCard title="Internal" href={"/internal/"} />
+  <LinkCard title="Cisco" href={"/cisco/"} />
+  <LinkCard title="Larcomes" href={"/larcomes/"} />
+  <LinkCard title="Unified Communications" href={"/unified-communications/"} />
+  <LinkCard title="Miscellaneous" href={"/miscellaneous/"} />
+  <LinkCard title="Templates" href={"/templates/"} />
 </StarlightPage>
