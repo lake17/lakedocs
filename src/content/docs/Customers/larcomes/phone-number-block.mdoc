@@ -1,0 +1,82 @@
+---
+title: Block Inbound Phone Number via Teams Powershell
+category: procedure
+owner: daniel.mead@forfusion.com
+created: "2024-10-18"
+---
+
+This guide explains how to block an inbound phone number aimed at a Microsoft Teams number.
+
+The reason this would be implemented is simple; spam calls and cold callers will keep trying the same number over and over and can be a waste on the end users time.
+
+This method is used for Larcomes. _While it technically is available for VR, **we suggest avoiding this method** as it is a global setting and will effect all Villages_. Making it accessible will also create a possible issue of numbers being submitted left and right and a good chance that a user blocks a number that is linked with a brand they need to be in touch with. If VR have issues with spam calls, the individual user is able to block a number within the Teams application on the call history tab.
+
+## Before you start
+
+Before you are ready to block a number, ensure:
+
+- You have the Microsoft Teams Module installed for Powershell
+- Client as provided the required numbers to be blocked
+- User who submitted the change is at the suitable level to make the request.
+- Understand the command you will running
+
+## Powershell Command Line
+
+1. Open Powershell as administrator
+
+   Running as administrator is required to run the needed commands.
+
+2. Connect to the Microsoft Teams Module
+
+   ```ps1
+   Connect-MicrosoftTeams
+   ```
+
+   2.1. A popup will appear asking to sign into your microsoft administrator account. This account connects you to the required Microsoft Tenant (For example, use <ga2@larcomes.co.uk> for Larcomes)
+
+    <img src="/images/larcomes_number-block_2.gif" alt="A gif showing the popup" />
+
+3. Create the blocked number rule
+
+   ```ps1
+   New-CsInboundBlockedNumberPattern
+   ```
+
+   You will be required to provide additional information which I recomend adding into the original command to save time:
+   -Name "" {Name the rule appropriatly, I suggest the ticket number followed by staging number (1,2,3) in the case several numbers are included in one ticket. Please note that there can not be more than one rule with the same name and the ticket name cannot include the # symbol}
+
+   -Enabled $True {This simply sets the rule as enabled so important to remember}
+
+   -Description "" {I recommend including the ticket number here, along with any information that the customer has provided about the specific number}
+
+   -Pattern "^\+?number$" {This contains the number being blocked, replace "number" with the number provided by the customer. Ensure that the symbols surronding the number stay the same as this is how teams handles the number}
+
+   ![](@images/larcomes_number-block_3.png)
+
+   3.1 I recommend running **Get-CsInboundBlockedNumberPattern** to see a list of all implemented rules, ensuring yours in there and enabled.
+
+   ![](@images/larcomes_number-block_3.1.png)
+
+4. Test the implented rule
+
+   ```ps1
+   Test-CsInboundBlockedNumberPattern -PhoneNumber
+   ```
+
+   After adding the new rule we must test using the number provided. Please note it may take 5-10 minutes for the rule to be up and running on Microsofts side.
+
+   ![](@images/larcomes_number-block_4.png)
+
+   The result you are looking for is **"True"**, this means the number is being blocked. If the test results in "False" please give Teams more time to sync, if you ran the command correctly and no errors were returned then it will work.
+
+5. Reply to customer confirming the change has been made.
+
+   I would also include the results of the test command in the ticket response to give the customer a visual evidence that the change is now in place.
+
+## See also
+
+Relevant documentation about the used commands from Microsoft
+
+- <https://learn.microsoft.com/en-us/powershell/module/teams/new-csinboundblockednumberpattern?view=teams-ps>
+- <https://learn.microsoft.com/en-us/powershell/module/teams/test-csinboundblockednumberpattern?view=teams-ps>
+- <https://learn.microsoft.com/en-us/powershell/module/teams/get-csinboundblockednumberpattern?view=teams-ps>
