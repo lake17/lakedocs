@@ -7,7 +7,7 @@ created: "2024-10-29"
 
 This guide explains how to get around an uncommin issues when attempting to reconnect to an Azure Active Directory.
 
-```
+```txt
 Error 8018000a: “Something went wrong. The device is already enrolled. You can contact your system administrator with the error code 8018000a.
 ```
 
@@ -19,7 +19,7 @@ So what we have to do it remove the registry data that is telling the machine th
 
 First thing worth doing is ensuring your machine is not currently AD joined anywhere; to do so open an elevated CMD window and run **dsregcmd /status**. Under "Ngc Prerequisite Check" ensure that the top three lines say NO. If any say yes, you need to go through the process of completely removing the machine from any domain linked.
 
-```
+```cmd
 dsregcmd /status
 ```
 

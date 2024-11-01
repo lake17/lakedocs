@@ -3,6 +3,7 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro"
 import dayjs from "dayjs"
 import { LinkCard, Card, CardGrid, Badge, Tabs, TabItem } from "@astrojs/starlight/components"
 import MedalBadge from "../components/MedalBadge.astro"
+import TitleBadge from "../components/TitleBadge.astro"
 import Mult from "../components/Mult.astro"
 import ThreeCardGrid from "../components/ThreeCardGrid.astro"
 import team from "../data/team_webex.json"
@@ -11,6 +12,7 @@ import { Image } from "astro:assets"
 import eng from "../assets/fusioncare-engineer.webp"
 import { getCollection } from "astro:content"
 import type { CollectionEntry } from "astro:content"
+import HallComponent from "@components/HallComponent.astro"
 
 // TODO: find out how to do this properly - extend type?
 const docs: CollectionEntry<"docs">[] = await getCollection("docs")
@@ -52,6 +54,8 @@ let weekly_team_stats = team.map((m) => {
     name: m.name,
     pic: m.avatar,
     email: m.email,
+    rank: m.rank,
+    bonus: m.bonus,
     output: c,
   }
 })
@@ -71,6 +75,8 @@ let monthly_team_stats = team.map((m) => {
     name: m.name,
     pic: m.avatar,
     email: m.email,
+    rank: m.rank,
+    bonus: m.bonus,
     output: c,
   }
 })
@@ -92,11 +98,6 @@ function getMonthsBetween(date1: Date, date2: Date): number {
   
   return years * 12 + months + monthCorrection;
 }
-
-// Example usage:
-// const date2 = new Date('2024-01-15');  // Earlier date
-// const date1 = new Date('2024-03-01');  // Later date
-// console.log(getMonthsBetween(date1, date2));  // Returns 1
 
 type Stat = {
   output: number
@@ -134,14 +135,14 @@ const getRank = (stats: Stat[], currentTeam: Stat) => {
   ],
   }}>
   <ThreeCardGrid>
-    <LinkCard title="Introduction" href="/introduction"></LinkCard>
+    <LinkCard title="Introduction [TODO]"></LinkCard>
     <LinkCard title="Documentation" href="/sections"></LinkCard>
     <LinkCard title="Editor" href="/ed"></LinkCard>
     <LinkCard title="Bookmarks" href="/bookmarks"></LinkCard>
     <LinkCard title="Snippets [TODO]"></LinkCard>
     <LinkCard title="Feeds [TODO]"></LinkCard>
   </ThreeCardGrid>
-  <ThreeCardGrid>
+  <CardGrid>
     <Tabs>
     <TabItem label="Weekly Leaderboard">
       <Card title="Weekly Leaderboard" icon="star">
@@ -168,13 +169,12 @@ const getRank = (stats: Stat[], currentTeam: Stat) => {
                   />
                 )}
               </td>
-              <td style="text-align: left;vertical-align: middle;">{m.name}</td>
+              <td style="text-align: left;vertical-align: middle;">{m.name}{m.rank ? <span>&ensp;</span><TitleBadge rank={m.rank}/> : ""}</td>
               <td style="text-align: center;vertical-align: middle;">{
                   (() => {
                     if (m.output === 0) return '0';
                       const position = weekly_team_stats.findIndex(t => t.output === m.output) + 1 as 1 | 2 | 3;
                       return [1, 2, 3].includes(position) ? (
-                              <span>&emsp;</span>
                               <MedalBadge 
                                   text={String(m.output)}
                                   size="medium" 
@@ -215,7 +215,7 @@ const getRank = (stats: Stat[], currentTeam: Stat) => {
                   />
                 )}
               </td>
-              <td style="text-align: left;vertical-align: middle;">{m.name}</td>
+              <td style="text-align: left;vertical-align: middle;">{m.name}{m.rank ? <span>&ensp;</span><TitleBadge rank={m.rank}/> : ""}</td>
               <td style="text-align: center;vertical-align: middle;">
               {
                   (() => {
@@ -239,66 +239,50 @@ const getRank = (stats: Stat[], currentTeam: Stat) => {
     </Card>
   </TabItem>
     </Tabs>
-    <Tabs>
-      <TabItem label="Hall of Fame"><Card title="CANNY LADS">
-        <Card title="JOHN DOE">Authored the most documents during the first FusionCare Documentation Drive</Card>
-        <Card title='DANIEL MEAD'>First to achieve the title <Badge text="Kind Of A Big Deal" size="small" style="color:#000;font-weight:bold;background-color: #62A4DA;border-color:#62A4DA;"></Badge></Card>
-      </Card></TabItem>
-      <TabItem label="Hall of Shame"><Card title="DAFTIES">
-        <Card title="YOU"></Card>
-      </Card></TabItem>
-    </Tabs>
-    <Tabs>
-      <TabItem label="Learning Paths">
-        <Card title="Learning Paths [TODO]">
-          <LinkCard title="Onboarding"></LinkCard>
-          <LinkCard title="FusionCare First Line"></LinkCard>
-          <LinkCard title="FusionCare Second Line"></LinkCard>
-          <LinkCard title="Cisco Technologies"></LinkCard>
-          <LinkCard title="Microsoft Technologies"></LinkCard>
-        </Card>
-      </TabItem>
-      <TabItem label="Title Track">
-        <Card title="Title Track" icon="codeberg">
-          <table style="border-collapse: collapse; width: 100%;">
-            <thead>
-              <tr>
-                <th style="text-align: left;">Title</th>
-                <th style="text-align: right;">Docs Uploaded</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr>
-                  <td style="text-align: center;"><Badge text="Kind Of A Big Deal" size="small" style="color:#000;font-weight:bold;background-color: #62A4DA;border-color:#62A4DA;"></Badge></td>
-                  <td style="text-align: left;">10</td>
-                </tr>
-                <tr>
-                  <td style="text-align: center;">???</td> <!-- <Badge text="People Know Me" size="small" style="background-color:#1a9306;border-color:#1a9306;"></Badge> -->
-                  <td style="text-align: left;">???</td> <!-- 25 -->
-                </tr>
-                <tr>
-                  <td style="text-align: center;">???</td> <!-- <Badge text="I'm Very Important" size="small" style="background-color:#fcd00b;border-color:#fcd00b;"></Badge> -->
-                  <td style="text-align: left;">???</td> <!-- 50 -->
-                </tr>
-                <tr>
-                  <td style="text-align: center;">???</td> <!-- <Badge text="I Have Many Leather-Bound Books" size="medium" style="background-color:#ffa405;border-color:#ffa405;"></Badge> -->
-                  <td style="text-align: left;">???</td> <!-- 100 -->
-                </tr>
-                <tr>
-                  <td style="text-align: center;">???</td> <!-- <Badge text="My Homelab Smells of Rich Mahogany" size="medium" style="background-color:#fb3e8d;border-color:#fb3e8d;"></Badge> -->
-                  <td style="text-align: left;">???</td> <!-- 500 -->
-                </tr>
-                <tr>
-                  <td style="text-align: center;">???</td> <!-- <Badge text="God Walking Amongst Mere Mortals" size="large" style="background-color:#4C139D;border-color:#4C139D;"></Badge> -->
-                  <td style="text-align: left;">???</td> <!-- 1000 -->
-                </tr>
-            </tbody> 
-          </table>
-        </Card>
-      </TabItem>
-    </Tabs>
-  </ThreeCardGrid>
-  <CardGrid>
+    <HallComponent/>
+    <Card title="Learning Paths [TODO]">
+      <LinkCard title="Onboarding"></LinkCard>
+      <LinkCard title="FusionCare First Line"></LinkCard>
+      <LinkCard title="FusionCare Second Line"></LinkCard>
+      <LinkCard title="Cisco Technologies"></LinkCard>
+      <LinkCard title="Microsoft Technologies"></LinkCard>
+    </Card>
+    <Card title="Title Track" icon="codeberg">
+      <table style="border-collapse: collapse; width: 100%;">
+        <thead>
+          <tr>
+            <th style="text-align: left;">Title</th>
+            <th style="text-align: right;">Docs Uploaded</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td style="text-align: center;"><TitleBadge rank={1}/></td> <!-- <Badge text="Kind Of A Big Deal" size="small" style="background-color: #62A4DA;border-color:#62A4DA;"></Badge> -->
+              <td style="text-align: left;">10</td> <!-- 25 -->
+            </tr>
+            <tr>
+              <td style="text-align: center;">???</td> <!-- <Badge text="People Know Me" size="small" style="background-color:#1a9306;border-color:#1a9306;"></Badge> -->
+              <td style="text-align: left;">???</td> <!-- 25 -->
+            </tr>
+            <tr>
+              <td style="text-align: center;">???</td> <!-- <Badge text="I'm Very Important" size="small" style="background-color:#fcd00b;border-color:#fcd00b;"></Badge> -->
+              <td style="text-align: left;">???</td> <!-- 50 -->
+            </tr>
+            <tr>
+              <td style="text-align: center;">???</td> <!-- <Badge text="I Have Many Leather-Bound Books" size="medium" style="background-color:#ffa405;border-color:#ffa405;"></Badge> -->
+              <td style="text-align: left;">???</td> <!-- 100 -->
+            </tr>
+            <tr>
+              <td style="text-align: center;">???</td> <!-- <Badge text="My Homelab Smells of Rich Mahogany" size="medium" style="background-color:#fb3e8d;border-color:#fb3e8d;"></Badge> -->
+              <td style="text-align: left;">???</td> <!-- 500 -->
+            </tr>
+            <tr>
+              <td style="text-align: center;">???</td> <!-- <Badge text="God Walking Amongst Mere Mortals" size="large" style="background-color:#4C139D;border-color:#4C139D;"></Badge> -->
+              <td style="text-align: left;">???</td> <!-- 1000 -->
+            </tr>
+        </tbody> 
+      </table>
+    </Card>
     <Card title="Latest Documents" icon="open-book">
       <table style="border-collapse: collapse; width: 100%;">
         <thead>
@@ -348,6 +332,5 @@ const getRank = (stats: Stat[], currentTeam: Stat) => {
         </tbody>
       </table>
     </Card>
-  </CardGrid>
-
+    </CardGrid>
 </StarlightPage>

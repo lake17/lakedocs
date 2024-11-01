@@ -1,0 +1,110 @@
+---
+import { Card, Tabs, TabItem } from "@astrojs/starlight/components"
+import TitleBadge from "../components/TitleBadge.astro"
+---
+
+<div class="halls-container">
+  <Tabs>
+    <TabItem data-fame="true" label="Hall of Fame">
+      <div class="fame-card">
+        <Card title="CANNY LADS">
+          <div class="fame-entries">
+            <Card title="DANIEL MEAD">
+              Authored the most documents during the first FusionCare
+              Documentation Drive
+            </Card>
+            <Card title="DANIEL MEAD">
+              First to achieve the title <TitleBadge rank={1} />
+            </Card>
+          </div>
+        </Card>
+      </div>
+    </TabItem>
+    <TabItem data-shame="true" label="Hall of Shame">
+      <div class="shame-card">
+        <Card title="DAFTIES">
+          <div class="shame-entries">
+            <Card title="YOU" />
+          </div>
+        </Card>
+      </div>
+    </TabItem>
+
+    <style>
+      .halls-container {
+        --accent-fame: #00539c;
+        --accent-shame: #d35400;
+      }
+
+      /* Tab Styling */
+      :global([data-fame="true"][data-active="true"]) {
+        border-bottom: 3px solid var(--accent-fame);
+        color: var(--accent-fame);
+        font-weight: 600;
+        text-shadow: 0 0 20px rgba(184, 134, 11, 0.2);
+      }
+
+      :global([data-shame="true"][data-active="true"]) {
+        border-bottom: 3px solid var(--accent-shame);
+        color: var(--accent-shame);
+        font-weight: 600;
+        text-shadow: 0 0 20px rgba(75, 0, 130, 0.2);
+      }
+
+      /* Fame and Shame Card Title Styling */
+      .fame-card > :global(.card > .title),
+      .shame-card > :global(.card > .title) {
+        align-self: center;
+        font-size: 2rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        margin-bottom: 1.5rem;
+      }
+
+      .fame-card > :global(.card > .title) {
+        color: var(--accent-fame);
+        text-shadow: 2px 2px 4px rgba(184, 134, 11, 0.2);
+      }
+
+      .shame-card > :global(.card > .title) {
+        color: var(--accent-shame);
+        text-shadow: 2px 2px 4px rgba(75, 0, 130, 0.2);
+      }
+
+      .fame-entries > :global(.card) {
+        border: 1px solid var(--accent-fame);
+        box-shadow:
+          0 2px 4px -1px rgba(184, 134, 11, 0.1),
+          0 4px 6px -1px rgba(184, 134, 11, 0.05);
+        transition: transform 0.2s ease;
+      }
+
+      .fame-entries > :global(.card:hover) {
+        transform: translateY(-2px);
+      }
+
+      .fame-entries > :global(.card > .title) {
+        color: var(--accent-fame);
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      .shame-entries > :global(.card) {
+        border: 1px solid var(--accent-shame);
+        box-shadow:
+          0 2px 4px -1px rgba(75, 0, 130, 0.1),
+          0 4px 6px -1px rgba(75, 0, 130, 0.05);
+      }
+
+      .shame-entries > :global(.card > .title) {
+        color: var(--accent-shame);
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      .shame-entries > :global(.card:hover) {
+        transform: translateY(-2px);
+      }
+    </style>
+  </Tabs>
+</div>
