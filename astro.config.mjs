@@ -42,8 +42,10 @@ export default defineConfig({
       sidebar: await autogenSections(),
       components: {
         Sidebar: "./src/components/Sidebar.astro",
+        EditLink: "./src/components/EditLink.astro",
       },
       pagination: false,
+      editLink: { baseUrl: "https://docs.forfusion.uk/ed#/collections/docs/entries/", },
     }),
   ],
 })

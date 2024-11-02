@@ -36,6 +36,24 @@ import TitleBadge from "../components/TitleBadge.astro"
         --accent-shame: #d35400;
       }
 
+      .fame-card > :global(.card > .title),
+      .shame-card > :global(.card > .title) {
+        align-self: center;
+        font-size: 2rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        margin-bottom: 1.5rem;
+        transition:
+          transform 0.2s ease,
+          font-size 0.2s ease;
+      }
+
+      .fame-card > :global(.card > .title:hover),
+      .shame-card > :global(.card > .title:hover) {
+        transform: scale(1.05);
+        font-size: 2.1rem;
+      }
+
       /* Tab Styling */
       :global([data-fame="true"][data-active="true"]) {
         border-bottom: 3px solid var(--accent-fame);
