@@ -16,6 +16,12 @@
 	--sl-color-black: #f7f7f7; /* softened from #ffffff */
 }
 
+/* Dark mode colors. */
+:root {
+	--sl-color-accent: #f50;
+	--sl-color-accent-high: #f50;
+}
+
 .social-icons::after {
 	display: none;
 }
@@ -25,4 +31,11 @@
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+  text-underline-offset: 5px;
+  .sl-markdown-content a:not(:where(.not-content *)) {
+	color: var(--sl-color-white);
+}
+a:hover {
+	text-decoration-color: var(--sl-color-accent);
+}
 }

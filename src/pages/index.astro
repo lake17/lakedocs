@@ -116,7 +116,7 @@ const getRank = (stats: TeamStats[], currentTeam: TeamStats) => {
   head: [
     {tag:"style",content:`
     .sl-container:where(.astro-7nkwcw3z) { max-width: none !important; }
-    h1 { color: #3857eb !important; }
+    h1 { color: var(--sl-color-accent) !important; }
     `},
   ],
   }}>
@@ -131,7 +131,7 @@ const getRank = (stats: TeamStats[], currentTeam: TeamStats) => {
   <CardGrid>
     <Tabs>
     <TabItem label="Weekly Leaderboard">
-      <Card title="Weekly Leaderboard" icon="star">
+      <Card title="Documents Created This Week" icon="star">
       <table style="border-collapse: collapse; width: 100%;">
         {
           weeklyStats.map((m) => ( 
@@ -177,7 +177,7 @@ const getRank = (stats: TeamStats[], currentTeam: TeamStats) => {
     </Card>
   </TabItem>
     <TabItem label="Monthly Leaderboard">
-      <Card title="Monthly Leaderboard" icon="starlight">
+      <Card title="Documents Created This Month" icon="starlight">
       <table style="border-collapse: collapse; width: 100%;">
         {
           monthlyStats.map((m) => ( 
@@ -224,6 +224,63 @@ const getRank = (stats: TeamStats[], currentTeam: TeamStats) => {
       </table>
     </Card>
   </TabItem>
+  <TabItem label="Title Track">
+    <Card title="Titles" icon="codeberg">
+      <table style="border-collapse: collapse; width: 100%;">
+        <thead>
+          <tr>
+            <th style="text-align: left;">Rank</th>
+            <th style="text-align: center;">Title</th>
+            <th style="text-align: right;">Documents Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">1</td>
+            <td style="text-align: center;"><TitleBadge rank={1} /></td>
+            <!-- <Badge text="Kind Of A Big Deal" size="small" style="background-color: #62A4DA;border-color:#62A4DA;"></Badge> -->
+            <td style="text-align: right;">10</td>
+            <!-- 25 -->
+          </tr>
+          <tr>
+            <td style="text-align: center;">2</td>
+            <td style="text-align: center;">???</td>
+            <!-- <Badge text="People Know Me" size="small" style="background-color:#1a9306;border-color:#1a9306;"></Badge> -->
+            <td style="text-align: right;">???</td>
+            <!-- 25 -->
+          </tr>
+          <tr>
+            <td style="text-align: center;">3</td>
+            <td style="text-align: center;">???</td>
+            <!-- <Badge text="I'm Very Important" size="small" style="background-color:#fcd00b;border-color:#fcd00b;"></Badge> -->
+            <td style="text-align: right;">???</td>
+            <!-- 50 -->
+          </tr>
+          <tr>
+            <td style="text-align: center;">4</td>
+            <td style="text-align: center;">???</td>
+            <!-- <Badge text="I Have Many Leather-Bound Books" size="medium" style="background-color:#ffa405;border-color:#ffa405;"></Badge> -->
+            <td style="text-align: right;">???</td>
+            <!-- 100 -->
+          </tr>
+          <tr>
+            <td style="text-align: center;">5</td>
+            <td style="text-align: center;">???</td>
+            <!-- <Badge text="My Homelab Smells of Rich Mahogany" size="medium" style="background-color:#fb3e8d;border-color:#fb3e8d;"></Badge> -->
+            <td style="text-align: right;">???</td>
+            <!-- 500 -->
+          </tr>
+          <tr>
+            <td style="text-align: center;">6</td>
+            <td style="text-align: center;">???</td>
+            <!-- <Badge text="God Walking Amongst Mere Mortals" size="large" style="background-color:#4C139D;border-color:#4C139D;"></Badge> -->
+            <td style="text-align: right;">???</td>
+            <!-- 1000 -->
+          </tr>
+        </tbody>
+      </table>
+    </Card>
+  </TabItem>
     </Tabs>
     <HallComponent/>
     <Card title="Learning Paths [TODO]">
@@ -233,43 +290,7 @@ const getRank = (stats: TeamStats[], currentTeam: TeamStats) => {
       <LinkCard title="Cisco Technologies"></LinkCard>
       <LinkCard title="Microsoft Technologies"></LinkCard>
     </Card>
-    <Card title="Title Track" icon="codeberg">
-      <table style="border-collapse: collapse; width: 100%;">
-        <thead>
-          <tr>
-            <th style="text-align: left;">Title</th>
-            <th style="text-align: right;">Docs Uploaded</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr>
-              <td style="text-align: center;"><TitleBadge rank={1}/></td> <!-- <Badge text="Kind Of A Big Deal" size="small" style="background-color: #62A4DA;border-color:#62A4DA;"></Badge> -->
-              <td style="text-align: left;">10</td> <!-- 25 -->
-            </tr>
-            <tr>
-              <td style="text-align: center;">???</td> <!-- <Badge text="People Know Me" size="small" style="background-color:#1a9306;border-color:#1a9306;"></Badge> -->
-              <td style="text-align: left;">???</td> <!-- 25 -->
-            </tr>
-            <tr>
-              <td style="text-align: center;">???</td> <!-- <Badge text="I'm Very Important" size="small" style="background-color:#fcd00b;border-color:#fcd00b;"></Badge> -->
-              <td style="text-align: left;">???</td> <!-- 50 -->
-            </tr>
-            <tr>
-              <td style="text-align: center;">???</td> <!-- <Badge text="I Have Many Leather-Bound Books" size="medium" style="background-color:#ffa405;border-color:#ffa405;"></Badge> -->
-              <td style="text-align: left;">???</td> <!-- 100 -->
-            </tr>
-            <tr>
-              <td style="text-align: center;">???</td> <!-- <Badge text="My Homelab Smells of Rich Mahogany" size="medium" style="background-color:#fb3e8d;border-color:#fb3e8d;"></Badge> -->
-              <td style="text-align: left;">???</td> <!-- 500 -->
-            </tr>
-            <tr>
-              <td style="text-align: center;">???</td> <!-- <Badge text="God Walking Amongst Mere Mortals" size="large" style="background-color:#4C139D;border-color:#4C139D;"></Badge> -->
-              <td style="text-align: left;">???</td> <!-- 1000 -->
-            </tr>
-        </tbody> 
-      </table>
-    </Card>
-    <Card title="Latest Documents" icon="open-book">
+    <Card title="Latest Documents" icon="document">
       <table style="border-collapse: collapse; width: 100%;">
         <thead>
           <tr>
