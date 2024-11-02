@@ -2,6 +2,10 @@
 title: Update Secure Cloud Analytics sensors
 created: "2024-10-23"
 owner: ezekiel.nye@forfusion.com
+createdBy: ezekiel.nye@forfusion.com
+authors:
+  - author: ezekiel.nye@forfusion.com
+    percentage: 100
 category: procedure
 ---
 
@@ -29,22 +33,23 @@ The below steps do not currently apply to the sensor VM hosted in DC1. Read the 
 1. Connect to the sensor
 2. At the login banner, you will see something like this:
 
-    ```txt
-    65 updates can be applied immediately.
-    47 of these updates are standard security updates.
-    To see these additional updates run: apt list --upgradable
-    ```
+   ```txt
+   65 updates can be applied immediately.
+   47 of these updates are standard security updates.
+   To see these additional updates run: apt list --upgradable
+   ```
 
    Feel free to run `apt list --upgradeable` to confirm. If there are no upgradable packages present, inform the customer and finish. This will never happen, so continue.
+
 3. Run `sudo apt upgrade`. You'll be asked for the sudo password which you prepared earlier. The output will look something like:
 
-    ```txt
-    61 to upgrade, 5 to newly install, 0 to remove and 0 not to upgrade.
-    36 standard LTS security updates
-    Need to get 141 MB of archives.
-    After this operation, 383 MB of additional disk space will be used.
-    Do you want to continue? [Y/n] 
-    ```
+   ```txt
+   61 to upgrade, 5 to newly install, 0 to remove and 0 not to upgrade.
+   36 standard LTS security updates
+   Need to get 141 MB of archives.
+   After this operation, 383 MB of additional disk space will be used.
+   Do you want to continue? [Y/n]
+   ```
 
 4. Hit **Return** to continue. The packages will now be updated.
 5. After the updates, the sensor will require a reboot; run `sudo reboot`. If you do this soon enough after running the previous command you will not be prompted to enter the sudo password a second time, and your session will immediately drop as the reboot process begins.

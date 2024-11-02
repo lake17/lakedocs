@@ -58,6 +58,7 @@ Other clients:
       - CIMC Node 2: https://192.168.9.11/
 Suppliers:
   - Cisco:
+      - Security Advisories: https://sec.cloudapps.cisco.com/security/center/publicationListing.x?product=Cisco&sort=-day_sir#%7EVulnerabilities
       - Coverage Checker: https://cway.cisco.com/sncheck/
       - Services Contracts: https://ccrc.cisco.com/ServiceContract/contract/?code=iscmctYzLmILlKmUMcij-VQkV3j3J6QdqlgAAADK&state=xyz
       - Contracts: https://rpfa.cloudapps.cisco.com/rpfa/profile/edit_entitlement.do?Tab=3&locale=en_US&organization=global

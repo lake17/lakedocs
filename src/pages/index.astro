@@ -1,12 +1,16 @@
 ---
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro"
 import dayjs from "dayjs"
-import { LinkCard, Card, CardGrid, Badge, Tabs, TabItem } from "@astrojs/starlight/components"
+import { LinkCard, Card, CardGrid, Tabs, TabItem } from "@astrojs/starlight/components"
 import MedalBadge from "../components/MedalBadge.astro"
 import TitleBadge from "../components/TitleBadge.astro"
 import Mult from "../components/Mult.astro"
 import ThreeCardGrid from "../components/ThreeCardGrid.astro"
-import team from "../data/team_webex.json"
+import rawTeam from "../data/team_webex.json"
+const team = rawTeam.map(member => ({
+  ...member,
+  rank: member.rank as 1 | 2 | 3 | 4 | 5 | 6
+}));
 import wanted from "../data/wanted-docs.json"
 import { Image } from "astro:assets"
 import eng from "../assets/fusioncare-engineer.webp"
@@ -16,76 +20,62 @@ import HallComponent from "@components/HallComponent.astro"
 
 // TODO: find out how to do this properly - extend type?
 const docs: CollectionEntry<"docs">[] = await getCollection("docs")
-const created_docs: CollectionEntry<"docs">[] = docs.filter((x: CollectionEntry<"docs">) => {
-  if (x.data.created) {
-    return x;
-  }
-})
-const sorted_created_docs: CollectionEntry<"docs">[] = created_docs.sort(
-  (a, b) => {
-    let adc = a.data.created
-    let bdc = b.data.created
-    if (adc && bdc) {
-      const x = new Date(adc)
-      const y = new Date(bdc)
-      return y.getTime() - x.getTime()
-    }
-    throw new Error("cunt")
-  }
-)
-const weekly_docs = sorted_created_docs.filter((m) => {
-  if (m.data.created && dayjs(m.data.created).isSame(dayjs(), "week")) {
-    return m
-  }
-})
-const monthly_docs = sorted_created_docs.filter((m) => {
-  if (m.data.created && dayjs(m.data.created).isSame(dayjs(), "month")) {
-    return m
-  }
-})
-let weekly_team_stats = team.map((m) => {
-  let c = 0
-  for (let n of weekly_docs) {
-    if (n.data.owner === m.email) {
-      c = c + 1
-    }
-  }
-  return {
-    name: m.name,
-    pic: m.avatar,
-    email: m.email,
-    rank: m.rank,
-    bonus: m.bonus,
-    output: c,
-  }
-})
-weekly_team_stats.sort((a, b) => {
-  const x = Number(a.output)
-  const y = Number(b.output)
-  return y - x
-})
-let monthly_team_stats = team.map((m) => {
-  let c = 0
-  for (let n of monthly_docs) {
-    if (n.data.owner === m.email) {
-      c = c + 1
-    }
-  }
-  return {
-    name: m.name,
-    pic: m.avatar,
-    email: m.email,
-    rank: m.rank,
-    bonus: m.bonus,
-    output: c,
-  }
-})
-monthly_team_stats.sort((a, b) => {
-  const x = Number(a.output)
-  const y = Number(b.output)
-  return y - x
-})
 
+interface TeamMember {
+  name: string;
+  avatar: string;
+  email: string;
+  rank: 1|2|3|4|5|6;
+  bonus: number;
+  id: string;
+}
+
+interface TeamStats extends TeamMember {
+  output: number;
+}
+
+// Helper function to get docs with created date
+const getCreatedDocs = (docs: CollectionEntry<"docs">[]) => 
+  docs.filter((x) => x.data.created);
+
+// Helper function to sort docs by created date
+const sortByCreatedDate = (docs: CollectionEntry<"docs">[]) => 
+  docs.sort((a, b) => {
+    const aDate = new Date(a.data.created!);
+    const bDate = new Date(b.data.created!);
+    return bDate.getTime() - aDate.getTime();
+  });
+
+// Helper function to filter docs by time period
+const filterByTimePeriod = (docs: CollectionEntry<"docs">[], period: "week" | "month") =>
+  docs.filter((m) => m.data.created && dayjs(m.data.created).isSame(dayjs(), period));
+
+// Helper function to calculate team stats
+const calculateTeamStats = (team: TeamMember[], periodDocs: CollectionEntry<"docs">[]) => {
+  const stats = team.map((m) => ({
+    ...m,
+    output: periodDocs.filter((n) => n.data.owner === m.email).length
+  }));
+
+  return stats.sort((a, b) => b.output - a.output);
+};
+
+// Main function to process docs and generate stats
+const processTeamStats = async (docs: CollectionEntry<"docs">[], team: TeamMember[]) => {
+  const createdDocs = getCreatedDocs(docs);
+  const sortedDocs = sortByCreatedDate(createdDocs);
+  
+  const weeklyDocs = filterByTimePeriod(sortedDocs, "week");
+  const monthlyDocs = filterByTimePeriod(sortedDocs, "month");
+  
+  const weeklyStats = calculateTeamStats(team, weeklyDocs);
+  const monthlyStats = calculateTeamStats(team, monthlyDocs);
+  
+  return { sortedDocs, weeklyStats, monthlyStats };
+};
+
+// Usage
+const { sortedDocs, weeklyStats, monthlyStats } = await processTeamStats(docs, team);
 function getMonthsBetween(date1: Date, date2: Date): number {
   const d1 = dayjs(date1);
   const d2 = dayjs(date2);
@@ -99,11 +89,7 @@ function getMonthsBetween(date1: Date, date2: Date): number {
   return years * 12 + months + monthCorrection;
 }
 
-type Stat = {
-  output: number
-}
-
-const getRank = (stats: Stat[], currentTeam: Stat) => {
+const getRank = (stats: TeamStats[], currentTeam: TeamStats) => {
     // Sort teams by output in descending order
     const sortedTeams = [...stats].sort((a, b) => b.output - a.output);
     
@@ -148,12 +134,12 @@ const getRank = (stats: Stat[], currentTeam: Stat) => {
       <Card title="Weekly Leaderboard" icon="star">
       <table style="border-collapse: collapse; width: 100%;">
         {
-          weekly_team_stats.map((m) => ( 
+          weeklyStats.map((m) => ( 
             <tr>
               <td style="text-align: center">
-                {m.pic ? (
+                {m.avatar ? (
                   <Image
-                    src={m.pic}
+                    src={m.avatar}
                     alt="Avatar"
                     width="50"
                     height="50"
@@ -173,7 +159,7 @@ const getRank = (stats: Stat[], currentTeam: Stat) => {
               <td style="text-align: center;vertical-align: middle;">{
                   (() => {
                     if (m.output === 0) return '0';
-                      const position = weekly_team_stats.findIndex(t => t.output === m.output) + 1 as 1 | 2 | 3;
+                      const position = weeklyStats.findIndex(t => t.output === m.output) + 1 as 1 | 2 | 3;
                       return [1, 2, 3].includes(position) ? (
                               <MedalBadge 
                                   text={String(m.output)}
@@ -194,12 +180,12 @@ const getRank = (stats: Stat[], currentTeam: Stat) => {
       <Card title="Monthly Leaderboard" icon="starlight">
       <table style="border-collapse: collapse; width: 100%;">
         {
-          monthly_team_stats.map((m) => ( 
+          monthlyStats.map((m) => ( 
             <tr>
               <td style="text-align: center;">
-                {m.pic ? (
+                {m.avatar ? (
                   <Image
-                    src={m.pic}
+                    src={m.avatar}
                     alt="Avatar"
                     width="50"
                     height="50"
@@ -220,7 +206,7 @@ const getRank = (stats: Stat[], currentTeam: Stat) => {
               {
                   (() => {
                       if (m.output === 0) return "0";
-                      const position = getRank(monthly_team_stats, m) as 1|2|3
+                      const position = getRank(monthlyStats, m) as 1|2|3
                       return [1, 2, 3].includes(position) ? (
                               <MedalBadge 
                                   text={String(m.output)}
@@ -293,7 +279,7 @@ const getRank = (stats: Stat[], currentTeam: Stat) => {
         </thead>
         <tbody>
           {
-            sorted_created_docs.map((m) => (
+            sortedDocs.map((m) => (
               <tr>
                 <td><a href={"/"+m.slug+"/"}>{m.data.title}</a></td>
                 <td style="text-align: right; white-space: nowrap;">{(m.data.created ? new Date(m.data.created).toISOString().split('T')[0] : "duh i broked sumfin")}</td>
