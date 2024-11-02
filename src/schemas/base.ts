@@ -62,7 +62,13 @@ export const baseSchema = z.object({
 		.string()
 		.optional(),
 	// TODO: make this .date()
-	created: z
+	createdOn: z
+		.string()
+		.optional(),
+	createdBy: z
+		.string()
+		.optional(),
+	category: z
 		.string()
 		.optional(),
 	updated: z

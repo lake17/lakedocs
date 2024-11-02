@@ -4,9 +4,9 @@ category: procedure
 owner: george.russ@forfusion.com
 createdBy: george.russ@forfusion.com
 authors:
-  - author: george.russ@forfusion.com
+  - name: george.russ@forfusion.com
     percentage: 100
-created: "2024-10-29"
+createdOn: "2024-10-29"
 ---
 
 This procedure provides a structured approach to identifying a Grussalo.
