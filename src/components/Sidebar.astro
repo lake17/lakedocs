@@ -7,7 +7,7 @@ import { Badge } from "@astrojs/starlight/components"
 import type { ComponentProps, HTMLAttributes } from "astro/types"
 import type { AstroBuiltinAttributes } from "astro"
 
-const { sidebar, slug } = Astro.props
+const { sidebar, slug, hasSidebar, template } = Astro.props
 
 const linkHTMLAttributesSchema = z.record(
   z.union([z.string(), z.number(), z.boolean(), z.undefined()])
@@ -35,15 +35,15 @@ interface Group {
   order: number
 }
 
-
 const currentSection = slug?.split("/")[0]
 
 let filtered = sidebar.filter(
   (x) => x.label.toLowerCase() === currentSection
 )[0] as Group
-
-if (!filtered.entries) {
-  throw new Error(`[Sidebar] Failed to find entries for ${currentSection}`)
+if (hasSidebar && template !== "splash") {
+  if (!filtered.entries) {
+    throw new Error(`[Sidebar] Failed to find entries for ${currentSection}`)
+  }
 }
 
 function sortGroup(a: SidebarEntry, b: SidebarEntry): number {
@@ -157,6 +157,7 @@ filtered.entries = filtered.entries.sort(sortGroup)
 
 filtered.entries[0].label = "Overview"
 ---
+
 <h1>{currentSection}</h1>
 <!-- @ts-expect-error -->
 <Default {...Astro.props} sidebar={filtered.entries}><slot /></Default>

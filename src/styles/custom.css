@@ -25,12 +25,13 @@
 .social-icons::after {
 	display: none;
 }
-
+/*
+  font-weight: 400;
+  font-style: normal;
+*/
 * {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
   text-underline-offset: 5px;
   .sl-markdown-content a:not(:where(.not-content *)) {
 	color: var(--sl-color-white);

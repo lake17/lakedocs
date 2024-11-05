@@ -8,5 +8,9 @@ export default defineMarkdocConfig({
     FrontPage: {
       render: component("./src/components/FrontPage.astro"),
     },
-  },
+		steps: {
+			render: component('@astrojs/starlight/components', 'Steps'),
+			attributes: {},
+		}, 
+  }
 })

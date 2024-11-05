@@ -26,7 +26,7 @@ async function autogenSections() {
 // https://astro.build/config
 export default defineConfig({
   prefetch: {
-    defaultStrategy: "viewport",
+    defaultStrategy: "hover",
     prefetchAll: true,
   },
   integrations: [

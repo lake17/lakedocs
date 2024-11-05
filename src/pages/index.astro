@@ -36,19 +36,19 @@ interface TeamStats extends TeamMember {
 
 // Helper function to get docs with created date
 const getCreatedDocs = (docs: CollectionEntry<"docs">[]) => 
-  docs.filter((x) => x.data.created);
+  docs.filter((x) => x.data.createdOn);
 
 // Helper function to sort docs by created date
 const sortByCreatedDate = (docs: CollectionEntry<"docs">[]) => 
   docs.sort((a, b) => {
-    const aDate = new Date(a.data.created!);
-    const bDate = new Date(b.data.created!);
+    const aDate = new Date(a.data.createdOn!);
+    const bDate = new Date(b.data.createdOn!);
     return bDate.getTime() - aDate.getTime();
   });
 
 // Helper function to filter docs by time period
 const filterByTimePeriod = (docs: CollectionEntry<"docs">[], period: "week" | "month") =>
-  docs.filter((m) => m.data.created && dayjs(m.data.created).isSame(dayjs(), period));
+  docs.filter((m) => m.data.createdOn && dayjs(m.data.createdOn).isSame(dayjs(), period));
 
 // Helper function to calculate team stats
 const calculateTeamStats = (team: TeamMember[], periodDocs: CollectionEntry<"docs">[]) => {
@@ -121,7 +121,7 @@ const getRank = (stats: TeamStats[], currentTeam: TeamStats) => {
   ],
   }}>
   <ThreeCardGrid>
-    <LinkCard title="Introduction [TODO]"></LinkCard>
+    <LinkCard title="README [WIP]" href="/readme"></LinkCard>
     <LinkCard title="Documentation" href="/sections"></LinkCard>
     <LinkCard title="Editor" href="/ed"></LinkCard>
     <LinkCard title="Bookmarks" href="/bookmarks"></LinkCard>
@@ -303,7 +303,7 @@ const getRank = (stats: TeamStats[], currentTeam: TeamStats) => {
             sortedDocs.map((m) => (
               <tr>
                 <td><a href={"/"+m.slug+"/"}>{m.data.title}</a></td>
-                <td style="text-align: right; white-space: nowrap;">{(m.data.created ? new Date(m.data.created).toISOString().split('T')[0] : "duh i broked sumfin")}</td>
+                <td style="text-align: right; white-space: nowrap;">{(m.data.createdOn ? new Date(m.data.createdOn).toISOString().split('T')[0] : "duh i broked sumfin")}</td>
               </tr>
             ))
           }
