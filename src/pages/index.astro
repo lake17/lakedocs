@@ -121,7 +121,7 @@ const getRank = (stats: TeamStats[], currentTeam: TeamStats) => {
   ],
   }}>
   <ThreeCardGrid>
-    <LinkCard title="README [WIP]" href="/readme"></LinkCard>
+    <LinkCard title="README" href="/readme"></LinkCard>
     <LinkCard title="Documentation" href="/sections"></LinkCard>
     <LinkCard title="Editor" href="/ed"></LinkCard>
     <LinkCard title="Bookmarks" href="/bookmarks"></LinkCard>
@@ -283,13 +283,6 @@ const getRank = (stats: TeamStats[], currentTeam: TeamStats) => {
   </TabItem>
     </Tabs>
     <HallComponent/>
-    <Card title="Learning Paths [TODO]">
-      <LinkCard title="Onboarding"></LinkCard>
-      <LinkCard title="FusionCare First Line"></LinkCard>
-      <LinkCard title="FusionCare Second Line"></LinkCard>
-      <LinkCard title="Cisco Technologies"></LinkCard>
-      <LinkCard title="Microsoft Technologies"></LinkCard>
-    </Card>
     <Card title="Latest Documents" icon="document">
       <table style="border-collapse: collapse; width: 100%;">
         <thead>
@@ -338,6 +331,13 @@ const getRank = (stats: TeamStats[], currentTeam: TeamStats) => {
             }     
         </tbody>
       </table>
+    </Card>
+    <Card title="Learning Paths [TODO]">
+      <LinkCard title="Onboarding"></LinkCard>
+      <LinkCard title="FusionCare First Line"></LinkCard>
+      <LinkCard title="FusionCare Second Line"></LinkCard>
+      <LinkCard title="Cisco Technologies"></LinkCard>
+      <LinkCard title="Microsoft Technologies"></LinkCard>
     </Card>
     </CardGrid>
 </StarlightPage>
