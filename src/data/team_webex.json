@@ -5,7 +5,8 @@
     "avatar": "",
     "name": "Carson Briggs",
     "rank": 0,
-    "bonus": 0
+    "bonus": 0,
+    "total": 1
   },
   {
     "email": "daniel.mead@forfusion.com",
@@ -13,7 +14,8 @@
     "avatar": "",
     "name": "Daniel Mead",
     "rank": 1,
-    "bonus": 0
+    "bonus": 0,
+    "total": 12
   },
   {
     "email": "darren.candlish@forfusion.com",
@@ -21,7 +23,8 @@
     "avatar": "https://avatar-prod-us-east-2.webexcontent.com/Avtr~V1~91dd6f49-8765-430d-aec3-ea9570a56933/V1~1799fbfe-e68c-4b40-996d-ad7139342639~3356114b37f14088a939ce77a8d37d6c~1600",
     "name": "Darren Candlish",
     "rank": 0,
-    "bonus": 0
+    "bonus": 0,
+    "total": 1
   },
   {
     "email": "ellis.moll@forfusion.com",
@@ -29,7 +32,8 @@
     "avatar": "",
     "name": "Ellis Moll",
     "rank": 0,
-    "bonus": 0
+    "bonus": 0,
+    "total": 1
   },
   {
     "email": "ezekiel.nye@forfusion.com",
@@ -37,7 +41,8 @@
     "avatar": "",
     "name": "Ezekiel Nye",
     "rank": 0,
-    "bonus": 0
+    "bonus": 0,
+    "total": 2
   },
   {
     "email": "finlay.blight@forfusion.com",
@@ -45,7 +50,8 @@
     "avatar": "",
     "name": "Finlay Blight",
     "rank": 0,
-    "bonus": 0
+    "bonus": 0,
+    "total": 1
   },
   {
     "email": "gavin.roberts@forfusion.com",
@@ -53,7 +59,8 @@
     "avatar": "https://avatar-prod-us-east-2.webexcontent.com/Avtr~V1~91dd6f49-8765-430d-aec3-ea9570a56933/V1~7d9ca2852d12725990eae6269f689cb60d7d87e7beaeea147d2e084f16c709c6~0578a08c41e94c55bebb4ab10a939eb5~1600",
     "name": "Gav Roberts",
     "rank": 0,
-    "bonus": 0
+    "bonus": 0,
+    "total": 5
   },
   {
     "email": "george.hanks@forfusion.com",
@@ -61,7 +68,8 @@
     "avatar": "",
     "name": "George Hanks",
     "rank": 0,
-    "bonus": 0
+    "bonus": 0,
+    "total": 0
   },
   {
     "email": "george.russ@forfusion.com",
@@ -69,7 +77,8 @@
     "avatar": "https://avatar-prod-us-east-2.webexcontent.com/Avtr~V1~91dd6f49-8765-430d-aec3-ea9570a56933/V1~149aa2730031d14dc7699c554a743e75246e8eab576fb1aebb29bd0e09452eae~1a465d20f2c34852a31087a362c5931f~1600",
     "name": "George Russ",
     "rank": 0,
-    "bonus": 0
+    "bonus": 0,
+    "total": 8
   },
   {
     "email": "rafal.kosalka@forfusion.com",
@@ -77,6 +86,7 @@
     "avatar": "https://avatar-prod-us-east-2.webexcontent.com/Avtr~V1~91dd6f49-8765-430d-aec3-ea9570a56933/V1~b61cd1cc0f4e73de4485bef27e567da2cc62990e6825aaf06f69454fc7f28249~9d17a4b878af4469aaeb11f50b722b71~1600",
     "name": "Rafal Kosalka",
     "rank": 0,
-    "bonus": 0
+    "bonus": 0,
+    "total": 3
   }
 ]

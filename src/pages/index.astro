@@ -17,6 +17,7 @@ import eng from "../assets/fusioncare-engineer.webp"
 import { getCollection } from "astro:content"
 import type { CollectionEntry } from "astro:content"
 import HallComponent from "@components/HallComponent.astro"
+import fs from 'fs'
 
 // TODO: find out how to do this properly - extend type?
 const docs: CollectionEntry<"docs">[] = await getCollection("docs")
@@ -28,11 +29,14 @@ interface TeamMember {
   rank: 1|2|3|4|5|6;
   bonus: number;
   id: string;
+  total: number;
 }
 
 interface TeamStats extends TeamMember {
   output: number;
 }
+
+
 
 // Helper function to get docs with created date
 const getCreatedDocs = (docs: CollectionEntry<"docs">[]) => 
@@ -51,13 +55,14 @@ const filterByTimePeriod = (docs: CollectionEntry<"docs">[], period: "week" | "m
   docs.filter((m) => m.data.createdOn && dayjs(m.data.createdOn).isSame(dayjs(), period));
 
 // Helper function to calculate team stats
-const calculateTeamStats = (team: TeamMember[], periodDocs: CollectionEntry<"docs">[]) => {
+const calculateTeamStats = (team: TeamMember[], periodDocs: CollectionEntry<"docs">[], sort: Boolean) => {
   const stats = team.map((m) => ({
     ...m,
     output: periodDocs.filter((n) => n.data.owner === m.email).length
   }));
 
-  return stats.sort((a, b) => b.output - a.output);
+  if (sort) { return stats.sort((a, b) => b.output - a.output) }
+  return stats
 };
 
 // Main function to process docs and generate stats
@@ -68,14 +73,16 @@ const processTeamStats = async (docs: CollectionEntry<"docs">[], team: TeamMembe
   const weeklyDocs = filterByTimePeriod(sortedDocs, "week");
   const monthlyDocs = filterByTimePeriod(sortedDocs, "month");
   
-  const weeklyStats = calculateTeamStats(team, weeklyDocs);
-  const monthlyStats = calculateTeamStats(team, monthlyDocs);
+  const weeklyStats = calculateTeamStats(team, weeklyDocs, true);
+  const monthlyStats = calculateTeamStats(team, monthlyDocs, true);
+  const allTimeStats = calculateTeamStats(team, sortedDocs, false);
   
-  return { sortedDocs, weeklyStats, monthlyStats };
+  return { sortedDocs, weeklyStats, monthlyStats, allTimeStats };
 };
 
+
 // Usage
-const { sortedDocs, weeklyStats, monthlyStats } = await processTeamStats(docs, team);
+const { sortedDocs, weeklyStats, monthlyStats, allTimeStats } = await processTeamStats(docs, team);
 function getMonthsBetween(date1: Date, date2: Date): number {
   const d1 = dayjs(date1);
   const d2 = dayjs(date2);
@@ -88,6 +95,33 @@ function getMonthsBetween(date1: Date, date2: Date): number {
   
   return years * 12 + months + monthCorrection;
 }
+
+function outputToRank(a: number) {
+  let c = [10,25,50,100,500,1000]
+  for (let i = 0; i < c.length; i++) {
+    if (a >= c[i]) {
+      return i + 1;
+    }
+  }
+  return 0;
+}
+function updateRanks() {
+  rawTeam.forEach(user => {
+    const matchingUser = allTimeStats.find(u => u.email === user.email);
+    if (matchingUser) {
+      user.total = matchingUser.output
+      user.rank = outputToRank(matchingUser.output);
+    }
+  });
+
+  fs.writeFile('src/data/team_webex.json', JSON.stringify(rawTeam, null, 2), (err) => {
+    if (err) {
+      console.error('Error writing file:', err);
+    }
+  });
+}
+
+updateRanks();
 
 const getRank = (stats: TeamStats[], currentTeam: TeamStats) => {
     // Sort teams by output in descending order
@@ -106,7 +140,7 @@ const getRank = (stats: TeamStats[], currentTeam: TeamStats) => {
       }
     }
     return rank;
-  };
+};
 
 ---
 
@@ -218,71 +252,76 @@ const getRank = (stats: TeamStats[], currentTeam: TeamStats) => {
                   })()
               }
               </td>
-              </tr>
+            </tr>
           ))
         }
       </table>
     </Card>
   </TabItem>
-  <TabItem label="Title Track">
-    <Card title="Titles" icon="codeberg">
-      <table style="border-collapse: collapse; width: 100%;">
-        <thead>
-          <tr>
-            <th style="text-align: left;">Rank</th>
-            <th style="text-align: center;">Title</th>
-            <th style="text-align: right;">Documents Created</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="text-align: center;">1</td>
-            <td style="text-align: center;"><TitleBadge rank={1} /></td>
-            <!-- <Badge text="Kind Of A Big Deal" size="small" style="background-color: #62A4DA;border-color:#62A4DA;"></Badge> -->
-            <td style="text-align: right;">10</td>
-            <!-- 25 -->
-          </tr>
-          <tr>
-            <td style="text-align: center;">2</td>
-            <td style="text-align: center;">???</td>
-            <!-- <Badge text="People Know Me" size="small" style="background-color:#1a9306;border-color:#1a9306;"></Badge> -->
-            <td style="text-align: right;">???</td>
-            <!-- 25 -->
-          </tr>
-          <tr>
-            <td style="text-align: center;">3</td>
-            <td style="text-align: center;">???</td>
-            <!-- <Badge text="I'm Very Important" size="small" style="background-color:#fcd00b;border-color:#fcd00b;"></Badge> -->
-            <td style="text-align: right;">???</td>
-            <!-- 50 -->
-          </tr>
-          <tr>
-            <td style="text-align: center;">4</td>
-            <td style="text-align: center;">???</td>
-            <!-- <Badge text="I Have Many Leather-Bound Books" size="medium" style="background-color:#ffa405;border-color:#ffa405;"></Badge> -->
-            <td style="text-align: right;">???</td>
-            <!-- 100 -->
-          </tr>
-          <tr>
-            <td style="text-align: center;">5</td>
-            <td style="text-align: center;">???</td>
-            <!-- <Badge text="My Homelab Smells of Rich Mahogany" size="medium" style="background-color:#fb3e8d;border-color:#fb3e8d;"></Badge> -->
-            <td style="text-align: right;">???</td>
-            <!-- 500 -->
-          </tr>
-          <tr>
-            <td style="text-align: center;">6</td>
-            <td style="text-align: center;">???</td>
-            <!-- <Badge text="God Walking Amongst Mere Mortals" size="large" style="background-color:#4C139D;border-color:#4C139D;"></Badge> -->
-            <td style="text-align: right;">???</td>
-            <!-- 1000 -->
-          </tr>
-        </tbody>
-      </table>
-    </Card>
-  </TabItem>
     </Tabs>
     <HallComponent/>
+      <Card title="Title Track" icon="seti:grails">
+        <table style="border-collapse: collapse; width: 100%;">
+          <thead>
+            <tr>
+              <th style="text-align: left;">Rank</th>
+              <th style="text-align: center;">Title</th>
+              <th style="text-align: right;">Documents Created</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: center;">1</td>
+              <td style="text-align: center;"><TitleBadge rank={1} /></td>
+              <!-- <Badge text="Kind Of A Big Deal" size="small" style="background-color: #62A4DA;border-color:#62A4DA;"></Badge> -->
+              <td style="text-align: right;">10</td>
+              <!-- 25 -->
+            </tr>
+            <tr>
+              <td style="text-align: center;">2</td>
+              <td style="text-align: center;">???</td>
+              <!-- <Badge text="People Know Me" size="small" style="background-color:#1a9306;border-color:#1a9306;"></Badge> -->
+              <td style="text-align: right;">???</td>
+              <!-- 25 -->
+            </tr>
+            <tr>
+              <td style="text-align: center;">3</td>
+              <td style="text-align: center;">???</td>
+              <!-- <Badge text="I'm Very Important" size="small" style="background-color:#fcd00b;border-color:#fcd00b;"></Badge> -->
+              <td style="text-align: right;">???</td>
+              <!-- 50 -->
+            </tr>
+            <tr>
+              <td style="text-align: center;">4</td>
+              <td style="text-align: center;">???</td>
+              <!-- <Badge text="I Have Many Leather-Bound Books" size="medium" style="background-color:#ffa405;border-color:#ffa405;"></Badge> -->
+              <td style="text-align: right;">???</td>
+              <!-- 100 -->
+            </tr>
+            <tr>
+              <td style="text-align: center;">5</td>
+              <td style="text-align: center;">???</td>
+              <!-- <Badge text="My Homelab Smells of Rich Mahogany" size="medium" style="background-color:#fb3e8d;border-color:#fb3e8d;"></Badge> -->
+              <td style="text-align: right;">???</td>
+              <!-- 500 -->
+            </tr>
+            <tr>
+              <td style="text-align: center;">6</td>
+              <td style="text-align: center;">???</td>
+              <!-- <Badge text="God Walking Amongst Mere Mortals" size="large" style="background-color:#4C139D;border-color:#4C139D;"></Badge> -->
+              <td style="text-align: right;">???</td>
+              <!-- 1000 -->
+            </tr>
+          </tbody>
+        </table>
+      </Card>
+    <Card title="Learning Paths [TODO]" icon="seti:notebook">
+      <LinkCard title="Onboarding"></LinkCard>
+      <LinkCard title="FusionCare First Line"></LinkCard>
+      <LinkCard title="FusionCare Second Line"></LinkCard>
+      <LinkCard title="Cisco Technologies"></LinkCard>
+      <LinkCard title="Microsoft Technologies"></LinkCard>
+    </Card>
     <Card title="Latest Documents" icon="document">
       <table style="border-collapse: collapse; width: 100%;">
         <thead>
@@ -332,12 +371,41 @@ const getRank = (stats: TeamStats[], currentTeam: TeamStats) => {
         </tbody>
       </table>
     </Card>
-    <Card title="Learning Paths [TODO]">
-      <LinkCard title="Onboarding"></LinkCard>
-      <LinkCard title="FusionCare First Line"></LinkCard>
-      <LinkCard title="FusionCare Second Line"></LinkCard>
-      <LinkCard title="Cisco Technologies"></LinkCard>
-      <LinkCard title="Microsoft Technologies"></LinkCard>
-    </Card>
     </CardGrid>
+    <Card title="Statistics" icon="seti:odata">
+      <table style="border-collapse: collapse; width: 100%;">
+        <th></th>
+        <th>Name</th>
+        <th>Total</th>
+        <th>Percent of Site</th>
+      {
+        allTimeStats.map((m) => ( 
+          <tr>
+            <td style="text-align: center">
+              {m.avatar ? (
+                <Image
+                  src={m.avatar}
+                  alt="Avatar"
+                  width="50"
+                  height="50"
+                  style="border-radius: 50%; object-fit: cover;"
+                />
+              ) : (
+                <Image
+                  src={eng}
+                  alt="Avatar"
+                  width="50"
+                  height="50"
+                  style="border-radius: 50%; object-fit: cover;"
+                />
+              )}
+            </td>
+            <td style="text-align: left;vertical-align: middle; white-space: nowrap;">{m.name}{m.rank ? <span>&ensp;</span><TitleBadge rank={m.rank}/> : ""}</td>
+            <td style="text-align: center;vertical-align: middle;">{ String(m.total) }</td>
+            <td style="text-align: right;vertical-align: middle;">{Math.trunc(m.total / getCreatedDocs(docs).length  *  100)}</td>
+          </tr>
+        ))
+      }   
+      </table>
+    </Card>
 </StarlightPage>

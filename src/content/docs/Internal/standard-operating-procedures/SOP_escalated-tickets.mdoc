@@ -82,6 +82,10 @@ It is hoped that in the future, nearly all of the tasks in phase 1 will be made 
 
 1. Assign the ticket to yourself to remove it from the queue and take ownership.
 
+1. Confirm also that the ticket is assigned to the correct customer.
+
+   _This is sometimes not the case and must be manually corrected._
+
 1. Check if the ticket needs to be merged with an existing one.
 
    _The search feature helps here. Make sure the search filter settings are clear, so you don’t miss any tickets._
@@ -105,10 +109,6 @@ It is hoped that in the future, nearly all of the tasks in phase 1 will be made 
 
      _This is simply whether or not the ticket came from the customer or not._
      _If it did, it is a Reactive ticket. In all other cases it is a Proactive ticket._
-
-1. Confirm also that the ticket is assigned to the correct customer.
-
-   _This is sometimes not the case and must be manually corrected._
 
 1. Copy and paste the following into a comment on the ticket:
 
@@ -154,36 +154,53 @@ Your job is to get the ticket into an On Hold or a Resolved state.
 
 {% steps %}
 1. Reset your timer if needed.
+
 1. Determine the next step, and whether it requires work to be done outside of Zoho.
+
 1. If it does, then you need to create a Task.
+
    {% steps %}
    1. Click Activity > Add Activity > Task to be taken to the Task Creation page. Fill in every relevant field. Click submit and you will be taken back to the Activities tab on the ticket you came from
-      
+
       _The fields here are mostly all self-explanatory. Be as descriptive as possible when naming the task. Set a due date if appropriate._
+
    1. Begin your task.
-      
+
       _As you work, add comments to the task liberally. You can do so by clicking on the task in the list and adding a comment in the same way as you would for a ticket._
-      
+
       {% aside %}
       At any given moment, any other engineer **must** be able to pick up the task without needing to speak to you, using just the content of your comments.
       {% /aside %}
 
    1. If you need to stop working on the task, change its status to Deferred. If you have finished the task, change its status to Completed.
+
    1. Check your timer and submit your spent time in the Task's ‘Time Entries’ section
+
+      {% aside type="caution" %}
+      Any time spent on a Task must be logged against the Task - not the ticket it is associated with!
+      {% /aside %}
+
    1. Return to Step 1 of Phase 2 of this SOP.
    {% /steps %}
-   
+
 1. If your next action is to be taken from within Zoho, it will involve communicating with the customer. This communication will either be notification of ticket closure or not.
+
 1. If the ticket has not yet been resolved, complete the action.
+
    {% steps %}
    1. If, following your action, the responsibility for progressing the ticket is no longer with the FusionCare team, set the status to On Hold.
    1. Check your timer and submit your spent time in the ticket's ‘Time Entries’ section
-   1. Return to Step 1 of Phase 2 of this SOP.
+   1. Return to Step 1 of Phase 1 of this SOP.
    {% /steps %}
+
 1. If the ticket has been resolved, notify the customer that the ticket will be closed.
+
 1. If, in the course of completing this ticket, the customer has requested special treatment, then set the Special Treatment field on the ticket as appropriate.
+
 1. If, in the course of completing this ticket, a TAC case is raised, then check the TAC Case Raised? box on the ticket.
+
 1. Copy and paste the following into a comment on the ticket:
+
    {% table %}
    - Task
    - Completed?
@@ -224,6 +241,8 @@ Your job is to get the ticket into an On Hold or a Resolved state.
    - Set TAC Case Logged? field
    - ✅
    {% /table %}
+
 1. Check your timer and submit your spent time in the ticket's ‘Time Entries’ section
+
 1. Return to Step 1 of Phase 1 of this SOP.
 {% /steps %}
