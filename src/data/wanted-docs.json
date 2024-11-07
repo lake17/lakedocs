@@ -1,127 +1,127 @@
 [
     {
       "title": "evolving-networks-failover-test",
-      "since": "2024-09-30T00:00:00.000Z",
+      "since": "2024-09-30",
       "type": "procedure"
     },
     {
       "title": "p1-incident-response",
-      "since": "2024-09-30T00:00:00.000Z",
+      "since": "2024-09-30",
       "type": "procedure"
     },
     {
       "title": "vr-change-request",
-      "since": "2024-09-30T00:00:00.000Z",
+      "since": "2024-09-30",
       "type": "procedure"
     },
     {
       "title": "1st Line Raising ticket for down device in PRTG",
-      "since": "2024-10-22T00:00:00.000Z",
+      "since": "2024-10-22",
       "type": "procedure"
     },
     {
       "title": "Allow external domain messaging on Teams",
-      "since": "2024-10-22T00:00:00.000Z",
+      "since": "2024-10-22",
       "type": "procedure"
     },
     {
       "title": "Auto Attendant destination changes",
-      "since": "2024-10-22T00:00:00.000Z",
+      "since": "2024-10-22",
       "type": "procedure"
     },
     {
       "title": "Call Queue destination changes",
-      "since": "2024-10-22T00:00:00.000Z",
+      "since": "2024-10-22",
       "type": "procedure"
     },
     {
       "title": "Forfusion New User",
-      "since": "2024-10-22T00:00:00.000Z",
+      "since": "2024-10-22",
       "type": "procedure"
     },
     {
       "title": "Forfusion Staff Exit",
-      "since": "2024-10-22T00:00:00.000Z",
+      "since": "2024-10-22",
       "type": "procedure"
     },
     {
       "title": "MS Teams Number Assignment",
-      "since": "2024-10-22T00:00:00.000Z",
+      "since": "2024-10-22",
       "type": "procedure"
     },
     {
       "title": "MS Teams Number removal (VR STAFF EXIT)",
-      "since": "2024-10-22T00:00:00.000Z",
+      "since": "2024-10-22",
       "type": "procedure"
     },
     {
       "title": "Pausing sensors in PRTG (ticket down too long or requested by VR for set times)",
-      "since": "2024-10-22T00:00:00.000Z",
+      "since": "2024-10-22",
       "type": "procedure"
     },
     {
       "title": "Processing Cisco RMA",
-      "since": "2024-10-22T00:00:00.000Z",
+      "since": "2024-10-22",
       "type": "procedure"
     },
     {
       "title": "SBC Checks",
-      "since": "2024-10-22T00:00:00.000Z",
+      "since": "2024-10-22",
       "type": "procedure"
     },
     {
       "title": "Teams call group user changes",
-      "since": "2024-10-22T00:00:00.000Z",
+      "since": "2024-10-22",
       "type": "procedure"
     },
     {
       "title": "Teams greeting and closed message changes",
-      "since": "2024-10-22T00:00:00.000Z",
+      "since": "2024-10-22",
       "type": "procedure"
     },
     {
       "title": "Teams opening time changes",
-      "since": "2024-10-22T00:00:00.000Z",
+      "since": "2024-10-22",
       "type": "procedure"
     },
     {
       "title": "Auto Attendant vs Call Queue",
-      "since": "2024-10-22T00:00:00.000Z",
+      "since": "2024-10-22",
       "type": "explanation"
     },
     {
       "title": "evolving-networks",
-      "since": "2024-09-30T00:00:00.000Z",
+      "since": "2024-09-30",
       "type": "explanation"
     },
     {
       "title": "SBC Explanation",
-      "since": "2024-09-30T00:00:00.000Z",
+      "since": "2024-09-30",
       "type": "explanation"
     },
     {
       "title": "MS Teams Call flows",
-      "since": "2024-10-14T00:00:00.000Z",
+      "since": "2024-10-14",
       "type": "explanation"
     },
     {
       "title": "Cable Test Results",
-      "since": "2024-10-14T00:00:00.000Z",
+      "since": "2024-10-14",
       "type": "reference"
     },
     {
       "title": "killik-problem-history",
-      "since": "2024-09-30T00:00:00.000Z",
+      "since": "2024-09-30",
       "type": "reference"
     },
     {
       "title": "vr-problem-history",
-      "since": "2024-09-30T00:00:00.000Z",
+      "since": "2024-09-30",
       "type": "reference"
     },
     {
       "title": "New-CsInboundBlockedNumber",
-      "since": "2024-10-14T00:00:00.000Z",
+      "since": "2024-10-14",
       "type": "reference"
     }
 ]

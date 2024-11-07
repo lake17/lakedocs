@@ -15,15 +15,15 @@ authors:
 #flowchart TB
 #    subgraph P1 [Phase 1]
 #    direction TB
-#        P1_Start[Find a new Ticket] --> P1_A(Start the Ticket timer) --> P1_Branch1(Are you the Designated Engineer?)
-#         P1_Branch1 -->|Yes| P1_Branch2(Is there an existing Ticket for this?)
+#        P1_Start[Find a Ticket] --> P1_A(Start the Ticket timer) --> P1_Branch1(Are you the Designated Engineer?)
+#         P1_Branch1 -->|Yes| P1_C(Assign the Ticket to yourself) --> P1_Branch2(Is there an existing Ticket for this?)
 #          P1_Branch2 -->|Yes| P1_B(Merge the new and old Tickets) --> P1_Start
-#          P1_Branch2 -->|No| P1_C(Assign the Ticket to yourself) --> P1_Branch3(Are all Ticket attributes correct?)
-#           P1_Branch3 -->|No| P1_D("Amend the incorrect attribute(s)") --> P1_Branch3
-#           P1_Branch3-->|Yes| P1_E(Submit the time taken so far) --> K(Add the 'SOP Phase 1 complete' comment)
+#          P1_Branch2 -->|No| P1_Branch3(Are all Ticket attributes correct?)
+#           P1_Branch3 -->|No| P1_D("Amend the incorrect attribute(s)") --> K
+#           P1_Branch3-->|Yes| K(Add the 'SOP Phase 1 complete' comment) --> P1_E(Submit the time taken so far)
 #         P1_Branch1 -->|No| P1_Branch4(Is the Designated Engineer out of office?)
 #          P1_Branch4-->|No| P1_Start
-#          P1_Branch4 -->|Yes| P1_Branch2
+#          P1_Branch4 -->|Yes| P1_C
 #
 #    end
 #    subgraph P2 [Phase 2]
@@ -32,9 +32,9 @@ authors:
 #         P2_Branch1 -->|Outside| P2_Branch2(Does a Zoho Task exist for this action?)
 #            P2_Branch2 -->|No| P2_A(Create new Zoho Task) --> P2_B(Complete action) --> P2_C(Update Task) --> P2_D(Submit time in Task) --> P2_Start
 #            P2_Branch2 -->|Yes| P2_B
-#         P2_Branch1 -->|Within| P2_E(Complete action) --> P2_Branch3[Ticket resolved?]
+#         P2_Branch1 -->|Within| P2_E(Complete action) --> P2_Branch3(Ticket Resolved?)
 #            P2_Branch3 -->|No| P2_F(Update Ticket) --> P2_G(Submit time in Ticket) --> P2_Start
-#            P2_Branch3 -->|Yes| P2_H(Update Ticket) --> P2_I(Submit time in Ticket) --> P2_J(Close ticket)
+#            P2_Branch3 -->|Yes| P2_H(Update Ticket) --> P2_I(Add the 'SOP Phase 2 complete' comment) --> P2_J(Submit time in Ticket) --> P2_K(Close ticket)
 #    end
 #    P1 --> P2
 #```
@@ -70,7 +70,9 @@ It is hoped that in the future, nearly all of the tasks in phase 1 will be made 
 
 1. Open the ticket, and start a timer to keep track of time spent.
 
-   _In Zoho Desk, a timer is available via the extension menu on the right-hand side, but you are free to use any timer that works for you._
+   {% aside type="caution" %}
+   In Zoho Desk, a timer is available via the extension menu on the right-hand side, but it is not recommended that you use it, because it sometimes fails to work, and it resets upon creation of a Task.
+   {% /aside %}
 
 1. Check who the designated engineer is.
 
@@ -82,13 +84,13 @@ It is hoped that in the future, nearly all of the tasks in phase 1 will be made 
 
 1. Assign the ticket to yourself to remove it from the queue and take ownership.
 
-1. Confirm also that the ticket is assigned to the correct customer.
-
-   _This is sometimes not the case and must be manually corrected._
-
-1. Check if the ticket needs to be merged with an existing one.
+1. Determine if the ticket needs to be merged with an existing one. If it does, merge it and start again from Step 1.
 
    _The search feature helps here. Make sure the search filter settings are clear, so you don’t miss any tickets._
+
+1. Confirm that the ticket is assigned to the correct customer.
+
+   _This is sometimes not the case and must be manually corrected._
 
 1. Double check that the following fields are correctly filled out. This will have been done by first line, but mistakes can be made so it is necessary that they are checked again:
 
@@ -168,7 +170,7 @@ Your job is to get the ticket into an On Hold or a Resolved state.
 
       _As you work, add comments to the task liberally. You can do so by clicking on the task in the list and adding a comment in the same way as you would for a ticket._
 
-      {% aside %}
+      {% aside type="note" %}
       At any given moment, any other engineer **must** be able to pick up the task without needing to speak to you, using just the content of your comments.
       {% /aside %}
 
