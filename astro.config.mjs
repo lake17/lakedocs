@@ -4,25 +4,6 @@ import starlight from "@astrojs/starlight"
 import markdoc from "@astrojs/markdoc"
 import { readdir } from "fs/promises"
 
-async function autogenSections() {
-  const sections = (
-    await readdir("./src/content/docs/", {
-      withFileTypes: true,
-    })
-  )
-    .filter((x) => x.isDirectory())
-    .map((x) => x.name)
-  return sections.map((x) => {
-    return {
-      label: x,
-      autogenerate: {
-        directory: x,
-        collapsed: true,
-      },
-    }
-  })
-}
-
 // https://astro.build/config
 export default defineConfig({
   prefetch: {
@@ -39,10 +20,9 @@ export default defineConfig({
         dark: "./src/assets/dark-logo.svg",
         replacesTitle: true,
       },
-      sidebar: await autogenSections(),
+      sidebar: [],
       components: {
-        Sidebar: "./src/components/Sidebar.astro",
-        EditLink: "./src/components/EditLink.astro",
+        EditLink: "./src/components/overrides/EditLink.astro",
       },
       pagination: false,
       editLink: { baseUrl: "https://docs.forfusion.uk/ed#/collections/docs/entries/", },

@@ -1,15 +1,9 @@
 ---
 // Core imports
 import { getCollection } from "astro:content";
-import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
-import dayjs from "dayjs";
-import fs from 'node:fs';
-import path from 'node:path';
-import Request from 'sync-request'
 
 // Component imports
-import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import { LinkCard, Card, CardGrid, Tabs, TabItem } from "@astrojs/starlight/components";
 import MedalBadge from "../components/MedalBadge.astro";
 import TitleBadge from "../components/TitleBadge.astro";
@@ -21,634 +15,359 @@ import HallComponent from "@components/HallComponent.astro";
 import eng from "../assets/fusioncare-engineer.webp";
 
 // Data imports
-import rawTeam from "../data/team_webex.json";
+import rawTeam from "../data/team.json";
+import { TITLE_THRESHOLDS } from "../types";
+import { processTeamStats, getPendingRequests } from "../utils/team-stats";
+import { getMonthsBetween, getPosition } from "../utils/stats";
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 
-// Type definitions
-interface TeamMember {
-  name: string;
-  avatar: string;
-  email: string;
-  rank: 1|2|3|4|5|6;
-  bonus: number;
-  id: string;
-  total: number;
-}
-
-interface TeamStats extends TeamMember {
-  docs: number;
-  words: number;
-  score: number;
-}
-
-interface RequestedDoc {
-  title: string;
-  since: string;
-  type: "procedure" | "explanation" | "reference";
-  status: "pending" | "fulfilled";
-  fulfilledOn: string;
-  fulfilledBy: string;
-  docId: string;
-  tags: string[];
-}
-
-// Constants
-const TITLE_THRESHOLDS = {
-  1: 150,    // ~1 month of active contribution
-  2: 450,    // ~3 months
-  3: 900,    // ~6 months
-  4: 1800,   // ~1 year
-  5: 2700,   // ~1.5 years
-  6: 3600    // ~2 years
-} as const;
-
-const WEBEX_TOKEN = "M2RjOGIzZTctMDNiMi00YzkxLTliMzAtYjFiMDEwYTYzNzAzOGFiOWNhNTctNmNl_PF84_91dd6f49-8765-430d-aec3-ea9570a56933" as const
-
-// Data fetching
+// Data processing
 const docs = await getCollection("docs");
 const team = rawTeam.map(member => ({
   ...member,
   rank: member.rank as 1 | 2 | 3 | 4 | 5 | 6
 }));
 
-// Helper functions
-const getCreatedDocs = (docs: CollectionEntry<"docs">[]) => 
-  docs.filter(doc => doc.data.createdOn);
-
-const sortByCreatedDate = (docs: CollectionEntry<"docs">[]) => 
-  docs.sort((a, b) => {
-    const aDate = new Date(a.data.createdOn!);
-    const bDate = new Date(b.data.createdOn!);
-    return bDate.getTime() - aDate.getTime();
-  });
-
-const filterByTimePeriod = (docs: CollectionEntry<"docs">[], period: "week" | "month") =>
-  docs.filter(doc => 
-    doc.data.createdOn && dayjs(doc.data.createdOn).isSame(dayjs(), period)
-  );
-
-
-  const getLatestAvatar = (id: string) => {
-  try {
-    const response = Request('GET', 'https://webexapis.com/v1/people', {
-      qs: { id },
-      headers: {
-        Authorization: 'Bearer ' + WEBEX_TOKEN
-      }});
-    
-    const data = JSON.parse(response.getBody('utf8'));
-    return data.items?.[0]?.avatar || ""; // Use optional chaining and provide default value
-  } catch (error) {
-    console.error(`Failed to get avatar for ID ${id}:`, error);
-    return "";  // Return empty string instead of undefined
-  }
-}
-
-const getPosition = (stats: TeamStats[], currentTeam: TeamStats): number => {
-  const sortedTeams = [...stats].sort((a, b) => b.docs - a.docs);
-  let rank = 1;
-  let prevScore = null;
-  
-  for (const team of sortedTeams) {
-    if (team.docs === currentTeam.docs) {
-      return rank;
-    }
-    if (team.docs !== prevScore) {
-      rank++;
-      prevScore = team.docs;
-    }
-  }
-  return rank;
-};
-
-const calculateRank = (score: number): 1|2|3|4|5|6|0 => {
-  for (let i = 6; i >= 1; i--) {
-    if (score >= TITLE_THRESHOLDS[i]) {
-      return i as 1|2|3|4|5|6;
-    }
-  }
-  return 0;
-};
-
-// Original base scoring function - unchanged
-const calculateScore = (docsCount: number, avgWordsPerDoc: number): number => {
-  let lengthMultiplier = 1;
-  
-  if (avgWordsPerDoc > 500) {
-    if (avgWordsPerDoc <= 2000) {
-      lengthMultiplier = 1 + (avgWordsPerDoc - 500) / 1500 * 0.5;
-    } else if (avgWordsPerDoc <= 5000) {
-      lengthMultiplier = 1.5 + (avgWordsPerDoc - 2000) / 3000 * 0.5;
-    } else {
-      lengthMultiplier = 2;
-    }
-  }
-  
-  return Math.round(docsCount * 10 * lengthMultiplier);
-};
-
-// Helper for bounty system
-const getMonthsBetween = (date1: Date, date2: Date): number => {
-  const d1 = dayjs(date1);
-  const d2 = dayjs(date2);
-  
-  const years = d1.year() - d2.year();
-  const months = d1.month() - d2.month();
-  const days = d1.date() - d2.date();
-  
-  return years * 12 + months + (days < 0 ? -1 : 0);
-};
-
-// Helper function to get bounty info for a doc
-const getBountyInfo = (doc: CollectionEntry<"docs">, requests: RequestedDoc[]): RequestedDoc | undefined => {
-  return requests.find(request => 
-    request.status === 'fulfilled' && 
-    request.docId === doc.slug
-  );
-};
-
-// Updated team stats calculation
-const calculateTeamStats = (team: TeamMember[], periodDocs: CollectionEntry<"docs">[], sort: boolean) => {
-  // Load requests
-  const requestsPath = path.resolve('./src/data/requested-docs.json');
-  const requests: RequestedDoc[] = JSON.parse(fs.readFileSync(requestsPath, 'utf8'));
-
-  const stats = team.map(member => {
-    const memberDocs = periodDocs.filter(doc => doc.data.owner === member.email);
-    let totalScore = 0;
-    let totalWords = 0;
-    
-    memberDocs.forEach(doc => {
-      const words = doc.body.length;
-      totalWords += words;
-      
-      // Calculate base score
-      const baseScore = calculateScore(1, words);
-      
-      // Check if this was a bounty fulfillment
-      const bounty = getBountyInfo(doc, requests);
-      if (bounty) {
-        // Calculate bounty multiplier
-        const monthsWaiting = getMonthsBetween(new Date(bounty.fulfilledOn), new Date(bounty.since));
-        let multiplier = 1.2; // Base bounty multiplier
-        
-        // Add age bonus (up to 0.6 additional)
-        multiplier += Math.min(monthsWaiting / 12, 0.6);
-        
-        // Add type bonus (0.4 for explanations)
-        if (bounty.type === 'explanation') {
-          multiplier += 0.4;
-        }
-        
-        // Cap at 3.0x
-        multiplier = Math.min(multiplier, 3.0);
-        
-        totalScore += Math.round(baseScore * multiplier);
-      } else {
-        totalScore += baseScore;
-      }
-    });
-    
-    return {
-      ...member,
-      docs: memberDocs.length,
-      words: totalWords,
-      score: totalScore
-    };
-  });
-
-  return sort ? stats.sort((a, b) => b.score - a.score) : stats;
-};
-
-// Function to get pending requests for display
-const getPendingRequests = (): RequestedDoc[] => {
-  const requestsPath = path.resolve('./src/data/requested-docs.json');
-  const requests: RequestedDoc[] = JSON.parse(fs.readFileSync(requestsPath, 'utf8'));
-  return requests.filter(request => request.status === 'pending');
-};
-
-// Main data processing
-const processTeamStats = async (docs: CollectionEntry<"docs">[], team: TeamMember[]) => {
-  const createdDocs = getCreatedDocs(docs);
-  const sortedDocs = sortByCreatedDate(createdDocs);
-  
-  return {
-    sortedDocs,
-    weeklyStats: calculateTeamStats(team, filterByTimePeriod(sortedDocs, "week"), true),
-    monthlyStats: calculateTeamStats(team, filterByTimePeriod(sortedDocs, "month"), true),
-    allTimeStats: calculateTeamStats(team, sortedDocs, false)
-  };
-};
-
-// Process the data
 const { sortedDocs, weeklyStats, monthlyStats, allTimeStats } = await processTeamStats(docs, team);
-
-if (import.meta.env.PROD) {
-  console.log('Skipping team stats update in production build');
-} else {
-  try {
-    const updatedTeam = rawTeam.map(user => {
-      const matchingUser = allTimeStats.find(u => u.email === user.email);
-      if (matchingUser) {
-        return {
-          ...user,
-          avatar: getLatestAvatar(matchingUser.id),
-          total: matchingUser.docs,
-          rank: calculateRank(matchingUser.score)
-        };
-      }
-      return user;
-    });
-
-    const teamFilePath = path.resolve('./src/data/team_webex.json');
-    fs.writeFileSync(
-      teamFilePath,
-      JSON.stringify(updatedTeam, null, 2),
-      'utf8'
-    );
-    console.log('Successfully updated team stats');
-  } catch (error) {
-    console.error('Error updating team stats:', error);
-  }
-}
-if (import.meta.env.PROD) {
-  console.log('Skipping request updates in production build');
-} else {
-  try {
-    const requestsFilePath = path.resolve('./src/data/requested-docs.json');
-    const requests: RequestedDoc[] = JSON.parse(fs.readFileSync(requestsFilePath, 'utf8'));
-    
-    // Check all docs against requests
-    const updatedRequests = requests.map(request => {
-      if (request.status === 'pending') {
-        // Look for a matching doc
-        const matchingDoc = docs.find(doc => 
-          doc.data.title.toLowerCase() === request.title.toLowerCase() ||
-          doc.slug.toLowerCase() === request.title.toLowerCase()
-        );
-        
-        if (matchingDoc) {
-          return {
-            ...request,
-            status: 'fulfilled',
-            fulfilledOn: matchingDoc.data.createdOn || new Date().toISOString(),
-            fulfilledBy: matchingDoc.data.owner || '',
-            docId: matchingDoc.slug
-          };
-        }
-      }
-      return request;
-    });
-
-    // Write updated requests back to file
-    fs.writeFileSync(
-      requestsFilePath,
-      JSON.stringify(updatedRequests, null, 2),
-      'utf8'
-    );
-    console.log('Successfully updated requested-docs.json');
-  } catch (error) {
-    console.error('Error updating requested-docs.json:', error);
-  }
-}
 ---
 
-<StarlightPage frontmatter={{
-  title: 'FusionCare Knowledge Base',
-  template: 'splash',
-  head: [
-    {tag:"style",content:`
-    .sl-container:where(.astro-7nkwcw3z) { max-width: none !important; }
-    h1 { color: var(--sl-color-accent) !important; }
-    `},
-  ],
-  }}>
+<StarlightPage 
+  hasSidebar={false} 
+  frontmatter={{ 
+    title: 'Fusioncare Knowledge Base', 
+    tableOfContents: false 
+  }}
+>
   <ThreeCardGrid>
-    <LinkCard title="README" href="/readme"></LinkCard>
-    <LinkCard title="Documentation" href="/sections"></LinkCard>
-    <LinkCard title="Editor" href="/ed"></LinkCard>
-    <LinkCard title="Bookmarks" href="/bookmarks"></LinkCard>
-    <LinkCard title="Snippets [TODO]"></LinkCard>
-    <LinkCard title="Feeds [TODO]"></LinkCard>
+    <LinkCard title="README" href="/readme" />
+    <LinkCard title="Documentation" href="/sections" />
+    <LinkCard title="Editor" href="/ed" />
+    <LinkCard title="Bookmarks" href="/bookmarks" />
+    <LinkCard title="Snippets [TODO]" />
+    <LinkCard title="Feeds [TODO]" />
   </ThreeCardGrid>
+
   <CardGrid>
     <Tabs>
-    <TabItem label="Weekly Leaderboard">
-      <Card title="Documents Created This Week" icon="star">
-      <table style="border-collapse: collapse; width: 100%;">
-        {
-          weeklyStats.map((m) => ( 
-            <tr>
-              <td style="text-align: center">
-                {(m.avatar && m.avatar !== "undefined") ? (
-                  <Image
-                    src={m.avatar}
-                    alt="Avatar"
-                    width="50"
-                    height="50"
-                    style="border-radius: 50%; object-fit: cover;"
-                  />
-                ) : (
-                  <Image
-                    src={eng}
-                    alt="Avatar"
-                    width="50"
-                    height="50"
-                    style="border-radius: 50%; object-fit: cover;"
-                  />
-                )}
-              </td>
-              <td style="text-align: left;vertical-align: middle;">{m.name}{m.rank ? <span>&ensp;</span><TitleBadge rank={m.rank}/> : ""}</td>
-              <td style="text-align: center;vertical-align: middle;">{
-                  (() => {
-                    if (m.docs === 0) return '0';
-                      const position = weeklyStats.findIndex(t => t.docs === m.docs) + 1 as 1 | 2 | 3;
-                      return [1, 2, 3].includes(position) ? (
-                              <MedalBadge 
-                                  text={String(m.docs)}
-                                  size="medium" 
-                                  variant="weekly" 
-                                  position={position}
-                              />
-                      ) : String(m.docs);
-                  })()
-              }</td>
-            </tr>
-          ))
-        }
-      </table>
-    </Card>
-  </TabItem>
-    <TabItem label="Monthly Leaderboard">
-      <Card title="Documents Created This Month" icon="starlight">
-      <table style="border-collapse: collapse; width: 100%;">
-        {
-          monthlyStats.map((m) => ( 
-            <tr>
-              <td style="text-align: center;">
-                {(m.avatar && m.avatar !== "undefined") ? (
-                  <Image
-                    src={m.avatar}
-                    alt="Avatar"
-                    width="50"
-                    height="50"
-                    style="border-radius: 50%; object-fit: cover;"
-                  />
-                ) : (
-                  <Image
-                    src={eng}
-                    alt="Avatar"
-                    width="50"
-                    height="50"
-                    style="border-radius: 50%; object-fit: cover;"
-                  />
-                )}
-              </td>
-              <td style="text-align: left;vertical-align: middle;">{m.name}{m.rank ? <span>&ensp;</span><TitleBadge rank={m.rank}/> : ""}</td>
-              <td style="text-align: center;vertical-align: middle;">
-              {
-                  (() => {
-                      if (m.docs === 0) return "0";
-                      const position = getPosition(monthlyStats, m) as 1|2|3
-                      return [1, 2, 3].includes(position) ? (
-                              <MedalBadge 
-                                  text={String(m.docs)}
-                                  size="medium" 
-                                  variant="monthly" 
-                                  position={position}
-                              />
-                      ) : String(m.docs);
-                  })()
-              }
-              </td>
-            </tr>
-          ))
-        }
-      </table>
-    </Card>
-  </TabItem>
-    </Tabs>
-    <HallComponent/>
-      <Card title="Title Track" icon="seti:grails">
-        <table style="border-collapse: collapse; width: 100%;">
-          <thead>
-            <tr>
-              <th style="text-align: left;">Rank</th>
-              <th style="text-align: center;">Title</th>
-              <th style="text-align: right;">Score</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="text-align: center;">1</td>
-              <td style="text-align: center;"><TitleBadge rank={1} /></td>
-              <!-- <Badge text="Kind Of A Big Deal" size="small" style="background-color: #62A4DA;border-color:#62A4DA;"></Badge> -->
-              <td style="text-align: right;">{TITLE_THRESHOLDS[1]}</td>
-              <!-- 25 -->
-            </tr>
-            <tr>
-              <td style="text-align: center;">2</td>
-              <td style="text-align: center;">???</td>
-              <!-- <Badge text="People Know Me" size="small" style="background-color:#1a9306;border-color:#1a9306;"></Badge> -->
-              <td style="text-align: right;">???</td>
-              <!-- 25 -->
-            </tr>
-            <tr>
-              <td style="text-align: center;">3</td>
-              <td style="text-align: center;">???</td>
-              <!-- <Badge text="I'm Very Important" size="small" style="background-color:#fcd00b;border-color:#fcd00b;"></Badge> -->
-              <td style="text-align: right;">???</td>
-              <!-- 50 -->
-            </tr>
-            <tr>
-              <td style="text-align: center;">4</td>
-              <td style="text-align: center;">???</td>
-              <!-- <Badge text="I Have Many Leather-Bound Books" size="medium" style="background-color:#ffa405;border-color:#ffa405;"></Badge> -->
-              <td style="text-align: right;">???</td>
-              <!-- 100 -->
-            </tr>
-            <tr>
-              <td style="text-align: center;">5</td>
-              <td style="text-align: center;">???</td>
-              <!-- <Badge text="My Homelab Smells of Rich Mahogany" size="medium" style="background-color:#fb3e8d;border-color:#fb3e8d;"></Badge> -->
-              <td style="text-align: right;">???</td>
-              <!-- 500 -->
-            </tr>
-            <tr>
-              <td style="text-align: center;">6</td>
-              <td style="text-align: center;">???</td>
-              <!-- <Badge text="God Walking Amongst Mere Mortals" size="large" style="background-color:#4C139D;border-color:#4C139D;"></Badge> -->
-              <td style="text-align: right;">???</td>
-              <!-- 1000 -->
-            </tr>
-          </tbody>
-        </table>
-      </Card>
-    <Card title="Learning Paths [TODO]" icon="seti:notebook">
-      <LinkCard title="Onboarding"></LinkCard>
-      <LinkCard title="FusionCare First Line"></LinkCard>
-      <LinkCard title="FusionCare Second Line"></LinkCard>
-      <LinkCard title="Cisco Technologies"></LinkCard>
-      <LinkCard title="Microsoft Technologies"></LinkCard>
-    </Card>
-    <Card title="Latest Documents" icon="document">
-      <table style="border-collapse: collapse; width: 100%;">
-        <thead>
-          <tr>
-            <th style="text-align: left;">Title</th>
-            <th style="text-align: right;">Created</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            sortedDocs.map((m) => (
+      <TabItem label="Weekly Leaderboard">
+        <Card title="Documents Created This Week" icon="star">
+          <table style="border-collapse: collapse; width: 100%;">
+            {weeklyStats.map((m) => (
               <tr>
-                <td><a href={"/"+m.slug+"/"}>{m.data.title}</a></td>
-                <td style="text-align: right; white-space: nowrap;">{(m.data.createdOn ? new Date(m.data.createdOn).toISOString().split('T')[0] : "duh i broked sumfin")}</td>
+                <td style="text-align: center">
+                  {(m.avatar && m.avatar !== "undefined") ? (
+                    <Image
+                      src={m.avatar}
+                      alt="Avatar"
+                      width="50"
+                      height="50"
+                      style="border-radius: 50%; object-fit: cover;"
+                    />
+                  ) : (
+                    <Image
+                      src={eng}
+                      alt="Avatar"
+                      width="50"
+                      height="50"
+                      style="border-radius: 50%; object-fit: cover;"
+                    />
+                  )}
+                </td>
+                <td style="text-align: left; vertical-align: middle;">
+                  {m.name}
+                  {m.rank ? <span>&ensp;</span><TitleBadge rank={m.rank} /> : ""}
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                  {(() => {
+                    if (m.docs === 0) return '0';
+                    const position = weeklyStats.findIndex(t => t.docs === m.docs) + 1 as 1 | 2 | 3;
+                    return [1, 2, 3].includes(position) ? (
+                      <MedalBadge 
+                        text={String(m.docs)}
+                        size="medium" 
+                        variant="weekly" 
+                        position={position}
+                      />
+                    ) : String(m.docs);
+                  })()}
+                </td>
               </tr>
-            ))
-          }
-        </tbody>
-      </table>
-    </Card>
-    <Card title="Wanted Documents" icon="heart">
+            ))}
+          </table>
+        </Card>
+      </TabItem>
+
+      <TabItem label="Monthly Leaderboard">
+        <Card title="Documents Created This Month" icon="starlight">
+          <table style="border-collapse: collapse; width: 100%;">
+            {monthlyStats.map((m) => (
+              <tr>
+                <td style="text-align: center;">
+                  {(m.avatar && m.avatar !== "undefined") ? (
+                    <Image
+                      src={m.avatar}
+                      alt="Avatar"
+                      width="50"
+                      height="50"
+                      style="border-radius: 50%; object-fit: cover;"
+                    />
+                  ) : (
+                    <Image
+                      src={eng}
+                      alt="Avatar"
+                      width="50"
+                      height="50"
+                      style="border-radius: 50%; object-fit: cover;"
+                    />
+                  )}
+                </td>
+                <td style="text-align: left; vertical-align: middle;">
+                  {m.name}
+                  {m.rank ? <span>&ensp;</span><TitleBadge rank={m.rank} /> : ""}
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                  {(() => {
+                    if (m.docs === 0) return "0";
+                    const position = getPosition(monthlyStats, m) as 1|2|3;
+                    return [1, 2, 3].includes(position) ? (
+                      <MedalBadge 
+                        text={String(m.docs)}
+                        size="medium" 
+                        variant="monthly" 
+                        position={position}
+                      />
+                    ) : String(m.docs);
+                  })()}
+                </td>
+              </tr>
+            ))}
+          </table>
+        </Card>
+      </TabItem>
+    </Tabs>
+
+    <HallComponent />
+
+    <Card title="Title Track" icon="seti:grails">
       <table style="border-collapse: collapse; width: 100%;">
         <thead>
           <tr>
-            <th style="text-align: left;">Title</th>
-            <th style="text-align: left;">Type</th>
-            <th style="text-align: right;">Since</th>
-            <th style="text-align: right;">Bounty</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            getPendingRequests().map((request) => {
-              const monthsWaiting = getMonthsBetween(new Date(), new Date(request.since));
-              let multiplier = 1.2; // Base bounty multiplier
-              
-              // Add age bonus (up to 0.6 additional)
-              multiplier += Math.min(monthsWaiting / 12, 0.6);
-              
-              // Add type bonus (0.4 for explanations)
-              if (request.type === 'explanation') {
-                multiplier += 0.4;
-              }
-              
-              // Cap at 3.0x
-              multiplier = Math.min(multiplier, 3.0);
-              
-              return (
-                <tr>
-                  <td>{request.title}</td>
-                  <td>
-                    <span>
-                      {request.type}
-                    </span>
-                  </td>
-                  <td style="text-align: right; white-space: nowrap;">
-                    {request.since}
-                  </td>
-                  <td style="text-align: right;">
-                    <Mult bonus={multiplier} />
-                  </td>
-                </tr>
-              );
-            })
-          }
-        </tbody>
-      </table>
-    </Card>  
-    <style>
-      .type-badge {
-        display: inline-block;
-        padding: 0.25rem 0.5rem;
-        border-radius: 0.25rem;
-        font-size: 0.875rem;
-        font-weight: 500;
-        text-transform: capitalize;
-      }
-      
-      .type-badge.procedure {
-        background-color: #e9ecef;
-        color: #495057;
-      }
-      
-      .type-badge.explanation {
-        background-color: #cff4fc;
-        color: #055160;
-      }
-      
-      .type-badge.reference {
-        background-color: #fff3cd;
-        color: #664d03;
-      }
-      
-      .tag {
-        display: inline-block;
-        padding: 0.125rem 0.375rem;
-        margin: 0.125rem;
-        border-radius: 1rem;
-        font-size: 0.75rem;
-        background-color: #f8f9fa;
-        color: #6c757d;
-        border: 1px solid #dee2e6;
-      }
-    </style>
-    </CardGrid>
-    <Card title="Statistics" icon="seti:odata">
-      <table style="border-collapse: collapse; width: 100%;">
-        <thead>
-          <tr>
-            <th></th>
-            <th style="text-align: left;">Name</th>
-            <th style="text-align: center;">Docs</th>
-            <th style="text-align: right;">Percentage</th>
-            <th style="text-align: right;">Words</th>
-            <th style="text-align: right;">Percentage</th>
+            <th style="text-align: left;">Rank</th>
+            <th style="text-align: center;">Title</th>
             <th style="text-align: right;">Score</th>
           </tr>
         </thead>
         <tbody>
-          {
-            allTimeStats.map((member) => {
-              const avatar = member.avatar || eng;
-              return (
-                <tr>
-                  <td style="text-align: center">
-                    <Image
-                      src={avatar}
-                      alt={`Avatar for ${member.name}`}
-                      width={50}
-                      height={50}
-                      style="border-radius: 50%; object-fit: cover;"
-                    />
-                  </td>
-                  <td style="text-align: left; vertical-align: middle; white-space: nowrap;">
-                    {member.name}
-                    {member.rank ? (
-                      <span>&ensp;<TitleBadge rank={member.rank}/></span>
-                    ) : null}
-                  </td>
-                  <td style="text-align: center; vertical-align: middle;">
-                    {member.total}
-                  </td>
-                  <td style="text-align: right; vertical-align: middle;">
-                    {Math.trunc(member.total / sortedDocs.length * 100)}
-                  </td>
-                  <td style="text-align: right; vertical-align: middle;">
-                    {member.words}
-                  </td>
-                  <td style="text-align: right; vertical-align: middle;">
-                    {Math.trunc(member.words / sortedDocs.reduce((total, doc) => total + doc.body.length, 0) * 100)}
-                  </td>
-                  <td style="text-align: right; vertical-align: middle;">
-                    {member.score}
-                  </td>
-                </tr>
-              );
-            })
-          }
+          <tr>
+            <td style="text-align: center;">1</td>
+            <td style="text-align: center;"><TitleBadge rank={1} /></td>
+            <td style="text-align: right;">{TITLE_THRESHOLDS[1]}</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">2</td>
+            <td style="text-align: center;">???</td>
+            <td style="text-align: right;">???</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">3</td>
+            <td style="text-align: center;">???</td>
+            <td style="text-align: right;">???</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">4</td>
+            <td style="text-align: center;">???</td>
+            <td style="text-align: right;">???</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">5</td>
+            <td style="text-align: center;">???</td>
+            <td style="text-align: right;">???</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">6</td>
+            <td style="text-align: center;">???</td>
+            <td style="text-align: right;">???</td>
+          </tr>
         </tbody>
       </table>
     </Card>
+
+    <Card title="Learning Paths [TODO]" icon="seti:notebook">
+      <LinkCard title="Onboarding" />
+      <LinkCard title="FusionCare First Line" />
+      <LinkCard title="FusionCare Second Line" />
+      <LinkCard title="Cisco Technologies" />
+      <LinkCard title="Microsoft Technologies" />
+    </Card>
+    
+  </CardGrid>
+
+  <Card title="Latest Documents" icon="document">
+    <table style="border-collapse: collapse; width: 100%;">
+      <thead>
+        <tr>
+          <th style="text-align: left;">Title</th>
+          <th style="text-align: right;">Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        {sortedDocs.map((m) => (
+          <tr>
+            <td><a href={"/"+m.slug+"/"}>{m.data.title}</a></td>
+            <td style="text-align: right; white-space: nowrap;">
+              {m.data.createdOn 
+                ? new Date(m.data.createdOn).toISOString().split('T')[0] 
+                : "duh i broked sumfin"}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </Card>
+
+  <Card title="Requested Documents" icon="heart">
+    <table style="border-collapse: collapse; width: 100%;">
+      <thead>
+        <tr>
+          <th style="text-align: left;">Title</th>
+          <th style="text-align: left;">Type</th>
+          <th style="text-align: right;">Since</th>
+          <th style="text-align: right;">Bounty</th>
+        </tr>
+      </thead>
+      <tbody>
+        {getPendingRequests().map((request) => {
+          const monthsWaiting = getMonthsBetween(new Date(), new Date(request.since));
+          let multiplier = 1.2; // Base bounty multiplier
+          
+          // Add age bonus (up to 0.6 additional)
+          multiplier += Math.min(monthsWaiting / 12, 0.6);
+          
+          // Add type bonus (0.4 for explanations)
+          if (request.type === 'explanation') {
+            multiplier += 0.4;
+          }
+          
+          // Cap at 3.0x
+          multiplier = Math.min(multiplier, 3.0);
+          
+          return (
+            <tr>
+              <td>{request.title}</td>
+              <td>
+                <span>{request.type}</span>
+              </td>
+              <td style="text-align: right; white-space: nowrap;">
+                {request.since}
+              </td>
+              <td style="text-align: right;">
+                <Mult bonus={multiplier} />
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </Card>
+
+  <style>
+    .type-badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-transform: capitalize;
+    }
+    
+    .type-badge.procedure {
+      background-color: #e9ecef;
+      color: #495057;
+    }
+    
+    .type-badge.explanation {
+      background-color: #cff4fc;
+      color: #055160;
+    }
+    
+    .type-badge.reference {
+      background-color: #fff3cd;
+      color: #664d03;
+    }
+    
+    .tag {
+      display: inline-block;
+      padding: 0.125rem 0.375rem;
+      margin: 0.125rem;
+      border-radius: 1rem;
+      font-size: 0.75rem;
+      background-color: #f8f9fa;
+      color: #6c757d;
+      border: 1px solid #dee2e6;
+    }
+  </style>
+
+  <Card title="Statistics" icon="seti:odata">
+    <table style="border-collapse: collapse; width: 100%;">
+      <thead>
+        <tr>
+          <th></th>
+          <th style="text-align: left;">Name</th>
+          <th style="text-align: center;">Docs</th>
+          <th style="text-align: right;">Percentage</th>
+          <th style="text-align: right;">Words</th>
+          <th style="text-align: right;">Percentage</th>
+          <th style="text-align: right;">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {allTimeStats.map((member) => {
+          return (
+            <tr>
+              <td style="text-align: center">
+                {(member.avatar && member.avatar !== "undefined") ? (
+                  <Image
+                    src={member.avatar}
+                    alt="Avatar"
+                    width="50"
+                    height="50"
+                    style="border-radius: 50%; object-fit: cover;"
+                  />
+                ) : (
+                  <Image
+                    src={eng}
+                    alt="Avatar"
+                    width="50"
+                    height="50"
+                    style="border-radius: 50%; object-fit: cover;"
+                  />
+                )}
+              </td>
+              <td style="text-align: left; vertical-align: middle; white-space: nowrap;">
+                {member.name}
+                {member.rank ? (
+                  <span>&ensp;<TitleBadge rank={member.rank}/></span>
+                ) : null}
+              </td>
+              <td style="text-align: center; vertical-align: middle;">
+                {member.docs}
+              </td>
+              <td style="text-align: right; vertical-align: middle;">
+                {Math.trunc(member.docs / sortedDocs.length * 100)}
+              </td>
+              <td style="text-align: right; vertical-align: middle;">
+                {member.words}
+              </td>
+              <td style="text-align: right; vertical-align: middle;">
+                {Math.trunc(member.words / sortedDocs.reduce((total, doc) => total + doc.body.length, 0) * 100)}
+              </td>
+              <td style="text-align: right; vertical-align: middle;">
+                {member.score}
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </Card>
 </StarlightPage>
