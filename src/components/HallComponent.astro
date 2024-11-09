@@ -29,100 +29,130 @@ import TitleBadge from "../components/TitleBadge.astro"
         </Card>
       </div>
     </TabItem>
-
-    <style>
-      .halls-container {
-        --accent-fame: #00539c;
-        --accent-shame: #d35400;
-      }
-
-      .fame-card > :global(.card > .title),
-      .shame-card > :global(.card > .title) {
-        align-self: center;
-        font-size: 2rem;
-        font-weight: 800;
-        letter-spacing: 0.1em;
-        margin-bottom: 1.5rem;
-        transition:
-          transform 0.2s ease,
-          font-size 0.2s ease;
-      }
-
-      .fame-card > :global(.card > .title:hover),
-      .shame-card > :global(.card > .title:hover) {
-        transform: scale(1.05);
-        font-size: 2.1rem;
-      }
-
-      /* Tab Styling */
-      :global([data-fame="true"][data-active="true"]) {
-        border-bottom: 3px solid var(--accent-fame);
-        color: var(--accent-fame);
-        font-weight: 600;
-        text-shadow: 0 0 20px rgba(184, 134, 11, 0.2);
-      }
-
-      :global([data-shame="true"][data-active="true"]) {
-        border-bottom: 3px solid var(--accent-shame);
-        color: var(--accent-shame);
-        font-weight: 600;
-        text-shadow: 0 0 20px rgba(75, 0, 130, 0.2);
-      }
-
-      /* Fame and Shame Card Title Styling */
-      .fame-card > :global(.card > .title),
-      .shame-card > :global(.card > .title) {
-        align-self: center;
-        font-size: 2rem;
-        font-weight: 800;
-        letter-spacing: 0.1em;
-        margin-bottom: 1.5rem;
-      }
-
-      .fame-card > :global(.card > .title) {
-        color: var(--accent-fame);
-        text-shadow: 2px 2px 4px rgba(184, 134, 11, 0.2);
-      }
-
-      .shame-card > :global(.card > .title) {
-        color: var(--accent-shame);
-        text-shadow: 2px 2px 4px rgba(75, 0, 130, 0.2);
-      }
-
-      .fame-entries > :global(.card) {
-        border: 1px solid var(--accent-fame);
-        box-shadow:
-          0 2px 4px -1px rgba(184, 134, 11, 0.1),
-          0 4px 6px -1px rgba(184, 134, 11, 0.05);
-        transition: transform 0.2s ease;
-      }
-
-      .fame-entries > :global(.card:hover) {
-        transform: translateY(-2px);
-      }
-
-      .fame-entries > :global(.card > .title) {
-        color: var(--accent-fame);
-        font-size: 1.25rem;
-        font-weight: 600;
-      }
-
-      .shame-entries > :global(.card) {
-        border: 1px solid var(--accent-shame);
-        box-shadow:
-          0 2px 4px -1px rgba(75, 0, 130, 0.1),
-          0 4px 6px -1px rgba(75, 0, 130, 0.05);
-      }
-
-      .shame-entries > :global(.card > .title) {
-        color: var(--accent-shame);
-        font-size: 1.25rem;
-        font-weight: 600;
-      }
-
-      .shame-entries > :global(.card:hover) {
-        transform: translateY(-2px);
-      }
-    </style>
   </Tabs>
 </div>
+
+<style>
+  /* Component-specific variables */
+  .halls-container {
+    --accent-fame: #00539c;
+    --accent-shame: #d35400;
+    display: block; /* Ensure block display */
+    transform: none !important; /* Prevent any movement */
+    box-shadow: none !important;
+  }
+
+  /* Tab-specific styles */
+  :global([data-fame="true"][data-active="true"]) {
+    border-bottom: 3px solid var(--accent-fame);
+    color: var(--accent-fame);
+    font-weight: 600;
+    text-shadow: 0 0 20px rgba(184, 134, 11, 0.2);
+  }
+
+  :global([data-shame="true"][data-active="true"]) {
+    border-bottom: 3px solid var(--accent-shame);
+    color: var(--accent-shame);
+    font-weight: 600;
+    text-shadow: 0 0 20px rgba(75, 0, 130, 0.2);
+  }
+
+  /* Fame card styles */
+  .fame-card > :global(.card > .title) {
+    align-self: center;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+    color: var(--accent-fame);
+    text-shadow: 2px 2px 4px rgba(184, 134, 11, 0.2);
+    transition:
+      transform 0.2s ease,
+      font-size 0.2s ease;
+  }
+
+  .fame-card > :global(.card > .title:hover) {
+    transform: scale(1.05);
+    font-size: 2.1rem;
+  }
+
+  .fame-entries > :global(.card) {
+    border: 1px solid var(--accent-fame);
+    box-shadow:
+      0 2px 4px -1px rgba(184, 134, 11, 0.1),
+      0 4px 6px -1px rgba(184, 134, 11, 0.05);
+    transition: transform 0.2s ease;
+  }
+
+  .fame-entries > :global(.card:hover) {
+    transform: translateY(-2px);
+  }
+
+  .fame-entries > :global(.card > .title) {
+    color: var(--accent-fame);
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  /* Shame card styles */
+  .shame-card > :global(.card > .title) {
+    align-self: center;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+    color: var(--accent-shame);
+    text-shadow: 2px 2px 4px rgba(75, 0, 130, 0.2);
+    transition:
+      transform 0.2s ease,
+      font-size 0.2s ease;
+  }
+
+  .shame-card > :global(.card > .title:hover) {
+    transform: scale(1.05);
+    font-size: 2.1rem;
+  }
+
+  .shame-entries > :global(.card) {
+    border: 1px solid var(--accent-shame);
+    box-shadow:
+      0 2px 4px -1px rgba(75, 0, 130, 0.2),
+      0 4px 6px -1px rgba(75, 0, 130, 0.1);
+    transition: transform 0.2s ease;
+  }
+
+  .shame-entries > :global(.card:hover) {
+    transform: translateY(-2px);
+  }
+
+  .shame-entries > :global(.card > .title) {
+    color: var(--accent-shame);
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  /* First, prevent the starlight-tabs component from moving */
+  starlight-tabs {
+    display: block; /* Ensure block display */
+    transform: none !important; /* Prevent any movement */
+  }
+
+  /* Remove hover effects from the tabs navigation */
+  starlight-tabs .tablist-wrapper:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Allow cards within tabs to animate independently */
+  starlight-tabs .card:hover,
+  starlight-tabs .link-card:hover,
+  starlight-tabs .card-grid > *:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Ensure the tab panel itself doesn't move */
+  starlight-tabs [role="tabpanel"] {
+    transform: none;
+  }
+</style>

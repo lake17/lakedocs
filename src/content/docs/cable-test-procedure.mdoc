@@ -39,41 +39,41 @@ Before you begin, ensure:
    Center and navigate to either Device360 or Device Details. From there, you
    can access the CLI via "Run Commands".
 
-   ![](../../../assets/images/image-20241016120235746.png)
+   ![](@assets/images/image-20241016120235746.png)
 
-2. Once in the CLI, run the following command to start the cable test:
+1. Once in the CLI, run the following command to start the cable test:
 
    ```txt
    test cable-diagnostic tdr interface {interface of your choice}
    # This command can be shortened to "test cab tdr int {gx/x/x}".
    ```
 
-3. Wait for about 5 to 7 seconds for the test to run.
+1. Wait for about 5 to 7 seconds for the test to run.
 
-   ![](../../../assets/images/image-20241016121610991.png)
+   ![](@assets/images/image-20241016121610991.png)
 
-4. Run the command the following command to show the result of the TDR test:
+1. Run the command the following command to show the result of the TDR test:
 
    ```txt
    show cable-diagnostic tdr interface {interface of your choice}
    # Can be shortened to "show cab tdr int {gx/x/x}".
    ```
 
-   ![](../../../assets/images/image-20241016121641018.png)
+   ![](@assets/images/image-20241016121641018.png)
 
-5. Read results and send to client if necessary.
+1. Read results and send to client if necessary.
 
    Note: A guide on reading cable test results will be created and link pasted
    in the "See also" section. For now, I'll post a brief description of the
    results and copper pair functions below:
 
-   ![](../../../assets/images/image-20241016122756217.png)
+   ![](@assets/images/image-20241016122756217.png)
 
-   ![](../../../assets/images/image-20241016122859385.png)
+   ![](@assets/images/image-20241016122859385.png)
 
 ## See also
 
 - An explanation on TDR cable test will created in the Knowledge Base. A link
   will be shown here once complete.
-- <https://community.cisco.com/t5/networking-knowledge-base/how-to-use-time-domain-reflectometer-tdr/ta-p/3119327> -
+- [https://community.cisco.com/t5/networking-knowledge-base/how-to-use-time-domain-reflectometer-tdr/ta-p/3119327](https://community.cisco.com/t5/networking-knowledge-base/how-to-use-time-domain-reflectometer-tdr/ta-p/3119327) -
   This is a great forum explaining the TDR cable test on Cisco switches

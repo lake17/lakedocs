@@ -11,7 +11,7 @@ const getBountyInfo = (doc: Doc, requests: RequestedDoc[]): RequestedDoc | undef
   );
 };
 
-export const calculateTeamStats = (team: TeamMember[], periodDocs: Doc[], sort: boolean): TeamStats[] => {
+export const calculateTeamStats = (team: TeamMember[], periodDocs: Doc[]): TeamStats[] => {
   // Load requests
   const requestsPath = path.resolve('./src/data/requested-docs.json');
   const requests: RequestedDoc[] = JSON.parse(fs.readFileSync(requestsPath, 'utf8'));
@@ -53,7 +53,7 @@ export const calculateTeamStats = (team: TeamMember[], periodDocs: Doc[], sort: 
     };
   });
 
-  return sort ? stats.sort((a, b) => b.score - a.score) : stats;
+  return stats.sort((a, b) => b.score - a.score);
 };
 
 export const getPendingRequests = (): RequestedDoc[] => {
@@ -74,14 +74,12 @@ export const processTeamStats = async (docs: Doc[], team: TeamMember[]) => {
     sortedDocs,
     weeklyStats: calculateTeamStats(
       team, 
-      sortedDocs.filter(doc => doc.data.createdOn && dayjs(doc.data.createdOn).isSame(dayjs(), "week")),
-      true
+      sortedDocs.filter(doc => doc.data.createdOn && dayjs(doc.data.createdOn).isSame(dayjs(), "week"))
     ),
     monthlyStats: calculateTeamStats(
       team,
-      sortedDocs.filter(doc => doc.data.createdOn && dayjs(doc.data.createdOn).isSame(dayjs(), "month")),
-      true
+      sortedDocs.filter(doc => doc.data.createdOn && dayjs(doc.data.createdOn).isSame(dayjs(), "month"))
     ),
-    allTimeStats: calculateTeamStats(team, sortedDocs, false)
+    allTimeStats: calculateTeamStats(team, sortedDocs)
   };
 };

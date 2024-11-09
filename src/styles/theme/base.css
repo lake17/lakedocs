@@ -1,0 +1,79 @@
+/* Base theme definitions */
+:root {
+    /* Brand colors - these cannot be modified per brand guidelines */
+    --brand-electric-blue: #283DD1;
+    --brand-fusion-black: #15172E;
+    --brand-blood-orange: #FF5500;
+    --brand-slate-grey: #65788E;
+    --brand-electric-teal: #34D9C3;
+    --brand-white: #FFFFFF;
+  
+    /* Animation timings */
+    --animation-quick: 0.2s;
+    --animation-medium: 0.3s;
+    --animation-slow: 0.5s;
+  
+    /* Spacing scale */
+    --space-3xs: 0.25rem;
+    --space-2xs: 0.5rem;
+    --space-xs: 0.75rem;
+    --space-s: 1rem;
+    --space-m: 1.5rem;
+    --space-l: 2rem;
+    --space-xl: 3rem;
+    --space-2xl: 4rem;
+    --space-3xl: 6rem;
+  
+    /* Border radiuses */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-round: 9999px;
+  
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  
+    /* Z-index scale */
+    --z-below: -1;
+    --z-normal: 1;
+    --z-above: 10;
+    --z-modal: 100;
+    --z-toast: 1000;
+  }
+  
+  /* Light theme */
+  :root[data-theme='light'] {
+    --sl-color-accent-low: #edf0ff;
+    --sl-color-accent: var(--brand-electric-blue);
+    --sl-color-accent-high: var(--brand-fusion-black);
+    
+    --sl-color-white: var(--brand-fusion-black);
+    --sl-color-gray-1: #2A2E43;
+    --sl-color-gray-2: #3F445C;
+    --sl-color-gray-3: var(--brand-slate-grey);
+    --sl-color-gray-4: #8996A8;
+    --sl-color-gray-5: #ADB7C5;
+    --sl-color-gray-6: #D1D8E2;
+    --sl-color-gray-7: #E8EDF3;
+    --sl-color-black: var(--brand-white);
+  }
+  
+  /* Dark theme */
+  :root[data-theme='dark'] {
+    --sl-color-accent-low: #1A2359;
+    --sl-color-accent: var(--brand-electric-blue);
+    --sl-color-accent-high: var(--brand-fusion-black);
+    
+    --sl-color-white: var(--brand-white);
+    --sl-color-gray-1: #E8EDF3;
+    --sl-color-gray-2: #D1D8E2;
+    --sl-color-gray-3: #ADB7C5;
+    --sl-color-gray-4: #8996A8;
+    --sl-color-gray-5: var(--brand-slate-grey);
+    --sl-color-gray-6: #3F445C;
+    --sl-color-gray-7: #2A2E43;
+    --sl-color-black: var(--brand-fusion-black);
+  }

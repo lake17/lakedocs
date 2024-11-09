@@ -1,0 +1,75 @@
+/* Typography */
+@media screen and (min-width: 320px) {
+    :root {
+      --step--2: clamp(0.7rem, calc(0.87rem + -0.14vw), 0.84rem);
+      --step--1: clamp(0.94rem, calc(0.95rem + -0.01vw), 0.94rem);
+      --step-0: clamp(1.13rem, calc(1.03rem + 0.22vw), 1.25rem);
+      --step-1: clamp(1.35rem, calc(1.1rem + 0.57vw), 1.67rem);
+      --step-2: clamp(1.62rem, calc(1.15rem + 1.08vw), 2.22rem);
+      --step-3: clamp(1.94rem, calc(1.16rem + 1.79vw), 2.96rem);
+      --step-4: clamp(2.33rem, calc(1.12rem + 2.77vw), 3.95rem);
+      --step-5: clamp(2.8rem, calc(0.98rem + 4.13vw), 5.26rem);
+    }
+  }
+  
+  /* Base typography */
+  html {
+    font-family: "Inter", sans-serif;
+    line-height: 1.5;
+    text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    font-size: var(--step-0);
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-top: 0;
+    margin-bottom: var(--space-m);
+  }
+  
+  h1 { font-size: var(--step-4); }
+  h2 { font-size: var(--step-3); }
+  h3 { font-size: var(--step-2); }
+  h4 { font-size: var(--step-1); }
+  h5 { font-size: var(--step-0); }
+  h6 { font-size: var(--step--1); }
+  
+  /* Paragraph */
+  p {
+    margin-top: 0;
+    margin-bottom: var(--space-m);
+  }
+  
+  /* Small text */
+  small {
+    font-size: var(--step--1);
+  }
+  
+  /* Links */
+  a {
+    color: var(--sl-color-accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    transition: all var(--animation-quick) ease;
+  }
+  
+  a:hover {
+    color: var(--brand-blood-orange);
+    text-decoration-thickness: 2px;
+  }
+  
+  /* Selection */
+  ::selection {
+    background: var(--sl-color-accent);
+    color: var(--brand-white);
+  }

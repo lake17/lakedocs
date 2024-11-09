@@ -10,6 +10,7 @@ export const collections = {
         category: z.string().optional(),
         owner: z.string().optional(),
         createdOn: z.string().optional(),
+        createdBy: z.string().optional(),
         
         // Tag support
         tags: z.array(z.string()).default([]),

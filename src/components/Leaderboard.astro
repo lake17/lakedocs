@@ -1,0 +1,71 @@
+---
+import { Image } from "astro:assets";
+import { Card } from "@astrojs/starlight/components";
+import TitleBadge from "./TitleBadge.astro";
+import MedalBadge from "./MedalBadge.astro";
+import type { TeamStats } from "../types";
+
+interface Props {
+  stats: TeamStats[];
+  variant: "weekly" | "monthly";
+  title: string;
+  icon?: string;
+  defaultAvatar: ImageMetadata;
+}
+
+const { stats, variant, title, icon = "star", defaultAvatar } = Astro.props;
+
+// Filter out users with 0 score and sort by score descending
+const sortedStats = stats
+  .filter(member => member.score > 0)
+  .sort((a, b) => b.score - a.score);
+---
+
+<Card title={title} icon={icon}>
+  {sortedStats.length > 0 ? (
+    <table style="border-collapse: collapse; width: 100%;">
+      {sortedStats.map((member) => (
+        <tr>
+          <td style="text-align: center">
+            {(member.avatar && member.avatar !== "undefined") ? (
+              <Image
+                src={member.avatar}
+                alt="Avatar"
+                width="50"
+                height="50"
+                style="border-radius: 50%; object-fit: cover;"
+              />
+            ) : (
+              <Image
+                src={defaultAvatar}
+                alt="Avatar"
+                width="50"
+                height="50"
+                style="border-radius: 50%; object-fit: cover;"
+              />
+            )}
+          </td>
+          <td style="text-align: left; vertical-align: middle;">
+            {member.name}
+            {member.rank ? <span>&ensp;</span><TitleBadge rank={member.rank} /> : ""}
+          </td>
+          <td style="text-align: center; vertical-align: middle;">
+            {(() => {
+              const position = sortedStats.findIndex(t => t.score === member.score) + 1 as 1|2|3;
+              return [1, 2, 3].includes(position) ? (
+                <MedalBadge 
+                  text={String(member.score)}
+                  size="medium" 
+                  variant={variant} 
+                  position={position}
+                />
+              ) : String(member.score);
+            })()}
+          </td>
+        </tr>
+      ))}
+    </table>
+  ) : (
+    <p style="text-align: center; padding: 1rem;">No points earned yet this {variant === "weekly" ? "week" : "month"}.</p>
+  )}
+</Card>

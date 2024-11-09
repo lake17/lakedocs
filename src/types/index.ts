@@ -1,11 +1,13 @@
 // src/types/index.ts
 import type { CollectionEntry } from "astro:content";
 
+export type Rank = 1|2|3|4|5|6;
+
 export interface TeamMember {
   name: string;
   avatar: string;
   email: string;
-  rank: 1|2|3|4|5|6;
+  rank: Rank;
   id: string;
 }
 

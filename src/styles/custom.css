@@ -1,42 +1,96 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+/* Import theme styles */
+@import './theme/base.css';
+@import './theme/typography.css';
+@import './theme/components.css';
+@import './theme/utils.css';
 
-/* Light mode colors. */
-:root[data-theme='light'] {
-	--sl-color-accent-low: #c7d6fd;
-	--sl-color-accent: #3857eb;
-	--sl-color-accent-high: #1b2b6a;
-	--sl-color-white: #15172e;
-	--sl-color-gray-1: #272727;
-	--sl-color-gray-2: #383838;
-	--sl-color-gray-3: #585858;
-	--sl-color-gray-4: #8b8b8b;
-	--sl-color-gray-5: #c2c2c2;
-	--sl-color-gray-6: #e0e0e0; /* softened from #eeeeee */
-	--sl-color-gray-7: #f0f0f0; /* softened from #f6f6f6 */
-	--sl-color-black: #f7f7f7; /* softened from #ffffff */
-}
 
-/* Dark mode colors. */
-:root {
-	--sl-color-accent: #f50;
-	--sl-color-accent-high: #f50;
-}
-
-.social-icons::after {
-	display: none;
-}
-/*
-  font-weight: 400;
-  font-style: normal;
+/* 
+  Any custom overrides for Starlight-specific components should go here,
+  after the imports but before your additional customizations
 */
-* {
-  font-family: "Inter", sans-serif;
-  font-optical-sizing: auto;
-  text-underline-offset: 5px;
-  .sl-markdown-content a:not(:where(.not-content *)) {
-	color: var(--sl-color-white);
+
+/* Starlight overrides */
+:root {
+  --sl-content-width: 75rem;
+  --sl-text-code: var(--sl-color-white);
 }
-a:hover {
-	text-decoration-color: var(--sl-color-accent);
+
+/* Override Starlight nav styles */
+.sl-markdown-content a:not(:where(.not-content *)) {
+  color: var(--sl-color-white);
 }
+
+:root[data-theme='light'] .sl-markdown-content a:not(:where(.not-content *)):hover {
+  color: var(--brand-blood-orange);
+}
+
+:root[data-theme='dark'] .sl-markdown-content a:not(:where(.not-content *)):hover {
+  color: var(--brand-blood-orange);
+}
+
+/* Card overrides for Starlight */
+.card, 
+.link-card,
+.card-grid > * {
+  transition: transform var(--animation-quick) ease, 
+              box-shadow var(--animation-quick) ease;
+}
+
+.card:hover,
+.link-card:hover,
+.card-grid > *:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Ensure proper color inheritance in cards */
+.card .title {
+  color: var(--sl-color-white);
+}
+
+/* Starlight-specific component overrides */
+
+/* Table of Contents */
+.sl-sidebar .right-sidebar-panel a {
+  color: var(--sl-color-gray-2);
+  opacity: 0.8;
+  transition: color var(--animation-quick) ease, opacity var(--animation-quick) ease;
+}
+
+.sl-sidebar .right-sidebar-panel a[aria-current="true"],
+.sl-sidebar .right-sidebar-panel a[aria-current="page"] {
+  color: var(--sl-color-white);
+  opacity: 1;
+  font-weight: 500;
+}
+
+.sl-sidebar .right-sidebar-panel a:hover {
+  color: var(--sl-color-white);
+  opacity: 1;
+}
+
+/* Dark mode */
+:root[data-theme='dark'] .sl-sidebar .right-sidebar-panel a {
+  color: var(--sl-color-gray-3);
+}
+
+:root[data-theme='dark'] .sl-sidebar .right-sidebar-panel a[aria-current="true"],
+:root[data-theme='dark'] .sl-sidebar .right-sidebar-panel a[aria-current="page"],
+:root[data-theme='dark'] .sl-sidebar .right-sidebar-panel a:hover {
+  color: var(--sl-color-white);
+}
+
+/* Other Starlight-specific overrides can go here */
+
+/* Match the exact Starlight selector but provide our desired styles */
+a:where(.astro-g2bywc46)[aria-current=true] {
+  color: var(--sl-color-white) !important; /* Using !important as a last resort */
+}
+
+/* Keep our other TOC styles as well for completeness */
+.right-sidebar-panel a:where(.astro-g2bywc46) {
+  color: var(--sl-color-gray-2);
+  opacity: 0.8;
+  transition: color var(--animation-quick) ease, opacity var(--animation-quick) ease;
 }

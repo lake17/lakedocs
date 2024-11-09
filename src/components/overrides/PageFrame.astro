@@ -1,0 +1,35 @@
+---
+import MobileMenuToggle from "@astrojs/starlight/components/MobileMenuToggle.astro"
+import type { Props } from "@astrojs/starlight/props"
+
+// Always set hasSidebar to false regardless of what's passed in
+const { hasSidebar: _, ...props } = Astro.props
+---
+
+<div class="page sl-flex">
+  <header class="header"><slot name="header" /></header>
+  <div class="main-frame"><slot /></div>
+</div>
+
+<style>
+  .page {
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .header {
+    z-index: var(--sl-z-index-navbar);
+    position: fixed;
+    inset-inline-start: 0;
+    inset-block-start: 0;
+    width: 100%;
+    height: var(--sl-nav-height);
+    border-bottom: 1px solid var(--sl-color-hairline-shade);
+    padding: var(--sl-nav-pad-y) var(--sl-nav-pad-x);
+    background-color: var(--sl-color-bg-nav);
+  }
+
+  .main-frame {
+    padding-top: calc(var(--sl-nav-height) + var(--sl-mobile-toc-height));
+  }
+</style>

@@ -23,6 +23,7 @@ export default defineConfig({
       sidebar: [],
       components: {
         EditLink: "./src/components/overrides/EditLink.astro",
+        PageFrame: "./src/components/overrides/PageFrame.astro",
       },
       pagination: false,
       editLink: { baseUrl: "https://docs.forfusion.uk/ed#/collections/docs/entries/", },

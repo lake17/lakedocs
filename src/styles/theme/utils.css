@@ -1,0 +1,53 @@
+/* Layout utilities */
+.container {
+    width: 100%;
+    max-width: 90rem;
+    margin-inline: auto;
+    padding-inline: var(--space-m);
+  }
+  
+  .flow > * + * {
+    margin-top: var(--space-m);
+  }
+  
+  /* Responsive grid */
+  .grid {
+    display: grid;
+    gap: var(--space-m);
+  }
+  
+  @media (min-width: 40em) {
+    .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+  }
+  
+  /* Visibility */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  
+  /* Skip links */
+  .skip-link {
+    position: absolute;
+    top: var(--space-s);
+    left: var(--space-s);
+    padding: var(--space-s);
+    background: var(--sl-color-accent);
+    color: var(--brand-white);
+    text-decoration: none;
+    transform: translateY(-120%);
+    transition: transform var(--animation-quick) ease;
+  }
+  
+  .skip-link:focus {
+    transform: translateY(0);
+  }
