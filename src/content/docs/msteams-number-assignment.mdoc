@@ -1,0 +1,63 @@
+---
+title: Adding Number/Extension via the GUI
+category: procedure
+owner: daniel.mead@forfusion.com
+createdBy: daniel.mead@forfusion.com
+authors:
+  - name: daniel.mead@forfusion.com
+    percentage: 100
+createdOn: "2024-10-29"
+tags:
+  - customers
+  - value-retail
+---
+
+This guide explains how to assign a user a number and extension (where required) via the Teams Admin portal.
+
+Example Ticket: [#241201 - Forfusion Ltd.](https://support.forfusion.com/agent/forfusion/forfusion-ltd/tickets/details/5496000096213360)
+
+VR will send in a ticket requesting a number/extension to be added to a user for use in Microsoft Teams. Only the number is necessary, the user is not required to have an extension assigned but some VR reps may request one (The process is the same).
+
+## Before you start
+
+Before you, ensure:
+
+- You have access to a Value Retail Admin account
+- Know the _Number_ and the _location_ of the user
+
+## Teams Configuration
+
+1. Log into the [Teams Admin Center](https://admin.teams.microsoft.com/)
+
+2. Find the user
+
+   Users --> Manage Users
+
+   Search for the user by name or by email.
+
+   <img src="/images/finduser.gif" alt="Search for User" />
+
+   A user **MUST** have a valid license applied to have voice enabled, if a user does not show up following a search and the spelling is confirmed correct. We should go back to VR and confirm the license applied.
+   (We can see the license applied to a user via the 365 admin center. However, we do not have permission to make any amendments to a user's account outside of Teams.)
+
+3. Edit the User
+
+   Once the user is located, the only things that need to be changed are the "Account General Information" and the "Policies" applied to the user.
+
+   Under "Account" and "General Information" you will see the edit button, hitting it will allow you to assign the phone number and phone number extension. Both of which should be provided by Value Retail.
+
+   _This step is the most likely place that an error may occur, common issues are likely to be the account not being enterprise voice-enabled, the number already being assigned to another user or an old user account that is still being pointed to an On-Premise Skype for Business server. A red banner will appear at the top of the screen with an error message pointing out the issue. Documentation will be made with information on how to resolve common issues._
+
+   <img src="/images/manageuser.gif" alt="Editing User" />
+
+   After assigning a user their number, we must ensure that the Dial Plan and the Voice Routing Policy is assigned. We rely on these to both help manage numbers that the user receives and where to direct the users inbound/outbound calls via the correct SBC for the best quality and experience.
+
+   Going into "Policies" and hitting the edit button. We will be able to change all the assigned policies, the two we will require to assign are the Dial Plan and Voice Routing Policy. The Dial Plan manipulate the phone number so that is processed through the SBC and Teams, the Routing Policy is responsible for routing the inbound/outbound calls for the user through the relevant SBC for the village the user is based in - this is something which should be checked, if not stated, with the VR rep who requested the ticket.
+
+   _A document with a full list of the required policies per Village will be created._
+
+   <img src="/images/vrpolicy.gif" alt="Editing config" />
+
+Once Apply has been hit, the user account is good to go and you can let the VR rep know before closing the ticket off.
+
+Any issues, please reach out to Dan or Fin.

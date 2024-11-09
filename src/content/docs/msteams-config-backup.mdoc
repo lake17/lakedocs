@@ -1,0 +1,84 @@
+---
+title: Microsoft Teams Config Backups
+category: procedure
+owner: daniel.mead@forfusion.com
+createdBy: daniel.mead@forfusion.com
+authors:
+  - name: daniel.mead@forfusion.com
+    percentage: 100
+createdOn: "2024-10-29"
+tags:
+  - customers
+  - value-retail
+---
+
+This guide explains how to run Microsoft Team backups for Value Retail.
+
+The Microsoft Teams Config backups are essential for backup points of the Value Retail Auto Attendants, Call Queues, opening times, audio files etc.
+
+## Before you start
+
+Before you start, ensure:
+
+- You have the Microsoft Teams Powershell module
+- Able to run powershell as administrator
+- Have access to a Value Retail 365 admin account
+- Have downloaded and attached the [Backup script](/attachments/Backup-TeamsConfig.Ps1) locally
+
+## Known Issue
+
+"Backup-TeamsConfig.ps1 cannot be loaded. the file is not digitally signed" is a common issue, firstly ensure that PowerShell is being in administrator and run the following command
+
+```
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+## Teams Backup
+
+The backup process is done through PowerShell connected to Microsoft teams, meaning you require the correct plugins to do so. You can see the steps to connect to Teams via PowerShell here.
+The script will need downloaded and extracted from the attached zip folder, I have included the .txt file if you are curious to how it works.
+You will also need an **Output** folder where the backup files will go, I'd recommend making a new folder where the script is being stored called "Backups"
+
+1. Open powershell as **Administrator**
+
+2. Connect to the Teams module using your VR Admin account
+
+   2.1.
+
+   ```
+   connect-microsoftteams
+   ```
+
+   <img src="/images/connectteams.gif" alt="A gif connecting to teams module" />
+
+   If you have issues with the Microsoft Teams Module, please read over the documentation for it or get in touch with Dan.
+
+3. Run the following commands - Ensuring that you use the file paths that represent your folder layout
+
+   3.1.
+
+   ```
+   cd "Location of backup ps1 script file" (e.g. C:\Users\daniel.mead\Desktop\Teams Backup)
+   ```
+
+   3.2.
+
+   ```
+   .\Backup-TeamsConfig.Ps1 -action Backup -Path "Chosen Output Folder" (e.g. C:\Users\daniel.mead\Desktop\Teams Backup\Backups"
+   ```
+
+   ![](@images/YellowError.png)
+
+   This step will take a while, let it run.
+
+   _You may see yellow text errors, these pop up when the backup goes over a call queue with a specific setting enabled. Don't worry about it_
+
+   ![](@images/BackupDone.png)
+
+4. Move backup to Sharepoint
+
+   Once the backup is complete, you should have a new zipped folder with the date.
+
+   Move this into [Sharepoint](https://forfusion.sharepoint.com/:f:/r/sites/customers/valueretailplc/Support%20Documents/FusionCare%202020_21/5%20-%20Technical%20Documentation/Backups/Teams%20Backup?csf=1&web=1&e=OBtmtO)
+
+Any issues, please reach out to Dan or Steve P

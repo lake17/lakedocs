@@ -1,0 +1,54 @@
+---
+title: Pausing sensors in PRTG
+category: procedure
+owner: george.russ@forfusion.com
+createdBy: george.russ@forfusion.com
+authors:
+  - name: george.russ@forfusion.com
+    percentage: 100
+createdOn: "2024-10-29"
+tags:
+  - internal
+---
+
+This guide explains how to pause a sensor in PRTG. We may temporarily pause a sensor in PRTG upon request from a client, or when we haven't received a response from a client after we've sent them 3 or more chaser emails.
+
+## Before you start
+
+Before you pause a sensor in PRTG, ensure:
+
+- You have admin access to PRTG.
+
+## Pausing the Sensor
+
+1. Log into PRTG and search for the device that the sensor resides.
+
+   - You can search for the device by using the search function or through the "Devices" section.
+
+   ![image-20241029144111562](@images/image-20241029144111562.png)
+
+   ![image-20241029144132952](@images/image-20241029144132952.png)
+
+   - You should find yourself on the device overview page that displays all sensors configured on the device.
+
+     ![image-20241029145202801](@images/image-20241029145202801.png)
+
+2. Locate the sensor and pause the sensor indefinitely.
+
+   2.1. Right click on the sensor description.
+
+   2.2. Highlight your cursor over "Pause". This will open a sub window.
+
+   2.3 Click "Pause Indefinitely"
+
+   ![image-20241029150551490](@images/image-20241029150551490.png)
+
+3. Enter a message that provides the reason for pausing and include the ticket number.
+
+   ![image-20241029151642065](@images/image-20241029151642065.png)
+
+4. Click "OK" and the sensor will now be paused.
+
+## See also
+
+- PRTG Manual for Pausing: https://www.paessler.com/manuals/prtg/pause#:~:text=Navigate%20to%20an%20object%20in,additionally%20define%20a%20time%20period.

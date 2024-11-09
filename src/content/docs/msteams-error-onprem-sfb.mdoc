@@ -1,0 +1,21 @@
+---
+title: Error "The user is hosted in an on-premises deployment of Skype for Business Server"
+category: explanation
+owner: daniel.mead@forfusion.com
+createdBy: daniel.mead@forfusion.com
+authors:
+  - name: daniel.mead@forfusion.com
+    percentage: 100
+createdOn: "2024-10-29"
+tags:
+  - customers
+  - value-retail
+---
+
+The error message _"The user is hosted in an on-premises deployment of Skype for Business Server"_ is one of the least common errors when assigning a number in MS Teams
+
+The error occurs due to the users AD account pointing to Value Retails old on-prem Skype for Business set up. Likely to happen when a user who left VR when SfB was deployed, returns to the company and needs a new number assigned. "
+
+**It's a simple fix and only requires going back to Value Retail and requesting that the users AD attribute msRTCSIP-DeploymentLocator be changed from SRV to sipfed.online.lync.com.**
+
+Wait 15-30 minutes and the user should be good to go.

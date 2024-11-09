@@ -1,0 +1,55 @@
+---
+title: Backup Killik’s ESXi’s configuration
+createdOn: "2024-10-30"
+owner: rafal.kosalka@forfusion.com
+createdBy: rafal.kosalka@forfusion.com
+authors:
+  - name: rafal.kosalka@forfusion.com
+    percentage: 100
+category: procedure
+tags:
+  - customers
+  - killik
+---
+
+Connect to Killik’s Azure VPN
+
+DC1 ESXI’s IPs
+
+- 10.64.254.24
+- 10.64.254.25
+- 10.64.254.26
+
+DC2 ESXI’s IPs
+
+- 10.65.254.24
+- 10.65.254.25
+- 10.65.254.26
+
+SSH to the ESXi IP address (login credentials can be found in
+Killik-DC-MASTER-IP_INTERFACE.v0.1)
+
+Execute command to sync configuration: vim-cmd
+hostsvc/firmware/sync_config
+
+Execute command to backup configuration: vim-cmd
+hostsvc/firmware/backup_config
+
+In the below example we are backing up DC2 host 1, 10.65.254.24
+
+The command will output a
+URL `http://<host>/downloads/123456/configBundle-xx.xx.xx.xx.tgz` from
+where you can download the backup file, either by opening it in a web
+browser or using other means like wget or winscp.
+
+![A computer screen with white text Description automatically generated](@images/backup-esxi-config-killik_0.png)
+
+Copy the URL and paste in a browser
+![alt text](@images/backup-esxi-config-killik_1.png)
+
+Replace the Asterix with the IP address of the server and press enter
+![alt text](@images/backup-esxi-config-killik_2.png)
+
+Backup file (.TGZ) will be downloaded.
+
+Repeat the steps for each ESXi.

@@ -1,0 +1,45 @@
+---
+title: Renew connect.valueretail.com certificate
+createdOn: "2024-10-25"
+owner: gavin.roberts@forfusion.com
+createdBy: gavin.roberts@forfusion.com
+authors:
+  - name: gavin.roberts@forfusion.com
+    percentage: 100
+category: procedure
+tags:
+  - customers
+  - value-retail
+---
+
+To renew the cert for connect.valueretail.com, connect to FMC and
+navigate to:
+
+**Devices \> VPN \> Remote Access \> VR_Remote_Access_VPN** to determine
+which trustpoint is currently in use:
+
+![alt](@images/renew-connect-cert_image1.png){width="6.268055555555556in"
+height="3.0340277777777778in"}
+
+now navigate to **Devices \> Certificates** and select the
+\"**Secure_Client**\" trustpoint that is not in use (it will either be
+Secure_Client or Secure_Client_2, no other trustpoint needs to be used
+for this).
+
+Click the \"ID\" button to generate a new CSR and send this to Zensar to
+be signed.
+
+Once you receive the signed .crt file, imports the identity certificate
+by navigating back to **Devices \> Certificates**, click the \"ID\"
+button again and \"Browse Identity Certificate\".
+
+Select the new signed certificate file and Import.
+
+To enable the new certificate, navigate to **Devices \> VPN \> Remote
+Access \> VR_Remote_Access_VPN** and under **SSL Global Identity
+Certificate** (as above), select the trustpoint for which you imported
+the new certificate.
+
+Once the new settings are saved, deploy the config to the DC EDG
+Firewalls and test connectivity to the VR VPN to confirm no SSL error
+messages are seen.

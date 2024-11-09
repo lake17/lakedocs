@@ -1,0 +1,86 @@
+---
+title: Renew dnac.valueretail.com certificate
+createdOn: "2024-10-25"
+owner: gavin.roberts@forfusion.com
+createdBy: gavin.roberts@forfusion.com
+authors:
+  - name: gavin.roberts@forfusion.com
+    percentage: 100
+category: procedure
+tags:
+  - customers
+  - value-retail
+---
+
+1. Login to DNAC and navigate to System \> settings \> system
+   certificates
+
+2. Click new certificate request (CSR)
+
+3. Ensure info is entered as below:
+
+   ![alt](@images/renew-vr-catcen-cert_image.png){width="6.268055555555556in"
+   height="4.736111111111111in"}
+
+4. **Ensure SanDNS has the following entries:**
+
+   ** dnac.valueretail.com**
+
+   ** pnpserver.valueretail.com**
+
+5. **Ensure SanIP has all of the following entries:**
+
+   ** 172.16.0.13**
+
+   ** 172.16.0.12**
+
+   ** 172.16.0.11**
+
+   ** 172.16.0.10**
+
+   ** 10.3.247.10**
+
+   ** 10.3.247.11**
+
+   ** 10.98.12.10**
+
+   ** 10.98.12.11**
+
+   ** 10.98.12.12**
+
+   ** 10.3.247.12**
+
+   ** 10.98.12.13**
+
+   ** 10.3.247.13**
+
+6. Click Next
+
+7. Download CSR
+
+8. Send the CSR to Zensar to be signed. Ask them to return a .pem file
+   containing the full chain (domain \> intermediate \> root)
+
+9. Once you have received the signed.pem file, go back to DNAC \>
+   System \> Settings \> System Cerificates
+
+10. Click Import Certificate
+
+11. Select "used for" Controller and DR IPSec, "type" .pem, upload the
+    new .pem file and click save
+
+12. Once the new cert is installed you will be logged out and need to
+    log back in to DNAC
+
+13. Navigate to Provision \> Inventory and filter by WLC
+
+14. Do the following on each WLC one at a time:
+
+    a. Select WLC
+
+    b. Actions \> Telemetry \> Update Telemetry settings
+
+15. Follow the steps (ensure you select "Force configuration push") and
+    deploy
+
+16. Wait 10-20 minutes for health data to show in DNAC for each WLC
