@@ -2,7 +2,7 @@
   {
     "email": "carson.briggs@forfusion.com",
     "id": "Y2lzY29zcGFyazovL3VzL1BFT1BMRS8wNmMyNDFjOC0xNGVjLTQ4ZWUtOWU2ZS03YWFlNTJiZjFjODg",
-    "avatar": "",
+    "avatar": "https://avatar-prod-us-east-2.webexcontent.com/Avtr~V1~91dd6f49-8765-430d-aec3-ea9570a56933/V1~19087cc56c0550436836658aec41a127df08c8bda465435f70f2014bcb9f916f~775b1ced20094344992c2cd54cab836e~1600",
     "name": "Carson Briggs",
     "rank": 0,
     "bonus": 0,
@@ -11,7 +11,7 @@
   {
     "email": "daniel.mead@forfusion.com",
     "id": "Y2lzY29zcGFyazovL3VzL1BFT1BMRS9jMDNkNGExZS04NTg2LTRiNGUtOTY0OC0yMTJiMTU0NzkwYzI",
-    "avatar": "",
+    "avatar": "https://avatar-prod-us-east-2.webexcontent.com/Avtr~V1~91dd6f49-8765-430d-aec3-ea9570a56933/V1~132368df1ec10e16e789af82ee61298d02c18e0995de9bfd8e512e44e7159be3~9997e917a4ee4a6e97591fffc20d6abb~1600",
     "name": "Daniel Mead",
     "rank": 1,
     "bonus": 0,
@@ -29,16 +29,16 @@
   {
     "email": "ellis.moll@forfusion.com",
     "id": "Y2lzY29zcGFyazovL3VzL1BFT1BMRS8zYmU4ODY5Yy0wMjc3LTQ5MzMtOTdmMS05ZjEyYjNlOGQzZjI",
-    "avatar": "",
     "name": "Ellis Moll",
     "rank": 0,
     "bonus": 0,
-    "total": 1
+    "total": 1,
+    "avatar": ""
   },
   {
     "email": "ezekiel.nye@forfusion.com",
     "id": "Y2lzY29zcGFyazovL3VzL1BFT1BMRS9hOGQzNWI3Ni00MTdjLTQ1YWUtOTRmMy1mZDljOWYzYjVmY2M",
-    "avatar": "",
+    "avatar": "https://avatar-prod-us-east-2.webexcontent.com/Avtr~V1~91dd6f49-8765-430d-aec3-ea9570a56933/V1~47eb177e9f41690de09e7495cbf75b07fdb77ec103b1e0515391c82e155b2d02~f59073872ef542a490aaaee67dedee39~1600",
     "name": "Ezekiel Nye",
     "rank": 0,
     "bonus": 0,
@@ -47,7 +47,7 @@
   {
     "email": "finlay.blight@forfusion.com",
     "id": "Y2lzY29zcGFyazovL3VzL1BFT1BMRS8xMzhmZTYzYS0yZmNmLTRkYTktYmY1MC02NDAyODc0MmJjMmU",
-    "avatar": "",
+    "avatar": "https://avatar-prod-us-east-2.webexcontent.com/Avtr~V1~91dd6f49-8765-430d-aec3-ea9570a56933/V1~069d9ed2c9acc8d163466677bf10d962a05d950abcceb0700d2c78b00390b23d~509965cdf1da438f82dfac66af643f2c~1600",
     "name": "Finlay Blight",
     "rank": 0,
     "bonus": 0,
@@ -65,7 +65,7 @@
   {
     "email": "george.hanks@forfusion.com",
     "id": "Y2lzY29zcGFyazovL3VzL1BFT1BMRS9kYjAyZjcwZC03NjVkLTQyNDQtYjQ1Yy1kNGMxMTk5Y2I1YzM",
-    "avatar": "",
+    "avatar": "https://avatar-prod-us-east-2.webexcontent.com/Avtr~V1~91dd6f49-8765-430d-aec3-ea9570a56933/V1~44fc1638a8ee93ca1ed7e3d11e76adf610d015c7d9c8ef56c208b9c1bc1b6a00~671d1ba3ed8e49d58409ccb1f5a8e309~1600",
     "name": "George Hanks",
     "rank": 0,
     "bonus": 0,

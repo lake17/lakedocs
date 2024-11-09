@@ -1,0 +1,319 @@
+[
+  {
+    "title": "evolving-networks-failover-test",
+    "since": "2024-09-30",
+    "type": "procedure",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "evolving-networks",
+      "networking"
+    ]
+  },
+  {
+    "title": "p1-incident-response",
+    "since": "2024-09-30",
+    "type": "procedure",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "incident"
+    ]
+  },
+  {
+    "title": "vr-change-request",
+    "since": "2024-09-30",
+    "type": "procedure",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "vr"
+    ]
+  },
+  {
+    "title": "1st Line Raising ticket for down device in PRTG",
+    "since": "2024-10-22",
+    "type": "procedure",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "prtg",
+      "monitoring"
+    ]
+  },
+  {
+    "title": "Allow external domain messaging on Teams",
+    "since": "2024-10-22",
+    "type": "procedure",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "teams"
+    ]
+  },
+  {
+    "title": "Auto Attendant destination changes",
+    "since": "2024-10-22",
+    "type": "procedure",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "teams",
+      "voice"
+    ]
+  },
+  {
+    "title": "Call Queue destination changes",
+    "since": "2024-10-22",
+    "type": "procedure",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "teams",
+      "voice"
+    ]
+  },
+  {
+    "title": "Forfusion New User",
+    "since": "2024-10-22",
+    "type": "procedure",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "onboarding"
+    ]
+  },
+  {
+    "title": "Forfusion Staff Exit",
+    "since": "2024-10-22",
+    "type": "procedure",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "offboarding"
+    ]
+  },
+  {
+    "title": "MS Teams Number Assignment",
+    "since": "2024-10-22",
+    "type": "procedure",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "teams",
+      "voice"
+    ]
+  },
+  {
+    "title": "MS Teams Number removal (VR STAFF EXIT)",
+    "since": "2024-10-22",
+    "type": "procedure",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "teams",
+      "voice",
+      "vr"
+    ]
+  },
+  {
+    "title": "Pausing sensors in PRTG (ticket down too long or requested by VR for set times)",
+    "since": "2024-10-22",
+    "type": "procedure",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "prtg",
+      "monitoring"
+    ]
+  },
+  {
+    "title": "Processing Cisco RMA",
+    "since": "2024-10-22",
+    "type": "procedure",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "cisco"
+    ]
+  },
+  {
+    "title": "SBC Checks",
+    "since": "2024-10-22",
+    "type": "procedure",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "sbc",
+      "voice"
+    ]
+  },
+  {
+    "title": "Teams call group user changes",
+    "since": "2024-10-22",
+    "type": "procedure",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "teams",
+      "voice"
+    ]
+  },
+  {
+    "title": "Teams greeting and closed message changes",
+    "since": "2024-10-22",
+    "type": "procedure",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "teams",
+      "voice"
+    ]
+  },
+  {
+    "title": "Teams opening time changes",
+    "since": "2024-10-22",
+    "type": "procedure",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "teams",
+      "voice"
+    ]
+  },
+  {
+    "title": "Auto Attendant vs Call Queue",
+    "since": "2024-10-22",
+    "type": "explanation",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "teams",
+      "voice"
+    ]
+  },
+  {
+    "title": "evolving-networks",
+    "since": "2024-09-30",
+    "type": "explanation",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "evolving-networks",
+      "networking"
+    ]
+  },
+  {
+    "title": "SBC Explanation",
+    "since": "2024-09-30",
+    "type": "explanation",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "sbc",
+      "voice"
+    ]
+  },
+  {
+    "title": "MS Teams Call flows",
+    "since": "2024-10-14",
+    "type": "explanation",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "teams",
+      "voice"
+    ]
+  },
+  {
+    "title": "Cable Test Results",
+    "since": "2024-10-14",
+    "type": "reference",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "networking"
+    ]
+  },
+  {
+    "title": "killik-problem-history",
+    "since": "2024-09-30",
+    "type": "reference",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "killik"
+    ]
+  },
+  {
+    "title": "vr-problem-history",
+    "since": "2024-09-30",
+    "type": "reference",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "vr"
+    ]
+  },
+  {
+    "title": "New-CsInboundBlockedNumber",
+    "since": "2024-10-14",
+    "type": "reference",
+    "status": "pending",
+    "fulfilledOn": "",
+    "fulfilledBy": "",
+    "docId": "",
+    "tags": [
+      "teams",
+      "voice"
+    ]
+  }
+]
