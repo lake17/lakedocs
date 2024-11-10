@@ -7,9 +7,11 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "devbuild": "astro build && astro preview",
     "astro": "astro",
     "migrate": "tsx migrate.ts",
-    "sync-avatars": "tsx scripts/sync-webex-avatars.ts"
+    "sync-avatars": "tsx scripts/sync-webex-avatars.ts",
+    "convert-bookmarks": "tsx scripts/convert-bookmarks.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

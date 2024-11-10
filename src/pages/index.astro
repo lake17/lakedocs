@@ -27,7 +27,7 @@ import type { Rank } from "../types"
 import rawTeam from "../data/team.json"
 import { TITLE_THRESHOLDS } from "../types"
 import { processTeamStats, getPendingRequests } from "../utils/team-stats"
-import { getMonthsBetween, getPosition } from "../utils/stats"
+import { getMonthsBetween } from "../utils/stats"
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro"
 
 // Data processing
@@ -46,11 +46,12 @@ const { sortedDocs, weeklyStats, monthlyStats, allTimeStats } =
   frontmatter={{
     title: "FusionCare Knowledge Base",
     tableOfContents: false,
+    pagefind: false,
   }}
 >
   <ThreeCardGrid>
     <LinkCard title="README" href="/readme" />
-    <LinkCard title="Documentation" href="/sections" />
+    <LinkCard title="Documentation" href="/tags" />
     <LinkCard title="Editor" href="/ed" />
     <LinkCard title="Bookmarks" href="/bookmarks" />
     <LinkCard title="Snippets [TODO]" />

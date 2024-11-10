@@ -1,0 +1,973 @@
+{
+  "collections": [
+    {
+      "title": "Value Retail",
+      "buckets": [
+        {
+          "title": "Data Centre",
+          "links": [
+            {
+              "title": "Catalyst Center Virtual IP",
+              "url": "https://10.98.12.10/",
+              "tags": []
+            },
+            {
+              "title": "Catalyst Center Node 1",
+              "url": "https://10.98.12.11/",
+              "tags": []
+            },
+            {
+              "title": "Catalyst Center Node 2",
+              "url": "https://10.98.12.12/",
+              "tags": []
+            },
+            {
+              "title": "Catalyst Center Node 3",
+              "url": "https://10.98.12.13/",
+              "tags": []
+            },
+            {
+              "title": "Catalyst Center Node 1 CIMC",
+              "url": "https://10.3.247.21/",
+              "tags": []
+            },
+            {
+              "title": "Catalyst Center Node 2 CIMC",
+              "url": "https://10.3.247.22/",
+              "tags": []
+            },
+            {
+              "title": "Catalyst Center Node 3 CIMC",
+              "url": "https://10.3.247.23/",
+              "tags": []
+            },
+            {
+              "title": "FirePOWER Management Center",
+              "url": "https://10.98.11.121/",
+              "tags": []
+            },
+            {
+              "title": "vSphere",
+              "url": "https://vrlndcvc01.valueretail.com/",
+              "tags": []
+            },
+            {
+              "title": "ISE Primary",
+              "url": "https://10.98.12.210/admin/",
+              "tags": []
+            },
+            {
+              "title": "ISE Secondary",
+              "url": "https://10.4.0.246/admin/login.jsp",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "Cloud/SaSS",
+          "links": [
+            {
+              "title": "NUVIAS UC Support (Siphon Networks / VR SBC Support)",
+              "url": "https://support.nuvias-uc.com/en",
+              "tags": []
+            },
+            {
+              "title": "EcoStruxure IT",
+              "url": "https://app.ecostruxureit.com/manage/auth/c/customer/715ff052-f956-4231-9e8b-7f67731c5c12/inventory/715ff052-f956-4231-9e8b-7f67731c5c12",
+              "tags": []
+            },
+            {
+              "title": "Change Request Portal",
+              "url": "https://valueretail.service-now.com/sp?id=sc_cat_item&sys_id=56767f2e3702e600301a42f643990edf",
+              "tags": []
+            },
+            {
+              "title": "SD-WAN",
+              "url": "https://vmanage-429583854.sdwan.cisco.com/",
+              "tags": []
+            },
+            {
+              "title": "Illumio Dashboard",
+              "url": "https://portal.illumio.com/app/UserHome",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "Bicester Village",
+          "links": [
+            {
+              "title": "BV Wireless LAN Controller Man3",
+              "url": "https://10.5.8.250/webui/",
+              "tags": []
+            },
+            {
+              "title": "BV Wireless LAN Controller Man1",
+              "url": "https://10.5.8.251/",
+              "tags": []
+            },
+            {
+              "title": "BV Spaces Connector 1",
+              "url": "https://10.96.1.234/login",
+              "tags": []
+            },
+            {
+              "title": "BV Spaces Connector 2",
+              "url": "https://10.96.1.235/login",
+              "tags": []
+            },
+            {
+              "title": "BV SBC 01",
+              "url": "http://10.97.251.66/",
+              "tags": []
+            },
+            {
+              "title": "BV SBC 02",
+              "url": "http://10.97.251.67/",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "Belmont Park",
+          "links": [
+            {
+              "title": "BPV Wireless LAN Controller K1",
+              "url": "https://10.59.8.250/webui/",
+              "tags": []
+            },
+            {
+              "title": "BPV Wireless LAN Controller B1",
+              "url": "https://10.59.8.251/webui/",
+              "tags": []
+            },
+            {
+              "title": "BPV Spaces Connector 1",
+              "url": "https://10.56.0.234/login",
+              "tags": []
+            },
+            {
+              "title": "BPV Spaces Connector 2",
+              "url": "https://10.56.0.235/",
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Other Clients",
+      "buckets": [
+        {
+          "title": "Killik",
+          "links": [
+            {
+              "title": "DC1 UCS Manager",
+              "url": "https://10.64.254.127/",
+              "tags": []
+            },
+            {
+              "title": "DC1 HX Connect",
+              "url": "https://10.64.254.28/",
+              "tags": []
+            },
+            {
+              "title": "DC2 UCS Manager",
+              "url": "https://10.65.254.127/",
+              "tags": []
+            },
+            {
+              "title": "DC2 HX Connect",
+              "url": "https://10.65.254.30/",
+              "tags": []
+            },
+            {
+              "title": "vSphere",
+              "url": "https://10.64.254.20:5480",
+              "tags": []
+            },
+            {
+              "title": "vCenter",
+              "url": "https://10.64.254.20:5480",
+              "tags": []
+            },
+            {
+              "title": "FirePOWER Management Center",
+              "url": "https://10.65.0.250/ui/login",
+              "tags": []
+            },
+            {
+              "title": "ISE Primary",
+              "url": "https://10.64.2.10/admin/",
+              "tags": []
+            },
+            {
+              "title": "ISE Secondary",
+              "url": "https://10.65.2.10/admin/",
+              "tags": []
+            },
+            {
+              "title": "Secure Cloud Analytics",
+              "url": "https://killik.obsrvbl.com/v2#/",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "Ceres Power",
+          "links": [
+            {
+              "title": "Virtual Desktop",
+              "url": "https://remote.cerespower.com",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "PRS",
+          "links": [
+            {
+              "title": "Virtual Desktop",
+              "url": "https://windows365.microsoft.com/ent#/devices",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "Grainger",
+          "links": [
+            {
+              "title": "ISE Primary",
+              "url": "https://10.254.252.25/admin/",
+              "tags": []
+            },
+            {
+              "title": "ISE Secondary",
+              "url": "https://10.254.241.25/admin/",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "Larcomes",
+          "links": [
+            {
+              "title": "HyperFlex Connect",
+              "url": "https://192.168.19.30/#/clusters/1",
+              "tags": []
+            },
+            {
+              "title": "vSphere",
+              "url": "https://192.168.3.50/",
+              "tags": []
+            },
+            {
+              "title": "vCenter",
+              "url": "https://192.168.3.50:5480/login",
+              "tags": []
+            },
+            {
+              "title": "CIMC Node 1",
+              "url": "https://192.168.9.10/",
+              "tags": []
+            },
+            {
+              "title": "CIMC Node 2",
+              "url": "https://192.168.9.11/",
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Suppliers/Partners",
+      "buckets": [
+        {
+          "title": "Cisco",
+          "links": [
+            {
+              "title": "Coverage Checker",
+              "url": "https://cway.cisco.com/sncheck/",
+              "tags": []
+            },
+            {
+              "title": "Services Contracts",
+              "url": "https://ccrc.cisco.com/ServiceContract/contract/?code=iscmctYzLmILlKmUMcij-VQkV3j3J6QdqlgAAADK&state=xyz",
+              "tags": []
+            },
+            {
+              "title": "Contracts",
+              "url": "https://rpfa.cloudapps.cisco.com/rpfa/profile/edit_entitlement.do?Tab=3&locale=en_US&organization=global",
+              "tags": []
+            },
+            {
+              "title": "Technical Assistance Center",
+              "url": "https://mycase.cloudapps.cisco.com/case",
+              "tags": []
+            },
+            {
+              "title": "Software Download",
+              "url": "https://software.cisco.com/download/home",
+              "tags": []
+            },
+            {
+              "title": "Umbrella",
+              "url": "https://login.umbrella.com/",
+              "tags": []
+            },
+            {
+              "title": "SD-Access Compatibility Matrix",
+              "url": "https://www.cisco.com/c/dam/en/us/td/docs/Website/enterprise/sda_compatibility_matrix/index.html",
+              "tags": []
+            },
+            {
+              "title": "Intersight",
+              "url": "https://5ffecff77564612d33c63007.intersight.com/",
+              "tags": []
+            },
+            {
+              "title": "Software Checker",
+              "url": "https://tools.cisco.com/security/center/softwarechecker.x",
+              "tags": []
+            },
+            {
+              "title": "Software Central",
+              "url": "https://software.cisco.com/software/csws/ws/platform/home?locale=en_US#SmartLicensing-Inventory",
+              "tags": []
+            },
+            {
+              "title": "BlackBelt",
+              "url": "https://salesconnect.cisco.com/#/program/HUB-14191",
+              "tags": []
+            },
+            {
+              "title": "POWR",
+              "url": "https://www.cisco-global-returns.com/gct/",
+              "tags": []
+            },
+            {
+              "title": "Meraki Dashboard",
+              "url": "https://account.meraki.com/login/dashboard_login",
+              "tags": []
+            },
+            {
+              "title": "Secure Endpoint",
+              "url": "https://auth.eu.amp.cisco.com/auth/sso/new",
+              "tags": []
+            },
+            {
+              "title": "Spaces",
+              "url": "https://dnaspaces.eu/home",
+              "tags": []
+            },
+            {
+              "title": "MyDevices",
+              "url": "https://cway.cisco.com/mydevices/devices",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "Microsoft",
+          "links": [
+            {
+              "title": "Intune Admin Center",
+              "url": "https://intune.microsoft.com/#home",
+              "tags": []
+            },
+            {
+              "title": "Online Password Reset",
+              "url": "https://passwordreset.microsoftonline.com/",
+              "tags": []
+            },
+            {
+              "title": "Windows App",
+              "url": "https://windows365.microsoft.com/ent#/devices",
+              "tags": []
+            },
+            {
+              "title": "Microsoft 365 Admin Center",
+              "url": "https://admin.microsoft.com/Adminportal/Home#/homepage",
+              "tags": []
+            },
+            {
+              "title": "Microsoft Teams Admin Center",
+              "url": "https://admin.teams.microsoft.com/",
+              "tags": []
+            },
+            {
+              "title": "Microsoft Exchange Admin Center",
+              "url": "https://admin.exchange.microsoft.com/#/homepage",
+              "tags": []
+            },
+            {
+              "title": "Microsoft Entra Admin Center",
+              "url": "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/TenantOverview.ReactView?Microsoft_AAD_IAM_legacyAADRedirect=true",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "Evolving Networks",
+          "links": [
+            {
+              "title": "Engage",
+              "url": "https://engage.evolving.net.uk/apps/files/files",
+              "tags": []
+            },
+            {
+              "title": "eViewLive",
+              "url": "https://eviewlive.net/overview",
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Other",
+      "buckets": [
+        {
+          "title": "Internal",
+          "links": [
+            {
+              "title": "Payslip Portal",
+              "url": "https://inpay.es.rsmuk.com/selfservice2/Login.aspx",
+              "tags": []
+            },
+            {
+              "title": "SharePoint",
+              "url": "https://forfusion.sharepoint.com/_layouts/15/sharepoint.aspx",
+              "tags": []
+            },
+            {
+              "title": "Zoho Expense",
+              "url": "https://expense.zoho.eu/app",
+              "tags": []
+            },
+            {
+              "title": "Zoho Projects",
+              "url": "https://projects.forfusion.com/portal/forfusion#myfeed",
+              "tags": []
+            },
+            {
+              "title": "Zoho People",
+              "url": "https://people.zoho.eu/hrportal1524492152385/zp#home/dashboard",
+              "tags": []
+            },
+            {
+              "title": "Zoho Desk",
+              "url": "https://accounts.zoho.eu/signin?serviceName=ZohoSupport&serviceurl=https%3A%2F%2Fsupport.forfusion.com%2Fsupport%2Fforfusion%2FShowHomePage.do",
+              "tags": []
+            },
+            {
+              "title": "Zoho Creator",
+              "url": "https://creator.zoho.eu/userhome/rahul.sharma/dashboard",
+              "tags": []
+            },
+            {
+              "title": "PRTG",
+              "url": "https://forfusion-monitoring.my-prtg.com/",
+              "tags": []
+            },
+            {
+              "title": "SolarWinds",
+              "url": "https://dashboard.systemmonitor.co.uk/",
+              "tags": []
+            },
+            {
+              "title": "Overtime Logger",
+              "url": "https://app.zohocreator.eu/rahul.sharma/overtime-logger#Log_Overtime",
+              "tags": []
+            },
+            {
+              "title": "ISMS.online",
+              "url": "https://platform.isms.online/",
+              "tags": []
+            },
+            {
+              "title": "Vitality Member Portal (Employee Benefit)",
+              "url": "https://members.vitality.co.uk/",
+              "tags": []
+            },
+            {
+              "title": "More Cobalt (Employee Benefit)",
+              "url": "https://www.morecobalt.co.uk/",
+              "tags": []
+            },
+            {
+              "title": "Webex Partner Hub",
+              "url": "https://admin.webex.com/partner/manage-customers/customer-list",
+              "tags": []
+            },
+            {
+              "title": "IT Governance (Cyber Essentials)",
+              "url": "https://ces.itgovernance.co.uk/Home",
+              "tags": []
+            },
+            {
+              "title": "VanDyke Software (Secure CRT)",
+              "url": "https://www.vandyke.com/cgi-bin/account_login.php?pid=scrt_x64_854",
+              "tags": []
+            },
+            {
+              "title": "Atlas Citation (Health and Safety Training)",
+              "url": "https://www.atlas-hub.co.uk/",
+              "tags": []
+            },
+            {
+              "title": "The People's Pension",
+              "url": "https://myproducts.bandce.co.uk/Home/MyProducts#",
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Utilities",
+      "buckets": [
+        {
+          "title": "Core Network Utilities",
+          "links": [
+            {
+              "title": "AWS Check IP",
+              "url": "https://checkip.amazonaws.com/",
+              "note": "Returns the IP your request came from and nothing more",
+              "tags": []
+            },
+            {
+              "title": "Looking Glass",
+              "url": "https://www.looking-glass.io/",
+              "note": "Network diagnostic tool for BGP routes and network paths",
+              "tags": []
+            },
+            {
+              "title": "Cloudflare Speed Test",
+              "url": "https://speed.cloudflare.com/",
+              "note": "The best speed test website available",
+              "tags": []
+            },
+            {
+              "title": "IPv6 Test",
+              "url": "https://test-ipv6.com/",
+              "note": "Tests IPv6 connectivity and readiness",
+              "tags": []
+            },
+            {
+              "title": "TCP Port State",
+              "url": "https://portquery.net/",
+              "note": "Tests TCP port state from multiple locations",
+              "tags": []
+            },
+            {
+              "title": "WebSocket Test",
+              "url": "https://websocket.org/echo.html",
+              "note": "Test WebSocket connections",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "DNS Tools",
+          "links": [
+            {
+              "title": "MX Toolbox",
+              "url": "https://mxtoolbox.com/",
+              "note": "Full-featured diagnostic tool for DNS, MX etc.",
+              "tags": []
+            },
+            {
+              "title": "DNSChecker",
+              "url": "https://dnschecker.org/",
+              "note": "Checks DNS propagation across multiple locations",
+              "tags": []
+            },
+            {
+              "title": "PTR Lookup",
+              "url": "https://ptr.ping.pe/",
+              "note": "Reverse DNS lookup tool",
+              "tags": []
+            },
+            {
+              "title": "DNS Leak Test",
+              "url": "https://dnsleaktest.com/",
+              "note": "Tests for DNS leaks",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "BGP & Routing",
+          "links": [
+            {
+              "title": "BGPView",
+              "url": "https://bgpview.io/",
+              "note": "Provides detailed BGP and ASN information and routing data",
+              "tags": []
+            },
+            {
+              "title": "ASN Lookup",
+              "url": "https://bgp.tools/",
+              "note": "Instant BGP ASN lookup with prefix info",
+              "tags": []
+            },
+            {
+              "title": "Submarine Cable Map",
+              "url": "https://www.submarinecablemap.com/",
+              "note": "Interactive map of global submarine cable systems",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "Security & Certificates",
+          "links": [
+            {
+              "title": "SSL Labs",
+              "url": "https://www.ssllabs.com/ssltest/",
+              "note": "Comprehensive SSL/TLS server security testing",
+              "tags": []
+            },
+            {
+              "title": "CRT.sh",
+              "url": "https://crt.sh/",
+              "note": "Certificate search tool and transparency logs",
+              "tags": []
+            },
+            {
+              "title": "SecurityHeaders",
+              "url": "https://securityheaders.com/",
+              "note": "Analyzes HTTP security headers",
+              "tags": []
+            },
+            {
+              "title": "Port Scanner",
+              "url": "https://ping.eu/port-chk/",
+              "note": "Basic online port checker",
+              "tags": []
+            },
+            {
+              "title": "Cisco Type 7 Password",
+              "url": "https://packetlife.net/toolbox/type7/",
+              "note": "Decrypt/encrypt Cisco type 7 passwords",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "Network Planning",
+          "links": [
+            {
+              "title": "CIDR Calculator",
+              "url": "https://cidr.xyz/",
+              "note": "Visual CIDR range calculator",
+              "tags": []
+            },
+            {
+              "title": "IPAM Subnet Visual",
+              "url": "https://www.davidc.net/sites/default/subnets/subnets.html",
+              "note": "Visual subnet calculator with VLSM",
+              "tags": []
+            },
+            {
+              "title": "VLAN Calculator",
+              "url": "https://vlancalc.net/",
+              "note": "VLAN range overlap checking tool",
+              "tags": []
+            },
+            {
+              "title": "Interface Bandwidth Calculator",
+              "url": "https://www.tbps.com/bandwidth/",
+              "note": "Calculates real throughput considering overhead",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "Development Tools",
+          "links": [
+            {
+              "title": "JSON YAML Converter",
+              "url": "https://www.json2yaml.com/",
+              "note": "Useful for network automation data formats",
+              "tags": []
+            },
+            {
+              "title": "Base64 Network Tools",
+              "url": "https://base64.guru/",
+              "note": "Encode/decode base64 (useful for API work)",
+              "tags": []
+            },
+            {
+              "title": "RegEx Tester",
+              "url": "https://regex101.com/",
+              "note": "Test regex for parsing network configs",
+              "tags": []
+            },
+            {
+              "title": "URI Decoder/Encoder",
+              "url": "https://meyerweb.com/eric/tools/dencoder/",
+              "note": "Encode/decode URLs",
+              "tags": []
+            },
+            {
+              "title": "NETCONF/YANG Validator",
+              "url": "https://yangvalidator.com/",
+              "note": "Validate YANG modules and NETCONF XML",
+              "tags": []
+            },
+            {
+              "title": "API Test Echo",
+              "url": "https://postman-echo.com/",
+              "note": "Test REST API calls without setup",
+              "tags": []
+            },
+            {
+              "title": "JWT Debug",
+              "url": "https://jwt.io/",
+              "note": "Debug JWTs used in API authentication",
+              "tags": []
+            },
+            {
+              "title": "Network Diagram Code",
+              "url": "https://websequencediagrams.com/",
+              "note": "Create network sequence diagrams from text",
+              "tags": []
+            },
+            {
+              "title": "XML/XPATH Tester",
+              "url": "https://www.freeformatter.com/xpath-tester.html",
+              "note": "Test XPATH queries for XML parsing",
+              "tags": []
+            },
+            {
+              "title": "Config Templater",
+              "url": "https://templatetester.com/",
+              "note": "Test Jinja2 templates with sample data",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "Hardware & Protocol",
+          "links": [
+            {
+              "title": "MAC OUI Lookup",
+              "url": "https://maclookup.app/",
+              "note": "Fast MAC vendor lookup without ads/clutter",
+              "tags": []
+            },
+            {
+              "title": "Frame Size Calculator",
+              "url": "https://framecalc.com/",
+              "note": "Calculate L2/L3 frame sizes with different encapsulations",
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Blogs",
+      "buckets": [
+        {
+          "title": "Networking",
+          "links": [
+            {
+              "title": "IP Space",
+              "url": "https://blog.ipspace.net/",
+              "note": "Deep technical analysis of network technologies and automation",
+              "tags": []
+            },
+            {
+              "title": "Gratuitous Arp",
+              "url": "https://gratuitous-arp.net/",
+              "note": "Advanced networking concepts and implementation details",
+              "tags": []
+            },
+            {
+              "title": "Rule11",
+              "url": "https://rule11.tech/worth-reading/",
+              "note": "Network architecture and design by Russ White",
+              "tags": []
+            },
+            {
+              "title": "RIPE Labs",
+              "url": "https://labs.ripe.net",
+              "note": "Internet infrastructure and measurement research",
+              "tags": []
+            },
+            {
+              "title": "Potaroo",
+              "url": "https://www.potaroo.net/",
+              "note": "Internet infrastructure analysis by Geoff Huston",
+              "tags": []
+            },
+            {
+              "title": "Packet Pushers",
+              "url": "https://packetpushers.net/blog/",
+              "note": "Technical deep dives by Ethan Banks and Greg Ferro",
+              "tags": []
+            },
+            {
+              "title": "Evil Routers",
+              "url": "https://evilrouters.net/",
+              "note": "Advanced BGP concepts and implementation details",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "Automation",
+          "links": [
+            {
+              "title": "Network to Code",
+              "url": "https://blog.networktocode.com/",
+              "note": "Advanced network automation techniques and tools",
+              "tags": []
+            },
+            {
+              "title": "Fryguy",
+              "url": "https://www.frysky.com",
+              "note": "Network automation and programmability deep dives",
+              "tags": []
+            },
+            {
+              "title": "Karneliuk",
+              "url": "https://karneliuk.com",
+              "note": "Network automation architectures and best practices",
+              "tags": []
+            },
+            {
+              "title": "Nornir",
+              "url": "https://nornir.tech/blog/",
+              "note": "Python-based network automation framework development",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "DevOps",
+          "links": [
+            {
+              "title": "Charity Majors",
+              "url": "https://charity.wtf",
+              "note": "Observability and modern operations architecture",
+              "tags": []
+            },
+            {
+              "title": "Julia Evans",
+              "url": "https://jvns.ca/",
+              "note": "Systems debugging and networking fundamentals",
+              "tags": []
+            },
+            {
+              "title": "Rachel by the Bay",
+              "url": "http://rachelbythebay.com/w/",
+              "note": "Infrastructure scaling and system design war stories",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "Linux",
+          "links": [
+            {
+              "title": "LWN",
+              "url": "https://lwn.net/",
+              "note": "Linux kernel networking and systems development",
+              "tags": []
+            },
+            {
+              "title": "Phoronix",
+              "url": "https://www.phoronix.com/",
+              "note": "Linux kernel development and performance analysis",
+              "tags": []
+            },
+            {
+              "title": "Brendan Gregg",
+              "url": "https://www.brendangregg.com/blog/",
+              "note": "Systems performance and Linux networking",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "Cloud",
+          "links": [
+            {
+              "title": "Scott Lowe",
+              "url": "https://blog.scottlowe.org/",
+              "note": "Infrastructure architecture and cloud networking",
+              "tags": []
+            },
+            {
+              "title": "Jessie Frazelle",
+              "url": "https://blog.jessfraz.com/",
+              "note": "Container infrastructure and Linux internals",
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Newsletters",
+      "buckets": [
+        {
+          "title": "Networking",
+          "links": [
+            {
+              "title": "Packet Weekly",
+              "url": "https://packetpushers.net/",
+              "note": "Technical deep dives into packet analysis and protocols",
+              "tags": []
+            },
+            {
+              "title": "NetCraft",
+              "url": "https://news.netcraft.com/",
+              "note": "Internet infrastructure and security analysis",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "Cloud",
+          "links": [
+            {
+              "title": "Last Week in AWS",
+              "url": "https://www.lastweekinaws.com/",
+              "note": "Infrastructure and networking updates in AWS ecosystem",
+              "tags": []
+            },
+            {
+              "title": "KubeWeekly",
+              "url": "https://kubeweekly.io/",
+              "note": "Kubernetes networking and infrastructure updates",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "title": "DevOps",
+          "links": [
+            {
+              "title": "SRE Weekly",
+              "url": "https://sreweekly.com/",
+              "note": "Systems reliability and infrastructure operations",
+              "tags": []
+            },
+            {
+              "title": "DevOps Weekly",
+              "url": "https://www.devopsweekly.com/",
+              "note": "Infrastructure automation and deployment practices",
+              "tags": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

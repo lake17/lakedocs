@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content"
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro"
+import ThreeCardGrid from "@components/ThreeCardGrid.astro"
+import { Card } from "@astrojs/starlight/components"
+
+export async function getStaticPaths() {
+  const allDocs = await getCollection("docs")
+  const uniqueTags = [...new Set(allDocs.map((doc) => doc.data.tags).flat())]
+
+  return uniqueTags.map((tag) => {
+    const filteredDocs = allDocs.filter((doc) => doc.data.tags.includes(tag))
+    return {
+      params: { tag },
+      props: { docs: filteredDocs },
+    }
+  })
+}
+
+const { tag } = Astro.params
+const { docs } = Astro.props
+---
+
+<StarlightPage
+  hasSidebar={false}
+  frontmatter={{
+    title: tag,
+    tableOfContents: false,
+    pagefind: false,
+  }}
+  ]
+>
+  <ThreeCardGrid>
+    {
+      docs
+        .sort((a, b) => a.data.title.toLowerCase().localeCompare(b.data.title))
+        .map((doc) => (
+          <Card title={doc.data.title}>
+            <p>{doc.data.createdBy}</p>
+          </Card>
+        ))
+    }
+  </ThreeCardGrid>
+</StarlightPage>

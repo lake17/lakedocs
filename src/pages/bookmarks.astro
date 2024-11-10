@@ -1,0 +1,628 @@
+---
+import BookmarksLayout from "../components/BookmarksLayout.astro"
+import bookmarkData from "../data/bookmarks.json"
+import type { BookmarkData } from "../types/bookmarks"
+
+const data: BookmarkData = bookmarkData
+---
+
+<BookmarksLayout title="Bookmarks">
+  <div class="header-container">
+    <header class="header">
+      <a href="/" class="site-title">FusionCare Bookmarks</a>
+      <div class="controls-layout">
+        <div class="controls">
+          <div class="controls-layout">
+            <div class="search-container">
+              <input
+                type="text"
+                id="bookmarkSearch"
+                placeholder="Search bookmarks..."
+                class="search-input"
+              />
+            </div>
+
+            <div class="filter-container">
+              <button id="filterToggle" class="filter-toggle">
+                <span>Filter Categories</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"></path>
+                </svg>
+              </button>
+              <div id="filterDropdown" class="filter-dropdown">
+                <label class="filter-option select-all">
+                  <input
+                    type="checkbox"
+                    checked
+                    id="selectAll"
+                    class="category-toggle"
+                  />
+                  <span>Select All</span>
+                </label>
+                <div class="filter-divider"></div>
+                {
+                  data.collections.map((collection) => (
+                    <label class="filter-option">
+                      <input
+                        type="checkbox"
+                        checked
+                        data-category={collection.title}
+                        class="category-toggle"
+                      />
+                      <span>{collection.title}</span>
+                    </label>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="bookmarks-container"></div>
+      <div class="collections">
+        {
+          data.collections.map((collection) => (
+            <div
+              class="collection"
+              data-search-container
+              data-category={collection.title}
+            >
+              <h2>{collection.title}</h2>
+              {collection.description && (
+                <p class="collection-description">{collection.description}</p>
+              )}
+
+              <div class="buckets-wrapper">
+                <div class="buckets">
+                  {collection.buckets.map((bucket) => (
+                    <div class="bucket" data-search-container>
+                      <h3>{bucket.title}</h3>
+                      {bucket.description && (
+                        <p class="bucket-description">{bucket.description}</p>
+                      )}
+
+                      <div class="links">
+                        {bucket.links.map((link) => (
+                          <div class="bookmark" data-search-item>
+                            {link.url ? (
+                              <a
+                                href={link.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {link.icon && (
+                                  <span class="icon" set:html={link.icon} />
+                                )}
+                                <span class="title">{link.title}</span>
+                              </a>
+                            ) : (
+                              <div class="header">
+                                {link.icon && (
+                                  <span class="icon" set:html={link.icon} />
+                                )}
+                                <span class="title">{link.title}</span>
+                              </div>
+                            )}
+
+                            {link.note && (
+                              <div class="notes">
+                                <div class="note">
+                                  <p>{link.note}</p>
+                                </div>
+                              </div>
+                            )}
+
+                            {link.tags && link.tags.length > 0 && (
+                              <div class="tags">
+                                {link.tags.map((tag) => (
+                                  <span class="tag">{tag}</span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </main>
+  </div>
+  <style>
+    @import "../styles/custom.css";
+
+    .header-container {
+      margin-bottom: 1.5rem;
+    }
+
+    .header {
+      display: flex;
+      justify-content: flex-start;
+      align-items: baseline;
+      padding: 1rem;
+      gap: 3rem;
+    }
+
+    .site-title {
+      font-size: 1.25rem;
+    }
+
+    .controls-layout {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    /* Container Layout */
+    .bookmarks-container {
+      width: 100%;
+      max-width: 90rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Controls Section */
+    .controls {
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+
+    .controls-layout {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    /* Search */
+    .search-container {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .search-input {
+      width: 30rem;
+      box-sizing: border-box;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      color: var(--sl-color-white);
+      background: var(--sl-color-gray-7);
+      border: 1px solid var(--sl-color-gray-5);
+      border-radius: var(--sl-radius-lg);
+      transition: all 0.2s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--sl-color-accent);
+      box-shadow: 0 0 0 2px var(--sl-color-accent-low);
+    }
+
+    /* Filter */
+    .filter-container {
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .filter-toggle {
+      width: 180px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      color: var(--sl-color-white);
+      background: var(--sl-color-gray-7);
+      border: 1px solid var(--sl-color-gray-5);
+      border-radius: var(--sl-radius-lg);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-toggle:hover {
+      background: var(--sl-color-gray-6);
+      border-color: var(--sl-color-accent);
+    }
+
+    .filter-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      background: var(--sl-color-gray-7);
+      border: 1px solid var(--sl-color-gray-5);
+      border-radius: var(--sl-radius-lg);
+      box-shadow: var(--sl-shadow-lg);
+      z-index: 50;
+      min-width: 200px;
+    }
+
+    .filter-dropdown.show {
+      display: block;
+    }
+
+    .filter-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      border-radius: var(--sl-radius-sm);
+    }
+
+    .filter-option:hover {
+      background: var(--sl-color-gray-6);
+    }
+
+    .filter-option input[type="checkbox"] {
+      margin: 0;
+      cursor: pointer;
+    }
+
+    .filter-option span {
+      color: var(--sl-color-white);
+      font-size: 0.9rem;
+    }
+
+    .filter-divider {
+      height: 1px;
+      background: var(--sl-color-gray-5);
+      margin: 0.5rem 0;
+    }
+
+    .select-all {
+      font-weight: 500;
+    }
+
+    /* Collections */
+    .collections {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .collection {
+      background: var(--sl-color-gray-6);
+      border-radius: var(--sl-radius-lg);
+      padding: 1.5rem;
+    }
+
+    .collection h2 {
+      color: var(--sl-color-white);
+      font-size: 1rem;
+      margin: 0 0 0.75rem 0;
+    }
+
+    .collection-description {
+      color: var(--sl-color-gray-2);
+      font-size: 0.8rem;
+      margin: 0 0 1.5rem 0;
+    }
+
+    /* Buckets */
+    .buckets-wrapper {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .buckets {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .bucket {
+      background: var(--sl-color-gray-7);
+      border-radius: var(--sl-radius-md);
+      padding: 1rem;
+      height: fit-content;
+    }
+
+    .bucket h3 {
+      color: var(--sl-color-white);
+      font-size: 0.7rem;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .bucket-description {
+      color: var(--sl-color-gray-3);
+      font-size: 0.6rem;
+      margin: 0 0 1rem 0;
+    }
+
+    /* Links and Bookmarks */
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .bookmark {
+      background: var(--sl-color-black);
+      border-radius: var(--sl-radius-sm);
+      padding: 0.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .bookmark:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--sl-shadow-sm);
+    }
+
+    .bookmark a,
+    .bookmark .header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--sl-color-white);
+      text-decoration: none;
+    }
+
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .title {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    /* Notes and Tags */
+    .notes {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--sl-color-gray-5);
+    }
+
+    .note {
+      color: var(--sl-color-gray-2);
+      font-size: 0.9rem;
+    }
+
+    .note p {
+      margin: 0.25rem 0 0 0;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.75rem;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      color: var(--sl-color-gray-3);
+      background: var(--sl-color-gray-6);
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--sl-radius-sm);
+    }
+
+    /* Utilities */
+    [data-hidden="true"] {
+      display: none;
+    }
+
+    /* Media Queries */
+    @media (max-width: 1200px) {
+      .buckets {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .collection {
+        padding: 1rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .controls-layout {
+        flex-direction: column;
+      }
+
+      .search-container,
+      .filter-container {
+        width: 100%;
+      }
+
+      .filter-toggle {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .filter-dropdown {
+        width: 100%;
+        position: static;
+        margin-top: 0.5rem;
+      }
+    }
+  </style>
+
+  <script>
+    // Get DOM elements
+    const searchInput = document.getElementById(
+      "bookmarkSearch"
+    ) as HTMLInputElement
+    const filterToggle = document.getElementById(
+      "filterToggle"
+    ) as HTMLButtonElement
+    const filterDropdown = document.getElementById(
+      "filterDropdown"
+    ) as HTMLDivElement
+    const selectAllToggle = document.getElementById(
+      "selectAll"
+    ) as HTMLInputElement
+    const categoryToggles = document.querySelectorAll(
+      ".category-toggle:not(#selectAll)"
+    ) as NodeListOf<HTMLInputElement>
+
+    // Toggle filter dropdown
+    filterToggle?.addEventListener("click", () => {
+      filterDropdown?.classList.toggle("show")
+    })
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", (event) => {
+      if (
+        !filterToggle?.contains(event.target as Node) &&
+        !filterDropdown?.contains(event.target as Node)
+      ) {
+        filterDropdown?.classList.remove("show")
+      }
+    })
+
+    // Track category visibility state
+    const categoryStates = new Map<string, boolean>()
+    categoryToggles.forEach((toggle) => {
+      const category = toggle.dataset.category
+      if (category) {
+        categoryStates.set(category, true)
+      }
+    })
+
+    // Handle select all toggle
+    selectAllToggle?.addEventListener("change", () => {
+      const isChecked = selectAllToggle.checked
+      categoryToggles.forEach((toggle) => {
+        toggle.checked = isChecked
+        const category = toggle.dataset.category
+        if (category) {
+          categoryStates.set(category, isChecked)
+        }
+      })
+      applyFiltersAndSearch()
+    })
+
+    // Update select all state when individual categories change
+    function updateSelectAllState() {
+      if (!selectAllToggle) return
+      const allChecked = Array.from(categoryToggles).every(
+        (toggle) => toggle.checked
+      )
+      const allUnchecked = Array.from(categoryToggles).every(
+        (toggle) => !toggle.checked
+      )
+
+      selectAllToggle.checked = allChecked
+      selectAllToggle.indeterminate = !allChecked && !allUnchecked
+    }
+
+    // Handle category toggle changes
+    categoryToggles.forEach((toggle) => {
+      toggle.addEventListener("change", () => {
+        const category = toggle.dataset.category
+        if (category) {
+          categoryStates.set(category, toggle.checked)
+          updateSelectAllState()
+          applyFiltersAndSearch()
+        }
+      })
+    })
+
+    function updateContainerVisibility(container: Element) {
+      const visibleItems = container.querySelectorAll(
+        '[data-search-item]:not([data-hidden="true"])'
+      )
+      const visibleChildContainers = container.querySelectorAll(
+        '[data-search-container]:not([data-hidden="true"])'
+      )
+
+      const isVisible =
+        visibleItems.length > 0 || visibleChildContainers.length > 0
+      container.setAttribute("data-hidden", (!isVisible).toString())
+
+      // Recursively update parent containers
+      const parentContainer = container.closest("[data-search-container]")
+      if (parentContainer && parentContainer !== container) {
+        updateContainerVisibility(parentContainer)
+      }
+    }
+
+    function applyFiltersAndSearch() {
+      // Reset all collection visibility first
+      document.querySelectorAll(".collection").forEach((collection) => {
+        const category = collection.getAttribute("data-category")
+        if (category) {
+          const isEnabled = categoryStates.get(category)
+          collection.setAttribute("data-category-enabled", isEnabled.toString())
+        }
+      })
+
+      const query = searchInput.value.toLowerCase()
+      const enabledCollections = document.querySelectorAll(
+        '[data-category-enabled="true"]'
+      )
+
+      enabledCollections.forEach((collection) => {
+        let hasVisibleItems = false
+        const items = collection.querySelectorAll("[data-search-item]")
+
+        items.forEach((item) => {
+          const searchText = [
+            item.querySelector(".title")?.textContent || "",
+            (item.querySelector("a") as HTMLAnchorElement)?.href || "",
+            Array.from(item.querySelectorAll(".note"))
+              .map((note) => note.textContent || "")
+              .join(" "),
+            Array.from(item.querySelectorAll(".tag"))
+              .map((tag) => tag.textContent || "")
+              .join(" "),
+          ]
+            .join(" ")
+            .toLowerCase()
+
+          const isVisible = searchText.includes(query)
+          item.setAttribute("data-hidden", (!isVisible).toString())
+          if (isVisible) hasVisibleItems = true
+        })
+
+        // Hide collection if it has no visible items after search
+        collection.setAttribute("data-hidden", (!hasVisibleItems).toString())
+
+        // Update nested container visibility
+        const containers = Array.from(
+          collection.querySelectorAll("[data-search-container]")
+        ).reverse()
+
+        containers.forEach((container) => {
+          updateContainerVisibility(container)
+        })
+      })
+
+      // Hide any collections that were category-disabled
+      document
+        .querySelectorAll('[data-category-enabled="false"]')
+        .forEach((collection) => {
+          collection.setAttribute("data-hidden", "true")
+        })
+    }
+
+    // Add search input event listener
+    searchInput?.addEventListener("input", applyFiltersAndSearch)
+  </script>
+</BookmarksLayout>

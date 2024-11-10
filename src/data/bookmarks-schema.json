@@ -1,0 +1,28 @@
+{
+  "collections": [
+    {
+      "title": "Utilities",
+      "description": "Common utility tools and services",
+      "buckets": [
+        {
+          "title": "Core Network Utilities",
+          "description": "Tools for network diagnostics and testing",
+          "links": [
+            {
+              "title": "AWS Check IP",
+              "url": "https://checkip.amazonaws.com/",
+              "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 8v8\"/><path d=\"M8 12h8\"/></svg>",
+              "notes": [
+                {
+                  "title": "Returns the IP your request came from and nothing more",
+                  "description": "Simple, fast and reliable way to determine your public IP address"
+                }
+              ],
+              "tags": ["network", "ip", "aws", "diagnostic"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

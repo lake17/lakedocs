@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content"
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro"
+import ThreeCardGrid from "@components/ThreeCardGrid.astro"
+import { LinkCard } from "@astrojs/starlight/components"
+
+const docs = await getCollection("docs")
+const tags: Set<string> = new Set(
+  docs
+    .map((doc) => doc.data.tags)
+    .flat()
+    .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
+)
+---
+
+<StarlightPage
+  hasSidebar={false}
+  frontmatter={{
+    title: "Browse by Tag",
+    tableOfContents: false,
+    pagefind: false,
+  }}
+>
+  <ThreeCardGrid>
+    {
+      tags
+        .entries()
+        .map((tag1) => <LinkCard title={tag1[0]} href={"./tags/" + tag1[0]} />)
+    }
+  </ThreeCardGrid>
+</StarlightPage>
