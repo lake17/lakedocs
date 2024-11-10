@@ -3,6 +3,7 @@ import path from 'node:path';
 import dayjs from "dayjs";
 import type { Doc, TeamMember, TeamStats, RequestedDoc } from "../types";
 import { calculateScore, getMonthsBetween } from "./stats";
+import { TITLE_THRESHOLDS } from "../types";
 
 const getBountyInfo = (doc: Doc, requests: RequestedDoc[]): RequestedDoc | undefined => {
   return requests.find(request => 
@@ -69,7 +70,8 @@ export const processTeamStats = async (docs: Doc[], team: TeamMember[]) => {
     const bDate = new Date(b.data.createdOn!);
     return bDate.getTime() - aDate.getTime();
   });
-  
+  const allTimeStats = calculateTeamStats(team, sortedDocs)
+  // TODO automatic rank assignment
   return {
     sortedDocs,
     weeklyStats: calculateTeamStats(
@@ -80,6 +82,6 @@ export const processTeamStats = async (docs: Doc[], team: TeamMember[]) => {
       team,
       sortedDocs.filter(doc => doc.data.createdOn && dayjs(doc.data.createdOn).isSame(dayjs(), "month"))
     ),
-    allTimeStats: calculateTeamStats(team, sortedDocs)
+    allTimeStats
   };
 };

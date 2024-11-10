@@ -12,7 +12,6 @@ const sortedDocs = filteredDocs.sort((a, b) =>
 let docs = sortedDocs
 ---
 
-<!-- File: docs.astro -->
 <StarlightPage
   hasSidebar={false}
   frontmatter={{
@@ -94,7 +93,7 @@ let docs = sortedDocs
           .search-syntax-section:last-child {
             margin-bottom: 0;
           }
-            .doc-card {
+          .doc-card {
             text-decoration: none;
             color: inherit;
           }
@@ -149,9 +148,9 @@ let docs = sortedDocs
       </div>
     </div>
 
-    <div id="debugInfo" class="debug-info">
+    <!--<div id="debugInfo" class="debug-info">
       Documents found: {docs.length}
-    </div>
+    </div> -->
   </div>
 
   <ThreeCardGrid>
@@ -172,7 +171,11 @@ let docs = sortedDocs
               Category: {doc.data.category || "N/A"}
             </div>
             <div style="margin-bottom: 0.5rem;">
-              Created: {doc.data.createdOn.toISOString().slice(0, 10) || "N/A"}
+              Created On:{" "}
+              {doc.data.createdOn.toISOString().slice(0, 10) || "N/A"}
+            </div>
+            <div style="margin-bottom: 0.5rem;">
+              Created By: {doc.data.createdBy || "N/A"}
             </div>
             <div>
               Tags:{" "}

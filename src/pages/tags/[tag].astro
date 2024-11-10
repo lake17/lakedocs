@@ -31,6 +31,26 @@ const { docs } = Astro.props
     owner: "ezekiel.nye@forfusion.com",
     createdBy: "ezekiel.nye@forfusion.com",
     createdOn: new Date("2024-11-10"),
+    head: [
+      {
+        tag: "style",
+        content: `.doc-card {
+            text-decoration: none;
+            color: inherit;
+          }
+
+          .doc-card:hover {
+            text-decoration: none;
+            color: inherit;
+          }
+
+          /* Ensure card is clickable but maintains intended styling */
+          .doc-card .card {
+            color: var(--sl-color-white);
+            cursor: pointer;
+          }`,
+      },
+    ],
   }}
   ]
 >
@@ -39,9 +59,20 @@ const { docs } = Astro.props
       docs
         .sort((a, b) => a.data.title.toLowerCase().localeCompare(b.data.title))
         .map((doc) => (
-          <Card title={doc.data.title}>
-            <p>{doc.data.createdBy}</p>
-          </Card>
+          <a class="doc-card" href={"/" + doc.slug}>
+            <Card title={doc.data.title}>
+              <div style="margin-bottom: 0.5rem;">
+                Category: {doc.data.category || "N/A"}
+              </div>
+              <div style="margin-bottom: 0.5rem;">
+                Created On:{" "}
+                {doc.data.createdOn.toISOString().slice(0, 10) || "N/A"}
+              </div>
+              <div style="margin-bottom: 0.5rem;">
+                Created By: {doc.data.createdBy || "N/A"}
+              </div>
+            </Card>
+          </a>
         ))
     }
   </ThreeCardGrid>
