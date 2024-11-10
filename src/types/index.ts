@@ -20,7 +20,7 @@ export interface TeamStats extends TeamMember {
 export interface RequestedDoc {
   title: string;
   since: string;
-  type: "procedure" | "explanation" | "reference";
+  type: "procedure" | "explanation" | "reference" | "tutorial";
   status: "pending" | "fulfilled";
   fulfilledOn: string;
   fulfilledBy: string;

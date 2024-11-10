@@ -1,6 +1,6 @@
 ---
 title: Service Value Retail 3rd Party VPN Request
-createdOn: "2024-10-25"
+createdOn: 2024-10-25
 owner: darren.candlish@forfusion.com
 createdBy: darren.candlish@forfusion.com
 authors:
@@ -12,7 +12,7 @@ tags:
   - value-retail
 ---
 
-Darren Candlish: <darren.candlish@forfusion.com>
+Darren Candlish: [darren.candlish@forfusion.com](mailto:darren.candlish@forfusion.com)
 
 Value Retail will submit a ticket to request remote VPN access for
 3<sup>rd</sup> parties to support their systems. Typically, Lee Thomas
@@ -34,11 +34,11 @@ the following?
 OPS_BMS_RAS_MMV – Located in OU=valueretail.com/Value
 Retail/Groups/Remote Access
 
-The group OPS_BMS_RAS_MMV needs to have access added to allow
+The group&nbsp;OPS_BMS_RAS_MMV&nbsp;needs to have access added to allow
 AnyConnect VPN into address range 10.23.32.10 - 10.23.32.13 in the
 Maasmechelen Operations domain. To achieve this by changing the RAS
 access-list on the DC firewall and adding an ACL on the core interfaces
-on the Maasmechelen Firewall to allow the OPS_BMS_RAS_MMV access into
+on the Maasmechelen Firewall to allow the&nbsp;OPS_BMS_RAS_MMV&nbsp;access into
 the operations domain for normal remote management ports (i.e.
 HTTP/HTTPS/RDP/ICMP) to the same address range”
 
@@ -47,9 +47,9 @@ of the use cases.
 
 **<u>Step 1</u>**
 
-Logon to FMC – <https://10.98.11.121>
+Logon to FMC – [https://10.98.11.121](https://10.98.11.121)
 
-Navigate to the following tabs Objects\>Object Management
+Navigate to the following tabs Objects>Object Management
 
 ![alt text](@images/service-third-party-vpn-request_0.png)
 
@@ -87,7 +87,7 @@ Now we have building blocks to create the Group Policy.
 
 We’re still in the Objects Management page.
 
-VPN\>Group Policy - OPS_BMS_RAS_MMV
+VPN>Group Policy - OPS_BMS_RAS_MMV
 
 Create the group policy with everything we have just created in the
 objects management page. Leave the other fields on defaults unless you
@@ -99,8 +99,8 @@ polices if you’re unsure.
 The final task is to activate the newly created group policy so it can
 be used from the 3<sup>rd</sup> party.
 
-Navigate to Device\>Remote Access\> VR_Remote_Access_VPN
-edit\>Advanced\>Group Policies\> add the group policy you have created
+Navigate to Device>Remote Access> VR_Remote_Access_VPN
+edit>Advanced>Group Policies> add the group policy you have created
 and save.
 
 Deploy your changes to the firewall UK-LON-DC-EDG-FWL-HA-FPR3110
@@ -135,13 +135,13 @@ As I discussed we need to do the extra steps to allow the remote access
 to work from the user to the active directory. This is all works through
 Cisco ISE.
 
-Logon to ISE – <https://10.98.12.210>
+Logon to ISE – [https://10.98.12.210](https://10.98.12.210)
 
 We need ISE to find the newly created AD group which was provided from
 Lee in the use case above.
 
-Navigate to Administration\>External Identity Sources\>Click on
-Value_Retail_AD\>Groups\>Add & Select Groups from Directory
+Navigate to Administration>External Identity Sources>Click on
+Value_Retail_AD>Groups>Add & Select Groups from Directory
 
 Search for the new AD group that has been created and ISE will add that
 to the groups list.
@@ -152,12 +152,12 @@ allow AAA to allow the remote access to work.
 
 In this order do the following to build our policy set.
 
-Navigate to Policy\>Conditions\>Click to add an attribute in the editor
-and select identity group\>Value_Retail_AD\>From the drop down pick your
+Navigate to Policy>Conditions>Click to add an attribute in the editor
+and select identity group>Value_Retail_AD>From the drop down pick your
 AD group and give it a name and save.
 
 ![alt text](@images/service-third-party-vpn-request_5.png)
-Navigate to Policy\>Results\>Authorization\>Authorization Profiles\>Add
+Navigate to Policy>Results>Authorization>Authorization Profiles>Add
 and create your profile like the use case below. Give it a name fill out
 the necessary fields. Save your changes.
 
@@ -165,8 +165,8 @@ the necessary fields. Save your changes.
 The final step is to create the policy set and add the condition and
 profile which you just created.
 
-Navigate to Policy\>Policy Sets\>Duplicate one of the existing policy
-sets by clicking the cog at the right-hand side\>Duplicate below and
+Navigate to Policy>Policy Sets>Duplicate one of the existing policy
+sets by clicking the cog at the right-hand side>Duplicate below and
 edit the fields with what you just created and save.
 
 Again, notice the hit counters at the right-hand side which indicates

@@ -4,7 +4,7 @@
     title: string;
     url?: string;
     icon?: string;
-    note?: string;
+    description?: string;
     tags?: string[];
   }
   

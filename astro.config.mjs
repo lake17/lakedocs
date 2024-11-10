@@ -2,7 +2,7 @@
 import { defineConfig } from "astro/config"
 import starlight from "@astrojs/starlight"
 import markdoc from "@astrojs/markdoc"
-import { readdir } from "fs/promises"
+import path from 'node:path'
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,7 +20,6 @@ export default defineConfig({
         dark: "./src/assets/dark-logo.svg",
         replacesTitle: true,
       },
-      sidebar: [],
       components: {
         EditLink: "./src/components/overrides/EditLink.astro",
         PageFrame: "./src/components/overrides/PageFrame.astro",

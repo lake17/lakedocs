@@ -1,5 +1,9 @@
 ---
 title: Build and boot a Linux kernel to create your own system
+category: tutorial
+owner: ezekiel.nye@forfusion.com
+createdOn: 2024-10-14
+createdBy: ezekiel.nye@forfusion.com
 tags:
   - miscellaneous
   - linux
@@ -165,33 +169,33 @@ purposes there are only four major concepts we need to understand:
 
 1. the UEFI boot manager
 
-    this is the program, included in implementations of UEFI, that is
-    responsible for (among other things) loading UEFI applications. the boot
-    manager is programmable via variables which are written to an NVRAM chip
-    on your motherboard (similar to the older CMOS chip and battery system
-    it replaced). "boot options" are a type of NVRAM variable which contain
-    a pointer to a hardware device and to a file on that device, which is
-    the UEFI application to be loaded.
+   this is the program, included in implementations of UEFI, that is
+   responsible for (among other things) loading UEFI applications. the boot
+   manager is programmable via variables which are written to an NVRAM chip
+   on your motherboard (similar to the older CMOS chip and battery system
+   it replaced). "boot options" are a type of NVRAM variable which contain
+   a pointer to a hardware device and to a file on that device, which is
+   the UEFI application to be loaded.
 
-2. UEFI applications
+1. UEFI applications
 
-    these are just programs that have been written in a
-    particular way, such that they can be loaded by the boot manager. boot
-    loaders are an example of the sort of program that would be written in
-    this way; much like how a linux kernel runs and hands off control to
-    `init`, UEFI can execute a boot loader program, which will then handle
-    starting your OS.
+   these are just programs that have been written in a
+   particular way, such that they can be loaded by the boot manager. boot
+   loaders are an example of the sort of program that would be written in
+   this way; much like how a linux kernel runs and hands off control to
+   `init`, UEFI can execute a boot loader program, which will then handle
+   starting your OS.
 
-3. GUID partition tables
+1. GUID partition tables
 
-    GPT is a standard for the layout of partition tables, and all compliant
-    UEFI firmware is required to be able to understand it. as UEFI replaced
-    BIOS, GPT replaced MBR-based partitioning schemes.
+   GPT is a standard for the layout of partition tables, and all compliant
+   UEFI firmware is required to be able to understand it. as UEFI replaced
+   BIOS, GPT replaced MBR-based partitioning schemes.
 
-4. EFI system partitions
+1. EFI system partitions
 
-    an ESP is a FAT-formatted partition given a specific GPT partition type, and again, all compliant UEFI firmware is
-    required to be able to read it.
+   an ESP is a FAT-formatted partition given a specific GPT partition type, and again, all compliant UEFI firmware is
+   required to be able to read it.
 
 if you are interested and want more details about any of this, i highly
 recommend going straight to the [UEFI specification](https://uefi.org/specs/UEFI/2.10/index.html), because

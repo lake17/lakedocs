@@ -1,6 +1,6 @@
 ---
 title: Update Secure Cloud Analytics sensors
-createdOn: "2024-10-23"
+createdOn: 2024-10-23
 owner: ezekiel.nye@forfusion.com
 createdBy: ezekiel.nye@forfusion.com
 authors:
@@ -26,14 +26,15 @@ You also need to ensure that you have:
 - The logon and sudo credentials for the SCA sensor VMs
 - The IP and credentials for the vSphere host that the VMs sit on
 
-{%aside type="danger" title="Important"%}
+{% aside type="danger" title="Important" %}
 The below steps do not currently apply to the sensor VM hosted in DC1. Read the [Known issues](#known-issues) section carefully first before continuing!
-{%/aside%}
+{% /aside %}
 
 ## Updating the VMs
 
 1. Connect to the sensor
-2. At the login banner, you will see something like this:
+
+1. At the login banner, you will see something like this:
 
    ```txt
    65 updates can be applied immediately.
@@ -43,7 +44,7 @@ The below steps do not currently apply to the sensor VM hosted in DC1. Read the 
 
    Feel free to run `apt list --upgradeable` to confirm. If there are no upgradable packages present, inform the customer and finish. This will never happen, so continue.
 
-3. Run `sudo apt upgrade`. You'll be asked for the sudo password which you prepared earlier. The output will look something like:
+1. Run `sudo apt upgrade`. You'll be asked for the sudo password which you prepared earlier. The output will look something like:
 
    ```txt
    61 to upgrade, 5 to newly install, 0 to remove and 0 not to upgrade.
@@ -53,10 +54,13 @@ The below steps do not currently apply to the sensor VM hosted in DC1. Read the 
    Do you want to continue? [Y/n]
    ```
 
-4. Hit **Return** to continue. The packages will now be updated.
-5. After the updates, the sensor will require a reboot; run `sudo reboot`. If you do this soon enough after running the previous command you will not be prompted to enter the sudo password a second time, and your session will immediately drop as the reboot process begins.
-6. After a couple of minutes, attempt to reconnect to the VM. Assuming this works, check the portal to ensure the sensor is again sending updates to Secure Cloud.
-7. In the event that the sensor has not reconnected, inform the customer and start troubleshooting. Assuming you are not so unlucky and all is well, inform the customer and if needed, update this document.
+1. Hit **Return** to continue. The packages will now be updated.
+
+1. After the updates, the sensor will require a reboot; run `sudo reboot`. If you do this soon enough after running the previous command you will not be prompted to enter the sudo password a second time, and your session will immediately drop as the reboot process begins.
+
+1. After a couple of minutes, attempt to reconnect to the VM. Assuming this works, check the portal to ensure the sensor is again sending updates to Secure Cloud.
+
+1. In the event that the sensor has not reconnected, inform the customer and start troubleshooting. Assuming you are not so unlucky and all is well, inform the customer and if needed, update this document.
 
 ## Known issues
 

@@ -1,6 +1,6 @@
 ---
 title: Free disk space in FMC
-createdOn: "2024-10-25"
+createdOn: 2024-10-25
 owner: gavin.roberts@forfusion.com
 createdBy: gavin.roberts@forfusion.com
 authors:
@@ -18,15 +18,15 @@ some disk space for upgrade:
 
    1. You'll need to create a new user for that
 
-   2. SSH to FMC, expert, sudo su
+   1. SSH to FMC, expert, sudo su
 
-   3. `useradd scpuser`
+   1. `useradd scpuser`
 
-   4. `passwd scpuser`
+   1. `passwd scpuser`
 
-   5. `chsh \--shell /bin/sh scpuser`
+   1. `chsh \--shell /bin/sh scpuser`
 
-   6. Copy `script.pl` to /tmp using Winscp, use scpuser
+   1. Copy `script.pl` to /tmp using Winscp, use scpuser
 
 1. SSH to FMC
 

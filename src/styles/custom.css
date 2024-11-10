@@ -16,6 +16,8 @@
   --sl-text-code: var(--sl-color-white);
 }
 
+.content-panel:where(.astro-7nkwcw3z)+.content-panel:where(.astro-7nkwcw3z) { border-top: 0px !important; }
+
 /* Override Starlight nav styles */
 .sl-markdown-content a:not(:where(.not-content *)) {
   color: var(--sl-color-white);

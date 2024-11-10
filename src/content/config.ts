@@ -7,10 +7,10 @@ export const collections = {
     schema: docsSchema({
       extend: z.object({
         // Preserve special fields
-        category: z.string().optional(),
-        owner: z.string().optional(),
-        createdOn: z.string().optional(),
-        createdBy: z.string().optional(),
+        category: z.string(),
+        owner: z.string(),
+        createdOn: z.date(),
+        createdBy: z.string(),
         
         // Tag support
         tags: z.array(z.string()).default([]),

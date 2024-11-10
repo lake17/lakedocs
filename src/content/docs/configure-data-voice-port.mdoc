@@ -6,7 +6,7 @@ createdBy: george.russ@forfusion.com
 authors:
   - name: george.russ@forfusion.com
     percentage: 100
-createdOn: "2024-10-23"
+createdOn: 2024-10-23
 tags:
   - cisco
 ---
@@ -27,7 +27,7 @@ Before you configure the port, you'll need:
 
    ![configure-data-voice-port_1](/images/configure-data-voice-port_1.gif)
 
-2. Find the relevant port and configure VLAN names.
+1. Find the relevant port and configure VLAN names.
 
    2.1 Once found, click on the Interface name.
 
@@ -43,7 +43,7 @@ Before you configure the port, you'll need:
 
    ![configure-data-voice-port_2](/images/configure-data-voice-port_2.gif)
 
-3. Deploy the changes
+1. Deploy the changes
 
    3.1 Click "Deploy All" and then "Apply"
 
@@ -55,12 +55,12 @@ Before you configure the port, you'll need:
 
    ![configure-data-voice-port_3](/images/configure-data-voice-port_3.gif)
 
-4. Verify the port has been configured by accessing the CLI of the switch and inputting the command:
+1. Verify the port has been configured by accessing the CLI of the switch and inputting the command:
 
    ```bash
    sh running-config interface Gi1/0/X
    ```
 
-5. Let the client know that the port has been configured.
+1. Let the client know that the port has been configured.
 
    Be aware that we don't add Data & Voice ports to PRTG as users will disconnect their computers at the end of the day. Therefore the sensor would constantly flap and raise an alert.

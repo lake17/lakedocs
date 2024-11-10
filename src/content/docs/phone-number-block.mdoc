@@ -6,7 +6,7 @@ createdBy: daniel.mead@forfusion.com
 authors:
   - name: daniel.mead@forfusion.com
     percentage: 100
-createdOn: "2024-10-18"
+createdOn: 2024-10-18
 tags:
   - customers
   - larcomes
@@ -33,17 +33,17 @@ Before you are ready to block a number, ensure:
 
    Running as administrator is required to run the needed commands.
 
-2. Connect to the Microsoft Teams Module
+1. Connect to the Microsoft Teams Module
 
    ```ps1
    Connect-MicrosoftTeams
    ```
 
-   2.1. A popup will appear asking to sign into your microsoft administrator account. This account connects you to the required Microsoft Tenant (For example, use <ga2@larcomes.co.uk> for Larcomes)
+   2.1. A popup will appear asking to sign into your microsoft administrator account. This account connects you to the required Microsoft Tenant (For example, use [ga2@larcomes.co.uk](mailto:ga2@larcomes.co.uk) for Larcomes)
 
-    <img src="/images/larcomes_number-block_2.gif" alt="A gif showing the popup" />
+   <img src="/images/larcomes_number-block_2.gif" alt="A gif showing the popup" />
 
-3. Create the blocked number rule
+1. Create the blocked number rule
 
    ```ps1
    New-CsInboundBlockedNumberPattern
@@ -56,7 +56,7 @@ Before you are ready to block a number, ensure:
 
    -Description "" {I recommend including the ticket number here, along with any information that the customer has provided about the specific number}
 
-   -Pattern "^\+?number$" {This contains the number being blocked, replace "number" with the number provided by the customer. Ensure that the symbols surronding the number stay the same as this is how teams handles the number}
+   -Pattern "^+?number$" {This contains the number being blocked, replace "number" with the number provided by the customer. Ensure that the symbols surronding the number stay the same as this is how teams handles the number}
 
    ![](@images/larcomes_number-block_3.png)
 
@@ -64,7 +64,7 @@ Before you are ready to block a number, ensure:
 
    ![](@images/larcomes_number-block_3.1.png)
 
-4. Test the implented rule
+1. Test the implented rule
 
    ```ps1
    Test-CsInboundBlockedNumberPattern -PhoneNumber
@@ -76,7 +76,7 @@ Before you are ready to block a number, ensure:
 
    The result you are looking for is **"True"**, this means the number is being blocked. If the test results in "False" please give Teams more time to sync, if you ran the command correctly and no errors were returned then it will work.
 
-5. Reply to customer confirming the change has been made.
+1. Reply to customer confirming the change has been made.
 
    I would also include the results of the test command in the ticket response to give the customer a visual evidence that the change is now in place.
 
@@ -84,6 +84,6 @@ Before you are ready to block a number, ensure:
 
 Relevant documentation about the used commands from Microsoft
 
-- <https://learn.microsoft.com/en-us/powershell/module/teams/new-csinboundblockednumberpattern?view=teams-ps>
-- <https://learn.microsoft.com/en-us/powershell/module/teams/test-csinboundblockednumberpattern?view=teams-ps>
-- <https://learn.microsoft.com/en-us/powershell/module/teams/get-csinboundblockednumberpattern?view=teams-ps>
+- [https://learn.microsoft.com/en-us/powershell/module/teams/new-csinboundblockednumberpattern?view=teams-ps](https://learn.microsoft.com/en-us/powershell/module/teams/new-csinboundblockednumberpattern?view=teams-ps)
+- [https://learn.microsoft.com/en-us/powershell/module/teams/test-csinboundblockednumberpattern?view=teams-ps](https://learn.microsoft.com/en-us/powershell/module/teams/test-csinboundblockednumberpattern?view=teams-ps)
+- [https://learn.microsoft.com/en-us/powershell/module/teams/get-csinboundblockednumberpattern?view=teams-ps](https://learn.microsoft.com/en-us/powershell/module/teams/get-csinboundblockednumberpattern?view=teams-ps)

@@ -1,0 +1,442 @@
+---
+import { getCollection } from "astro:content"
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro"
+import ThreeCardGrid from "@components/ThreeCardGrid.astro"
+import { Card } from "@astrojs/starlight/components"
+
+const unfilteredDocs = await getCollection("docs")
+const filteredDocs = unfilteredDocs.filter((doc) => doc.data.createdOn)
+const sortedDocs = filteredDocs.sort((a, b) =>
+  a.data.title.toLowerCase().localeCompare(b.data.title)
+)
+let docs = sortedDocs
+---
+
+<!-- File: docs.astro -->
+<StarlightPage
+  hasSidebar={false}
+  frontmatter={{
+    title: "All Documentation",
+    category: "reference",
+    owner: "ezekiel.nye@forfusion.com",
+    createdBy: "ezekiel.nye@forfusion.com",
+    createdOn: new Date("2024-11-10"),
+    pagefind: false,
+    tableOfContents: false,
+    head: [
+      {
+        tag: "style",
+        content: `
+          .content-panel:has(h1#_top:not([data-page-title])) { display: none; }
+          .search-container {
+            margin-bottom: 2rem;
+          }
+          .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            color: var(--sl-color-white);
+            background: var(--sl-color-gray-7);
+            border: 1px solid var(--sl-color-gray-6);
+            border-radius: var(--radius-lg);
+            transition: all 0.2s ease;
+          }
+          .search-input:hover {
+            border-color: var(--sl-color-accent);
+          }
+          .search-input:focus {
+            outline: none;
+            border-color: var(--brand-electric-teal);
+            box-shadow: 0 0 0 2px var(--sl-color-accent-low);
+          }
+          .search-help {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--sl-color-gray-3);
+          }
+          [data-hidden="true"] {
+            display: none !important;
+          }
+          .debug-info {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--sl-color-gray-7);
+            border-radius: var(--radius-lg);
+            font-size: 0.9rem;
+          }
+          .search-syntax {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            padding-top: 0;
+            background: var(--sl-color-gray-7);
+            border: 1px solid var(--sl-color-gray-6);
+            border-radius: var(--radius-lg);
+          }
+          .search-syntax h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.9rem;
+            color: var(--sl-color-white);
+          }
+          .search-syntax code {
+            background: var(--sl-color-gray-6);
+            padding: 0.2rem 0.4rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+          }
+          .search-syntax-section {
+            margin-bottom: 1rem;
+            flex-align: center;
+            padding-top: 0;
+          }
+          .search-syntax-section:last-child {
+            margin-bottom: 0;
+          }
+            .doc-card {
+            text-decoration: none;
+            color: inherit;
+          }
+
+          .doc-card:hover {
+            text-decoration: none;
+            color: inherit;
+          }
+
+          /* Ensure card is clickable but maintains intended styling */
+          .doc-card .card {
+            color: var(--sl-color-white);
+            cursor: pointer;
+          }
+        `,
+      },
+    ],
+  }}
+>
+  <div class="search-container">
+    <input
+      type="text"
+      id="docSearch"
+      class="search-input"
+      placeholder='Search documents... (e.g., tag:internal OR title:"getting started")'
+    />
+
+    <div class="search-syntax" style="display: flex;">
+      <div class="search-syntax-section">
+        <h3>Search Fields</h3>
+        <code>title:</code> Document title<br />
+        <code>tag:</code> Single tag match<br />
+        <code>category:</code> Document category<br />
+        <code>createdBy:</code> Author email<br />
+        <code>owner:</code> Owner email<br />
+        <code>createdOn:</code> Creation date
+      </div>
+
+      <div class="search-syntax-section">
+        <h3>Operators</h3>
+        <code>AND</code> Both conditions must match<br />
+        <code>OR</code> Either condition can match<br />
+        <code>!</code> Negates a condition<br />
+        <code>()</code> Groups conditions
+      </div>
+
+      <div class="search-syntax-section">
+        <h3>Examples</h3>
+        <code>tag:internal AND !category:draft</code><br />
+        <code>tag:sop OR tag:procedure</code><br />
+        <code>title:"getting started" AND !tag:draft</code>
+      </div>
+    </div>
+
+    <div id="debugInfo" class="debug-info">
+      Documents found: {docs.length}
+    </div>
+  </div>
+
+  <ThreeCardGrid>
+    {
+      sortedDocs.map((doc) => (
+        <a
+          href={"/" + doc.slug}
+          class="doc-card"
+          data-title={doc.data.title.toLowerCase()}
+          data-created-by={doc.data.createdBy?.toLowerCase() || ""}
+          data-created-on={doc.data.createdOn || ""}
+          data-owner={doc.data.owner?.toLowerCase() || ""}
+          data-category={doc.data.category?.toLowerCase() || ""}
+          data-tags={doc.data.tags?.join(" ").toLowerCase() || ""}
+        >
+          <Card title={doc.data.title}>
+            <div style="margin-bottom: 0.5rem;">
+              Category: {doc.data.category || "N/A"}
+            </div>
+            <div style="margin-bottom: 0.5rem;">
+              Created: {doc.data.createdOn.toISOString().slice(0, 10) || "N/A"}
+            </div>
+            <div>
+              Tags:{" "}
+              {doc.data.tags?.map((tag) => (
+                <span style="margin-right: 0.5rem; background: var(--sl-color-gray-6); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </Card>
+        </a>
+      ))
+    }
+  </ThreeCardGrid>
+</StarlightPage>
+<script>
+  interface Debug {
+    log: (...args: any[]) => void
+    clear: () => void
+  }
+
+  interface QueryTerm {
+    field: string
+    value: string
+  }
+
+  interface QueryNot {
+    op: "NOT"
+    term: QueryNode
+  }
+
+  interface QueryAndOr {
+    op: "AND" | "OR"
+    terms: QueryNode[]
+  }
+
+  type QueryNode = QueryTerm | QueryNot | QueryAndOr
+
+  interface DocumentData {
+    title: string
+    createdBy?: string
+    createdOn?: string
+    owner?: string
+    category?: string
+    tags?: string[]
+  }
+
+  // Debug implementation
+  const debug: Debug = {
+    log: (...args: any[]): void => {
+      console.log("[DocFilter]", ...args)
+      const debugInfo = document.getElementById("debugInfo")
+      if (debugInfo) {
+        debugInfo.innerHTML += `<br>${args.join(" ")}`
+      }
+    },
+    clear: (): void => {
+      const debugInfo = document.getElementById("debugInfo")
+      if (debugInfo) {
+        debugInfo.innerHTML = `Documents found: ${document.querySelectorAll(".doc-card").length}`
+      }
+    },
+  }
+
+  class QueryParser {
+    private query: string
+    private pos: number
+
+    constructor(query: string) {
+      this.query = query.trim()
+      this.pos = 0
+    }
+
+    public parse(): QueryNode | null {
+      if (!this.query) return null
+      try {
+        const result = this.parseOR()
+        debug.log("Parsed query:", JSON.stringify(result, null, 2))
+        return result
+      } catch (e) {
+        debug.log(
+          "Query parse error:",
+          e instanceof Error ? e.message : "Unknown error"
+        )
+        return null
+      }
+    }
+
+    private parseOR(): QueryNode {
+      const terms: QueryNode[] = [this.parseAND()]
+      while (this.pos < this.query.length) {
+        this.match(/^\s+/)
+
+        if (this.pos >= this.query.length || this.query[this.pos] === ")") {
+          break
+        }
+
+        if (this.match(/^OR\s+/i)) {
+          terms.push(this.parseAND())
+        } else {
+          break
+        }
+      }
+      return terms.length === 1 ? terms[0] : { op: "OR", terms }
+    }
+
+    private parseAND(): QueryNode {
+      const terms: QueryNode[] = [this.parseTerm()]
+      while (this.pos < this.query.length) {
+        this.match(/^\s+/)
+
+        if (
+          this.pos >= this.query.length ||
+          this.query.slice(this.pos).match(/^OR\b/i) ||
+          this.query[this.pos] === ")"
+        ) {
+          break
+        }
+
+        if (this.match(/^AND\s+/i) || this.match(/^\s+/)) {
+          terms.push(this.parseTerm())
+        } else {
+          break
+        }
+      }
+      return terms.length === 1 ? terms[0] : { op: "AND", terms }
+    }
+
+    private parseTerm(): QueryNode {
+      this.match(/^\s+/)
+
+      if (this.match(/^!/)) {
+        return { op: "NOT", term: this.parseTerm() }
+      }
+
+      if (this.match(/^\(/)) {
+        const term = this.parseOR()
+        if (!this.match(/^\)/)) {
+          throw new Error("Missing closing parenthesis")
+        }
+        return term
+      }
+
+      return this.parseField()
+    }
+
+    private parseField(): QueryTerm {
+      const fieldMatch = this.match(/^(\w+):/)
+      if (fieldMatch) {
+        const field = fieldMatch[1].toLowerCase()
+        let value = ""
+
+        if (this.match(/^"/)) {
+          const quoted = this.match(/^[^"]*/)
+          value = quoted ? quoted[0] : ""
+          this.match(/^"/)
+        } else {
+          const unquoted = this.match(/^[^\s)]+/)
+          value = unquoted ? unquoted[0] : ""
+        }
+
+        if (!value) {
+          throw new Error(`Empty value for field: ${field}`)
+        }
+
+        return { field, value: value.toLowerCase() }
+      }
+
+      const textMatch = this.match(/^[^\s)]+/)
+      if (!textMatch) {
+        throw new Error("Expected search term")
+      }
+      return { field: "title", value: textMatch[0].toLowerCase() }
+    }
+
+    private match(regex: RegExp): RegExpMatchArray | null {
+      const match = this.query.slice(this.pos).match(regex)
+      if (match) {
+        this.pos += match[0].length
+        return match
+      }
+      return null
+    }
+  }
+
+  class DocumentFilter {
+    private searchInput: HTMLInputElement
+    private documents: NodeListOf<HTMLAnchorElement>
+
+    constructor() {
+      const searchInput = document.getElementById("docSearch")
+      if (!searchInput || !(searchInput instanceof HTMLInputElement)) {
+        throw new Error("Search input not found")
+      }
+      this.searchInput = searchInput
+
+      this.documents = document.querySelectorAll<HTMLAnchorElement>(".doc-card")
+      debug.log(`Initialized with ${this.documents.length} documents`)
+      this.setupEventListeners()
+    }
+
+    private setupEventListeners(): void {
+      this.searchInput.addEventListener("input", () => {
+        debug.clear()
+        this.filterDocuments(this.searchInput.value)
+      })
+    }
+
+    private filterDocuments(queryString: string): void {
+      debug.log(`Filtering with query: "${queryString}"`)
+      const parser = new QueryParser(queryString)
+      const query = parser.parse()
+
+      let matchCount = 0
+      this.documents.forEach((doc) => {
+        const isMatch = query ? this.evaluateQuery(doc, query) : true
+        doc.dataset.hidden = (!isMatch).toString()
+        if (isMatch) matchCount++
+
+        if (query) {
+          debug.log(
+            `Document "${doc.dataset.title}" (tags: ${doc.dataset.tags}): ${isMatch ? "matched" : "hidden"}`
+          )
+        }
+      })
+      debug.log(`Found ${matchCount} matches`)
+    }
+
+    private evaluateQuery(doc: HTMLElement, query: QueryNode): boolean {
+      if ("op" in query) {
+        if (query.op === "AND") {
+          return (query as QueryAndOr).terms.every((term) =>
+            this.evaluateQuery(doc, term)
+          )
+        }
+        if (query.op === "OR") {
+          return (query as QueryAndOr).terms.some((term) =>
+            this.evaluateQuery(doc, term)
+          )
+        }
+        if (query.op === "NOT") {
+          return !this.evaluateQuery(doc, (query as QueryNot).term)
+        }
+      }
+
+      const { field, value } = query as QueryTerm
+      const docValue = doc.dataset[this.camelCase(field)] || ""
+
+      if (field === "tag") {
+        const tags = docValue.split(" ")
+        return tags.includes(value)
+      }
+
+      return docValue.includes(value)
+    }
+
+    private camelCase(str: string): string {
+      return str.replace(/-([a-z])/g, (_: string, g: string) => g.toUpperCase())
+    }
+  }
+
+  // Initialize the filter when the page loads
+  document.addEventListener("DOMContentLoaded", () => {
+    debug.log("Initializing document filter...")
+    new DocumentFilter()
+  })
+</script>

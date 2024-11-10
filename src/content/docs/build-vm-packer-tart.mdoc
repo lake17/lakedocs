@@ -5,6 +5,10 @@ banner:
 tags:
   - miscellaneous
   - macos
+category: tutorial
+owner: ezekiel.nye@forfusion.com
+createdOn: 2024-10-14
+createdBy: ezekiel.nye@forfusion.com
 ---
 
 In this tutorial, you'll learn how to:
@@ -53,7 +57,7 @@ It's good practice, and really not that much effort.
    I recommend creating a temporary directory to work from for easy cleanup later on.
    Notice that we are fetching a particular release (**20241004**) and not latest/current - if you want to avoid "works on my machine" situations, always explicitly define versions!
 
-2. Verify the chastity of this newly acquired data
+1. Verify the chastity of this newly acquired data
 
    a. Test the signature of the checksums file SHA256SUMS
 
@@ -92,12 +96,12 @@ We'll create the arbitrarily-named directory `cidata`, and in what will be the r
 
    This file is where one would configure settings important for cloud hosting; we have no need for it, but its presence is mandatory.
 
-2. user-data
+1. user-data
 
    ```yaml
    cat > cidata/user-data << "EOF"
    #cloud-config
-
+   
    users:
    - name: admin
        primary_group: admin
@@ -109,7 +113,7 @@ We'll create the arbitrarily-named directory `cidata`, and in what will be the r
    EOF
    ```
 
-3. network-config
+1. network-config
 
 ```yaml
     cat > cidata/network-config << "EOF"
@@ -155,7 +159,7 @@ Now that we've got both our Ubuntu cloud image and our CIDATA iso image, we can 
    EOF
    ```
 
-2. The source block
+1. The source block
 
    ```hcl
    cat >> TEMPLE8_ubuntu_20241004.pkr.hcl << "EOF"
@@ -171,7 +175,7 @@ Now that we've got both our Ubuntu cloud image and our CIDATA iso image, we can 
    EOF
    ```
 
-3. The build block
+1. The build block
 
    ```hcl
     cat >> TEMPLE8_ubuntu_20241004.pkr.hcl << "EOF"

@@ -6,7 +6,7 @@ createdBy: daniel.mead@forfusion.com
 authors:
   - name: daniel.mead@forfusion.com
     percentage: 100
-createdOn: "2024-10-21"
+createdOn: 2024-10-21
 tags:
   - internal
 ---
@@ -28,7 +28,7 @@ Before you can install the mentioned modules:
 
 Before getting into the installation, during my time using Powershell to connect to Microsoft, one error that can appear is the following:
 
-- "xxx cannot be loaded as it is not digitally signed" - if this appears, ensure you are open in adminstrator and run the following command\*
+- "xxx cannot be loaded as it is not digitally signed" - if this appears, ensure you are open in adminstrator and run the following command*
 
 ```ps1
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
@@ -40,7 +40,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
    Nice and easy!
 
-2. Install the Module
+1. Install the Module
 
    ```ps1
    Install-MicrosoftTeams
@@ -50,7 +50,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
    <img src="/images/installteams.gif" alt="A gif showing teams install" />
 
-3. Import the Module
+1. Import the Module
 
    ```ps1
    Import-MicrosoftTeams
@@ -62,7 +62,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
    <img src="/images/importteams.gif" alt="A gif showing teams import" />
 
-4. Test all is working by connecting to Teams Powershell
+1. Test all is working by connecting to Teams Powershell
 
    ```ps1
    Connect-MicrosoftTeams
@@ -78,7 +78,7 @@ The steps for Exchange are the same but I will go over them again with the requi
 
 1. Open Powershell as Administrator
 
-2. Install the module
+1. Install the module
 
    ```ps1
    Install-Module ExchangeOnlineManagement
@@ -88,7 +88,7 @@ The steps for Exchange are the same but I will go over them again with the requi
 
    <img src="/images/installexchange.gif" alt="A gif showing exchange install" />
 
-3. Import the module
+1. Import the module
 
    ```ps1
    Import-Module ExchangeOnlineManagement
@@ -96,9 +96,9 @@ The steps for Exchange are the same but I will go over them again with the requi
 
    _Microsoft list this as a step everytime you connect to the module, although they admit that once installed you can typically skip this step._
 
-    <img src="/images/importexchange.gif" alt="A gif showing exchange import" />
+   <img src="/images/importexchange.gif" alt="A gif showing exchange import" />
 
-4. Test all is working by connecting to Exchange Online Powershell
+1. Test all is working by connecting to Exchange Online Powershell
 
    ```ps1
    Connect-ExchangeOnline

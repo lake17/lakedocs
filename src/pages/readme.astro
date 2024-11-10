@@ -3,7 +3,13 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro"
 ---
 
 <StarlightPage
-  frontmatter={{ title: "README" }}
+  frontmatter={{
+    title: "README",
+    category: "reference",
+    owner: "ezekiel.nye@forfusion.com",
+    createdBy: "ezekiel.nye@forfusion.com",
+    createdOn: new Date("2024-11-10"),
+  }}
   ,
   hasSidebar={false}
   ,
