@@ -9,7 +9,6 @@ const filteredDocs = unfilteredDocs.filter((doc) => doc.data.createdOn)
 const sortedDocs = filteredDocs.sort((a, b) =>
   a.data.title.toLowerCase().localeCompare(b.data.title)
 )
-let docs = sortedDocs
 ---
 
 <StarlightPage
@@ -148,9 +147,11 @@ let docs = sortedDocs
       </div>
     </div>
 
-    <!--<div id="debugInfo" class="debug-info">
-      Documents found: {docs.length}
-    </div> -->
+    <div id="debugInfo" class="debug-info">
+      Documents found: unfiltered:{unfilteredDocs.length} filtered:{
+        filteredDocs.length
+      }
+    </div>
   </div>
 
   <ThreeCardGrid>
@@ -160,11 +161,12 @@ let docs = sortedDocs
           href={"/" + doc.slug}
           class="doc-card"
           data-title={doc.data.title.toLowerCase()}
-          data-created-by={doc.data.createdBy?.toLowerCase() || ""}
-          data-created-on={doc.data.createdOn || ""}
-          data-owner={doc.data.owner?.toLowerCase() || ""}
-          data-category={doc.data.category?.toLowerCase() || ""}
+          data-createdBy={doc.data.createdBy.toLowerCase() || ""}
+          data-createdOn={doc.data.createdOn.toISOString().slice(0, 10) || ""}
+          data-owner={doc.data.owner.toLowerCase() || ""}
+          data-category={doc.data.category.toLowerCase() || ""}
           data-tags={doc.data.tags?.join(" ").toLowerCase() || ""}
+          data-tag={doc.data.tags?.join(" ").toLowerCase() || ""}
         >
           <Card title={doc.data.title}>
             <div style="margin-bottom: 0.5rem;">
@@ -216,11 +218,11 @@ let docs = sortedDocs
 
   interface DocumentData {
     title: string
-    createdBy?: string
-    createdOn?: string
-    owner?: string
-    category?: string
-    tags?: string[]
+    createdBy: string
+    createdOn: string
+    owner: string
+    category: string
+    tags: string[]
   }
 
   // Debug implementation
@@ -422,18 +424,10 @@ let docs = sortedDocs
       }
 
       const { field, value } = query as QueryTerm
-      const docValue = doc.dataset[this.camelCase(field)] || ""
 
-      if (field === "tag") {
-        const tags = docValue.split(" ")
-        return tags.includes(value)
-      }
-
+      const docValue = doc.dataset[field] || ""
+      debug.log(docValue)
       return docValue.includes(value)
-    }
-
-    private camelCase(str: string): string {
-      return str.replace(/-([a-z])/g, (_: string, g: string) => g.toUpperCase())
     }
   }
 
