@@ -5,12 +5,14 @@ import ThreeCardGrid from "@components/ThreeCardGrid.astro"
 import { LinkCard } from "@astrojs/starlight/components"
 
 const docs = await getCollection("docs")
-const tags: Set<string> = new Set(
-  docs
-    .map((doc) => doc.data.tags)
-    .flat()
-    .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
-)
+const tags = [
+  ...new Set(
+    docs
+      .map((doc) => doc.data.tags)
+      .flat()
+      .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
+  ),
+]
 ---
 
 <StarlightPage
@@ -26,10 +28,6 @@ const tags: Set<string> = new Set(
   }}
 >
   <ThreeCardGrid>
-    {
-      tags
-        .entries()
-        .map((tag1) => <LinkCard title={tag1[0]} href={"./tags/" + tag1[0]} />)
-    }
+    {tags.map((tag) => <LinkCard title={tag} href={"./tags/" + tag} />)}
   </ThreeCardGrid>
 </StarlightPage>
