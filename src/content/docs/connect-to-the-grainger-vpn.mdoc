@@ -1,0 +1,21 @@
+---
+title: Connect to the Grainger VPN
+createdBy: Gavin.Roberts@forfusion.com
+createdOn: 2024-11-11
+owner: Gavin.Roberts@forfusion.com
+category: procedure
+tags:
+  - grainger
+  - vpn
+  - access
+---
+{% steps %}
+1. Add the GPLC_Azure secure client profile to your secure client profiles folder:
+  `C:\ProgramData\Cisco\Cisco Secure Client\VPN\Profile`
+1. Log in to the Meraki dashboard and browse to:
+     Grainger > Azure SDWAN > Network Wide > Users
+1. Find your name and click **Edit**
+1. Set `Authorized` to **Yes** and click **Save**
+    {% aside %} This authorization expires in 24 hours {% /aside %}
+1. Using Cisco Secure Client, connect to the GPLC_Azure VPN
+    *Use your Meraki credentials to authenticate*
