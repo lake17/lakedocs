@@ -1,0 +1,69 @@
+---
+title: Find all call queues that contain a given agent
+category: tutorial
+createdOn: 2024-11-11
+createdBy: daniel.mead@forfusion.com
+owner: daniel.mead@forfusion.com
+tags:
+  - msteams
+  - powershell
+---
+
+In this tutorial, you'll learn how to take an MS Teams user and produce a list of the call queues they are part of. This tutorial is intended for Microsoft Engineers. It assumes you have basic knowledge of MS Teams but it is easy enough to follow without.
+
+By the end of this tutorial, you'll be able to:
+
+- Connect to Teams Powershell and perform tasks using a block of code
+- Make changes to said code to become bespoke to your requirements.
+
+## Background
+
+The easy explanation as to why this is needed is that it is simply a VR request. Value Retail may request that user x is added to the same call queues as user y. Although, there is no easy way to view those call queues within the GUI; all the work we will be doing will be done via the Teams Powershell Module.
+
+## Before you start
+
+Before you start the tutorial, you should:
+
+- Know how to connect to the MS Teams Powershell
+- Understand to some extent how call queues operate
+
+## Finding Call Queues
+
+1. Open Powershell and connect to MS Teams Powershell
+
+   Ensure that when you are logging into the Teams Powershell you are logging into the required tenant (such as Value Retail -> dmead01@valueretail.com)
+
+   <img src="/images/find-all-call-queues-that-contain-a-given-agent.gif" alt="A gif connecting to teams module" />
+
+1. Command Block
+
+   2.1.
+   Copy the below block of code
+
+   ```
+      $User = Get-CsOnlineUser -Identity changeme@ValueRetail.com
+      $CallQueues = Get-CsCallQueue | Where-Object { $_.Agents.ObjectId -contains $User.Identity }
+   
+      foreach ($CallQueue in $CallQueues) {
+      Write-Output "User $($User.UserPrincipalName) is in call queue $($CallQueue.Name)"
+      }
+   ```
+
+   2.2.
+   Make changes to the "changeme@valueretail.com" with the required user, this example being for Value Retail.
+
+1. Run the code
+
+<img src="/images/teamsblock.gif" alt="A gif running the code block" />
+
+3.1.
+
+The required results should be visible.
+
+**Please note** that it is expected to see a sea of yellow text in the code output. This comes from the code checking all available call queues and the common error is related to the call queue having conference mode enabled.
+
+## Summary
+
+In this tutorial, you learned how to take a user and find the call queues they are a part of. This knowledge can help streamline tickets we may receive from Value Retail.
+
+While it is encouraged to always request VR to provide the full details required, steps like this can help speed up the process and may even discover configurations that Value Retail was unaware of.
